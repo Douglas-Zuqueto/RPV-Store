@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header>
       <SignedOut>
-        <Auth />
+        <SignInButton />
       </SignedOut>
       <SignedIn>
         <UserButton />
