@@ -3,13 +3,16 @@ import Auth from './Auth'
 
 export default function Header() {
   return (
+    
     <header>
       <SignedOut>
-        <Auth />
+        <SignInButton/>
       </SignedOut>
       <SignedIn>
+      <Auth />
         <UserButton />
       </SignedIn>
     </header>
+    
   );
 }

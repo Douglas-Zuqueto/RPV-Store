@@ -1,0 +1,47 @@
+<%- include('../header') %>
+
+  <% if ( tasks !='' ) { tasks.forEach((row, index)=> { %>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 mx-auto mt-4">
+          <div class="card shadow">
+            <div class="card-header bg-dark">
+              <h3 class="text-light">Editar Tarefa ( ID <%= row.id %> ) </h3>
+            </div>
+            <div class="card-body p-4">
+              <form action="/task/<%= row.id %>" method="POST">
+                <div class="mb-3">
+                  <label for="descricao" class="col-sm-3 col-form-label col-form-label-lg">Descricao:</label>
+                  <input type="text" name="descricao" class="form-control form-control-lg" placeholder="Informe a descrição..."
+                    value="<%= row.descricao %>" required />
+                </div>
+                <div class="mb-3">
+                  <label for="situation" class="col-sm-3 col-form-label col-form-label-lg">Situação Atual:</label>
+                  <select type="number" name="situation" class="form-control form-control-lg"
+                    placeholder="Digite a sitaução atual..." required />
+                    <option <% if ( row.situacao_atual == "A Fazer" ) { %>  selected <% } %> >A Fazer</option>
+                    <option <% if ( row.situacao_atual == "Em Progresso" ) { %>  selected <% } %> >Em Progresso</option>
+                    <option <% if ( row.situacao_atual == "Concluída" ) { %>  selected <% } %> >Concluída</option></select>
+                </div>
+                <div class="mb-3">
+                  <label for="abertura" class="col-sm-3 col-form-label col-form-label-lg">Data de Abertura:</label>
+                  <input type="date" name="abertura" class="form-control form-control-lg" placeholder="Informe a data de abertura..."
+                  <% if ( row.data_de_abertura !== null && row.data_de_abertura !== '' ) { %>  value="<%= row.data_de_abertura.toLocaleDateString('en-CA') %>" <% } %> required />
+                </div>
+                <div class="mb-3">
+                  <label for="conclusao" class="col-sm-3 col-form-label col-form-label-lg">Data de Conclusão:</label>
+                  <input type="date" name="conclusao" class="form-control form-control-lg" placeholder="Informe a data de conclusão caso exista..."
+                  <% if ( row.data_de_conclusao !== null && row.data_de_conclusao !== '' ) { %>  value="<%= row.data_de_conclusao.toLocaleDateString('en-CA') %>" <% } %> />
+                </div>
+                <div class="mb-3 d-grid">
+                  <input type="submit" name="submit" value="Atualizar" class="btn btn-dark btn-lg" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) } %>
+
+<%- include('../footer') %>
