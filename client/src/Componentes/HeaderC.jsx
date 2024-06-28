@@ -8,6 +8,7 @@ export default function Header() {
         <SignInButton />
       </SignedOut>
       <SignedIn>
+        <Auth />
         <UserButton />
       </SignedIn>
     </header>
