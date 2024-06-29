@@ -1,5 +1,3 @@
-//src/auth.js
-
 import fetch from "isomorphic-fetch";
 import React, { useState, useEffect } from "react";
 
@@ -27,11 +25,14 @@ function Auth() {
           }
         );
 
+
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
 
         const result = await response.json();
+        
+
         setData(result);
         setLoading(false);
       } catch (err) {
@@ -39,6 +40,7 @@ function Auth() {
         setLoading(false);
       }
     };
+
 
     fetchData();
   }, [getToken]);
