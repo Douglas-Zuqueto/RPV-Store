@@ -1,5 +1,10 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
-import Auth from './Auth'
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
+// import Auth from './Auth'
 
 export default function Header() {
   return (
