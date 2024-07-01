@@ -1,0 +1,317 @@
+/* eslint-disable react/react-in-jsx-scope */
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+
+// Componentes do Material-UI
+import {
+  AppBar,
+  Box,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Badge,
+} from "@mui/material";
+
+// Ícones do Material-UI
+import {
+  ShoppingCart as ShoppingCartIcon,
+  Notifications as NotificationsIcon,
+  MoreVert as MoreIcon,
+  Message as MessageIcon,
+  Apps as AppsIcon,
+  FormatListBulleted as FormatListBulletedIcon,
+  Article as ArticleIcon,
+  ContactPage as ContactPageIcon,
+  Help as HelpIcon,
+  Logout as LogoutIcon,
+  Info as InfoIcon,
+} from "@mui/icons-material";
+
+// Componentes locais
+import BarraDePesquisa from "./BarraDePesquisa";
+import CarrinhoDeCompras from "./CarrinhoDeCompras";
+import Perfil from "./Perfil";
+import BotaoTema from "./BotaoTema";
+import FormProdutos from "./FormProdutos";
+import Produtos from "./Produtos";
+
+// Imagem
+import Logo from "../assets/Logo.png";
+
+const drawerWidth = 240;
+
+function Sidebar(props) {
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const [selectedContent, setSelectedContent] = useState("Produtos");
+  const navigate = useNavigate();
+
+  // Estado para o menu mobile
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  // Funções para abrir e fechar o menu mobile
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  // Renderização do menu mobile
+  const mobileMenuId = "primary-search-account-menu-mobile";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      {/* Itens do menu mobile */}
+      <MenuItem>
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="error">
+            <ShoppingCartIcon />
+          </Badge>
+        </IconButton>
+      </MenuItem>
+      <MenuItem>
+        <CarrinhoDeCompras />
+        <p>Carrinho</p>
+      </MenuItem>
+      <MenuItem>
+        <Perfil />
+      </MenuItem>
+    </Menu>
+  );
+
+  // Funções para fechar e transição do drawer
+  const handleDrawerClose = () => {
+    setIsClosing(true);
+    setMobileOpen(false);
+  };
+
+  const handleDrawerTransitionEnd = () => {
+    setIsClosing(false);
+  };
+
+  const handleDrawerToggle = () => {
+    if (!isClosing) {
+      setMobileOpen(!mobileOpen);
+    }
+  };
+
+  // Função para lidar com o clique nos itens do drawer
+  const handleMenuClick = (content) => {
+    setSelectedContent(content);
+  };
+
+  // Itens do menu lateral
+  const items = [
+    { text: "Produtos", icon: <AppsIcon /> },
+    { text: "Categorias", icon: <FormatListBulletedIcon /> },
+    { text: "Histórico", icon: <ArticleIcon /> },
+    { text: "Contato", icon: <ContactPageIcon /> },
+    { text: "Perguntas Frequentes", icon: <HelpIcon /> },
+  ];
+
+  // Estrutura do drawer
+  const drawer = (
+    <div style={{ margin: "0px", padding: "0px" }}>
+      {/* Logo */}
+      <div
+        style={{ display: "flex", justifyContent: "center", padding: "0px" }}
+      >
+        <img
+          src={Logo}
+          alt="Logo"
+          style={{ width: "150px", height: "auto", margin: "30px" }}
+        />
+      </div>
+      <Divider />
+      <List>
+        {/* Renderização dos itens do menu */}
+        {items.map((item) => (
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton button onClick={() => handleMenuClick(item.text)}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {/* Renderização dos itens finais do drawer */}
+        {["Sair", "Sobre"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index === 0 ? <LogoutIcon /> : <InfoIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
+  // Container para o drawer
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
+  return (
+    <Box sx={{ display: "flex" }}>
+      {/* Barra de navegação superior */}
+      <AppBar
+        color=""
+        position="fixed"
+        sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+        }}
+      >
+        <Toolbar>
+          {/* Botão para abrir o drawer no modo mobile */}
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
+          >
+            <img
+              src={Logo}
+              alt="Logo"
+              style={{ width: "100px", height: "auto" }}
+            />
+          </IconButton>
+          <BarraDePesquisa />
+
+          <Box sx={{ flexGrow: 1 }} />
+
+          <BotaoTema />
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <CarrinhoDeCompras />
+
+            <IconButton
+              size="large"
+              aria-label="show 4 new mails"
+              color="inherit"
+            >
+              <Badge badgeContent={4} color="error">
+                <MessageIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
+            >
+              <Badge badgeContent={17} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <Perfil />
+          </Box>
+          {/* Ícone de mais opções no modo mobile */}
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+        {/* Menu mobile */}
+        {renderMobileMenu}
+      </AppBar>
+      {/* Drawer */}
+      <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+      >
+        {/* Drawer temporário para dispositivos móveis */}
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onTransitionEnd={handleDrawerTransitionEnd}
+          onClose={handleDrawerClose}
+          ModalProps={{ keepMounted: true }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        {/* Drawer permanente para desktop */}
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+      {/* Conteúdo principal */}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
+        <Toolbar />
+        {/* Renderização do conteúdo com base no item selecionado */}
+        {selectedContent === "Produtos" && <Produtos />}
+        {selectedContent === "Categorias" && navigate("/historico")}
+        {selectedContent === "Histórico" && <FormProdutos />}
+      </Box>
+    </Box>
+  );
+}
+
+Sidebar.propTypes = {
+  window: PropTypes.func,
+};
+
+export default Sidebar;

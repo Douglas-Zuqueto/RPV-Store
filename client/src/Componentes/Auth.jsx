@@ -1,5 +1,8 @@
+
 import fetch from "isomorphic-fetch";
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
+
 
 import { useAuth } from "@clerk/clerk-react";
 
@@ -13,6 +16,7 @@ function Auth() {
     const fetchData = async () => {
       try {
         const token = await getToken();
+
         const response = await fetch(
           "http://localhost:3000/protected-endpoint",
           {
@@ -25,14 +29,12 @@ function Auth() {
           }
         );
 
-
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
 
         const result = await response.json();
         
-
         setData(result);
         setLoading(false);
       } catch (err) {
@@ -40,7 +42,6 @@ function Auth() {
         setLoading(false);
       }
     };
-
 
     fetchData();
   }, [getToken]);
