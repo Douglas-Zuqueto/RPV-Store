@@ -1,44 +1,51 @@
-// import * as React from "react";
-import { useState } from "react";
+/* eslint-disable react/react-in-jsx-scope */
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import Toolbar from "@mui/material/Toolbar";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Badge from "@mui/material/Badge";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MessageIcon from "@mui/icons-material/Message";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-import AppsIcon from "@mui/icons-material/Apps";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import ArticleIcon from "@mui/icons-material/Article";
-import ContactPageIcon from "@mui/icons-material/ContactPage";
-import HelpIcon from "@mui/icons-material/Help";
-import LogoutIcon from "@mui/icons-material/Logout";
-import InfoIcon from "@mui/icons-material/Info";
+import { useNavigate } from "react-router-dom";
 
-import Produto from "./Produto";
+// Componentes do Material-UI
+import {
+  AppBar,
+  Box,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Badge,
+} from "@mui/material";
+
+// Ícones do Material-UI
+import {
+  ShoppingCart as ShoppingCartIcon,
+  Notifications as NotificationsIcon,
+  MoreVert as MoreIcon,
+  Message as MessageIcon,
+  Apps as AppsIcon,
+  FormatListBulleted as FormatListBulletedIcon,
+  Article as ArticleIcon,
+  ContactPage as ContactPageIcon,
+  Help as HelpIcon,
+  Logout as LogoutIcon,
+  Info as InfoIcon,
+} from "@mui/icons-material";
+
+// Componentes locais
 import BarraDePesquisa from "./BarraDePesquisa";
 import CarrinhoDeCompras from "./CarrinhoDeCompras";
 import Perfil from "./Perfil";
 import BotaoTema from "./BotaoTema";
 import FormProdutos from "./FormProdutos";
-// import MenuLateral from "./MenuLateral";
+import Produtos from "./Produtos";
 
-import LogoBig from "../assets/LogoBig.png";
+// Imagem
 import Logo from "../assets/Logo.png";
-
-// import { mainListItems, secondaryListItems } from "./ListaItens";
 
 const drawerWidth = 240;
 
@@ -47,11 +54,13 @@ function Sidebar(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [selectedContent, setSelectedContent] = useState("Produtos");
+  const navigate = useNavigate();
 
+  // Estado para o menu mobile
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  // Funções para abrir e fechar o menu mobile
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -60,6 +69,7 @@ function Sidebar(props) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  // Renderização do menu mobile
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
@@ -77,22 +87,17 @@ function Sidebar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      {/* Itens do menu mobile */}
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
-        <p>Mensagens</p>
       </MenuItem>
       <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <CarrinhoDeCompras />
-        </IconButton>
+        <CarrinhoDeCompras />
+        <p>Carrinho</p>
       </MenuItem>
       <MenuItem>
         <Perfil />
@@ -100,6 +105,7 @@ function Sidebar(props) {
     </Menu>
   );
 
+  // Funções para fechar e transição do drawer
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -115,10 +121,12 @@ function Sidebar(props) {
     }
   };
 
+  // Função para lidar com o clique nos itens do drawer
   const handleMenuClick = (content) => {
     setSelectedContent(content);
   };
 
+  // Itens do menu lateral
   const items = [
     { text: "Produtos", icon: <AppsIcon /> },
     { text: "Categorias", icon: <FormatListBulletedIcon /> },
@@ -127,32 +135,22 @@ function Sidebar(props) {
     { text: "Perguntas Frequentes", icon: <HelpIcon /> },
   ];
 
+  // Estrutura do drawer
   const drawer = (
-    <div
-      style={{
-        margin: "0px",
-        padding: "0px",
-      }}
-    >
+    <div style={{ margin: "0px", padding: "0px" }}>
+      {/* Logo */}
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          padding: "0px",
-        }}
+        style={{ display: "flex", justifyContent: "center", padding: "0px" }}
       >
         <img
-          src={LogoBig}
+          src={Logo}
           alt="Logo"
-          style={{ width: "100px", height: "auto" }}
+          style={{ width: "150px", height: "auto", margin: "30px" }}
         />
       </div>
-
-      <Toolbar />
-
       <Divider />
       <List>
-        {" "}
+        {/* Renderização dos itens do menu */}
         {items.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton button onClick={() => handleMenuClick(item.text)}>
@@ -164,7 +162,7 @@ function Sidebar(props) {
       </List>
       <Divider />
       <List>
-        {" "}
+        {/* Renderização dos itens finais do drawer */}
         {["Sair", "Sobre"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
@@ -179,15 +177,13 @@ function Sidebar(props) {
     </div>
   );
 
+  // Container para o drawer
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-      }}
-    >
+    <Box sx={{ display: "flex" }}>
+      {/* Barra de navegação superior */}
       <AppBar
         color=""
         position="fixed"
@@ -197,6 +193,7 @@ function Sidebar(props) {
         }}
       >
         <Toolbar>
+          {/* Botão para abrir o drawer no modo mobile */}
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -213,6 +210,7 @@ function Sidebar(props) {
           <BarraDePesquisa />
 
           <Box sx={{ flexGrow: 1 }} />
+
           <BotaoTema />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <CarrinhoDeCompras />
@@ -237,7 +235,7 @@ function Sidebar(props) {
             </IconButton>
             <Perfil />
           </Box>
-
+          {/* Ícone de mais opções no modo mobile */}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -251,22 +249,23 @@ function Sidebar(props) {
             </IconButton>
           </Box>
         </Toolbar>
+        {/* Menu mobile */}
         {renderMobileMenu}
       </AppBar>
+      {/* Drawer */}
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
+        {/* Drawer temporário para dispositivos móveis */}
         <Drawer
           container={container}
           variant="temporary"
           open={mobileOpen}
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
-          ModalProps={{
-            keepMounted: true,
-          }}
+          ModalProps={{ keepMounted: true }}
           sx={{
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
@@ -277,6 +276,7 @@ function Sidebar(props) {
         >
           {drawer}
         </Drawer>
+        {/* Drawer permanente para desktop */}
         <Drawer
           variant="permanent"
           sx={{
@@ -291,6 +291,7 @@ function Sidebar(props) {
           {drawer}
         </Drawer>
       </Box>
+      {/* Conteúdo principal */}
       <Box
         component="main"
         sx={{
@@ -300,14 +301,9 @@ function Sidebar(props) {
         }}
       >
         <Toolbar />
-        {selectedContent === "Produtos" && <Produto />}
-        {selectedContent === "Categorias" && (
-          <>
-            <Produto />
-            <Produto />
-            <Produto />
-          </>
-        )}
+        {/* Renderização do conteúdo com base no item selecionado */}
+        {selectedContent === "Produtos" && <Produtos />}
+        {selectedContent === "Categorias" && navigate("/historico")}
         {selectedContent === "Histórico" && <FormProdutos />}
       </Box>
     </Box>

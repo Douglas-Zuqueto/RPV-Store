@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import PersonIcon from "@mui/icons-material/Person";
 import {
   SignedIn,
@@ -21,7 +22,14 @@ function Perfil() {
       <SignedOut>
         <div style={StyledDiv}>
           <PersonIcon sx={{ color: "white" }} />
-          <SignInButton />
+          <SignInButton
+            style={{
+              border: "none",
+              background: `none`,
+              color: "white",
+              cursor: "pointer",
+            }}
+          />
         </div>
       </SignedOut>
       <SignedIn>

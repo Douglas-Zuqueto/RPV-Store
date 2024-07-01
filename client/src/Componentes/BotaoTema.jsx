@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useState } from "react";
 import { Button } from "@mui/material";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -11,7 +12,7 @@ function BotaoTema() {
   };
 
   return (
-    <Button onClick={toggleTheme}>
+    <Button onClick={toggleTheme} aria-label="Toggle dark mode">
       {darkMode ? (
         <LightModeIcon sx={{ color: "green" }} />
       ) : (
