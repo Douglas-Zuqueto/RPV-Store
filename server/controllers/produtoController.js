@@ -1,4 +1,4 @@
-const ProdutoModel = require('../models/produtoModel');
+const ProdutoModel = new URL('../models/produtoModel.js', import.meta.url);
 
 exports.getAllProdutos = async (req, res) => {
   try {

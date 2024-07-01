@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 
 const database = new URL('./db/index.js', import.meta.url);
+database();
 const port = process.env.PORT;
 const app = express();
 app.use(cors());

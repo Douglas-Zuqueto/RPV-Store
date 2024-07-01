@@ -1,4 +1,4 @@
-const dbConnection = require('../db/dbConnection');
+const dbConnection = new URL('./db/dbConnection.js', import.meta.url);
 
 class ItensPedidoModel {
   executeSQL(sql, parameters = "") {
@@ -29,8 +29,8 @@ class ItensPedidoModel {
   }
 
   update(updatedItemPedido, id) {
-    const sql = "UPDATE itens_pedido SET pedido_id = ?, produto_id = ?, quantidade = ?, preco_unitario = ?, desconto = ? WHERE id = ?";
-    const values = [updatedItemPedido.pedido_id, updatedItemPedido.produto_id, updatedItemPedido.quantidade, updatedItemPedido.preco_unitario, updatedItemPedido.desconto, id];
+    const sql = "UPDATE itens_pedido SET quantidade = ?, preco_unitario = ?, desconto = ? WHERE id = ?";
+    const values = [updatedItemPedido.quantidade, updatedItemPedido.preco_unitario, updatedItemPedido.desconto, id];
     return this.executeSQL(sql, values);
   }
 

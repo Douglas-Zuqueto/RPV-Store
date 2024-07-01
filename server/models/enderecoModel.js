@@ -1,4 +1,4 @@
-const dbConnection = require('../db/dbConnection');
+const dbConnection = new URL('./db/dbConnection.js', import.meta.url);
 
 class EnderecoModel {
   executeSQL(sql, parameters = "") {
@@ -23,14 +23,14 @@ class EnderecoModel {
   }
 
   create(newEndereco) {
-    const sql = "INSERT INTO enderecos (comprador_id, rua, numero, cidade, estado, cep) VALUES (?, ?, ?, ?, ?, ?)";
-    const values = [newEndereco.comprador_id, newEndereco.rua, newEndereco.numero, newEndereco.cidade, newEndereco.estado, newEndereco.cep];
+    const sql = "INSERT INTO enderecos (comprador_id, rua, numero, bairro, cidade, estado, cep, pais) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    const values = [newEndereco.comprador_id, newEndereco.rua, newEndereco.numero, newEndereco.bairro, newEndereco.cidade, newEndereco.estado, newEndereco.cep, newEndereco.pais];
     return this.executeSQL(sql, values);
   }
 
   update(updatedEndereco, id) {
-    const sql = "UPDATE enderecos SET comprador_id = ?, rua = ?, numero = ?, cidade = ?, estado = ?, cep = ? WHERE id = ?";
-    const values = [updatedEndereco.comprador_id, updatedEndereco.rua, updatedEndereco.numero, updatedEndereco.cidade, updatedEndereco.estado, updatedEndereco.cep, id];
+    const sql = "UPDATE enderecos SET rua = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, cep = ?, pais = ? WHERE id = ?";
+    const values = [updatedEndereco.rua, updatedEndereco.numero, updatedEndereco.bairro, updatedEndereco.cidade, updatedEndereco.estado, updatedEndereco.cep, updatedEndereco.pais, id];
     return this.executeSQL(sql, values);
   }
 

@@ -1,4 +1,4 @@
-const CartaoModel = require('../models/cartaoModel');
+const CartaoModel = new URL('../models/cartaoModel.js', import.meta.url);
 
 exports.getAllCartoes = async (req, res) => {
   try {

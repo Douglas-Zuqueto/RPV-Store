@@ -1,4 +1,4 @@
-const dbConnection = require('../db/dbConnection');
+const dbConnection = new URL('./db/dbConnection.js', import.meta.url);
 
 class ChatModel {
   executeSQL(sql, parameters = "") {
@@ -23,14 +23,14 @@ class ChatModel {
   }
 
   create(newChat) {
-    const sql = "INSERT INTO chats (comprador_id, data_criacao) VALUES (?, ?)";
-    const values = [newChat.comprador_id, newChat.data_criacao];
+    const sql = "INSERT INTO chats (comprador_id, data_inicio) VALUES (?, ?)";
+    const values = [newChat.comprador_id, newChat.data_inicio];
     return this.executeSQL(sql, values);
   }
 
   update(updatedChat, id) {
-    const sql = "UPDATE chats SET comprador_id = ?, data_criacao = ? WHERE id = ?";
-    const values = [updatedChat.comprador_id, updatedChat.data_criacao, id];
+    const sql = "UPDATE chats SET data_inicio = ? WHERE id = ?";
+    const values = [updatedChat.data_inicio, id];
     return this.executeSQL(sql, values);
   }
 

@@ -1,4 +1,4 @@
-const AdminModel = require('../models/adminModel');
+const AdminModel = new URL('../models/adminModel.js', import.meta.url);
 
 exports.getAllAdmins = async (req, res) => {
   try {

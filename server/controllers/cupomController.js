@@ -1,4 +1,4 @@
-const CupomModel = require('../models/cupomModel');
+const CupomModel = new URL('../models/categoriaModel.js', import.meta.url);
 
 exports.getAllCupons = async (req, res) => {
   try {

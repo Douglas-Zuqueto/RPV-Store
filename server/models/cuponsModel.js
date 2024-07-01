@@ -1,4 +1,4 @@
-const dbConnection = require('../db/dbConnection');
+const dbConnection = new URL('./db/dbConnection.js', import.meta.url);
 
 class CuponsModel {
   executeSQL(sql, parameters = "") {

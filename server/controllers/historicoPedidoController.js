@@ -1,4 +1,4 @@
-const HistoricoModel = require('../models/historicoModel');
+const HistoricoModel = new URL('../models/historicoModel.js', import.meta.url);
 
 exports.lerMeuHIstorico = async (req, res) => {
   try {

@@ -1,4 +1,4 @@
-const dbConnection = require('../db/dbConnection');
+const dbConnection = new URL('./db/dbConnection.js', import.meta.url);
 
 class CarrinhoModel {
   executeSQL(sql, parameters = "") {
@@ -23,14 +23,14 @@ class CarrinhoModel {
   }
 
   create(newCarrinho) {
-    const sql = "INSERT INTO carrinho (produto_id, quantidade, preco_total) VALUES (?, ?, ?)";
-    const values = [newCarrinho.produto_id, newCarrinho.quantidade, newCarrinho.preco_total];
+    const sql = "INSERT INTO carrinho (comprador_id, produto_id, quantidade) VALUES (?, ?, ?)";
+    const values = [newCarrinho.comprador_id, newCarrinho.produto_id, newCarrinho.quantidade];
     return this.executeSQL(sql, values);
   }
 
   update(updatedCarrinho, id) {
-    const sql = "UPDATE carrinho SET produto_id = ?, quantidade = ?, preco_total = ? WHERE id = ?";
-    const values = [updatedCarrinho.produto_id, updatedCarrinho.quantidade, updatedCarrinho.preco_total, id];
+    const sql = "UPDATE carrinho SET  quantidade = ? WHERE id = ?";
+    const values = [ updatedCarrinho.quantidade, id];
     return this.executeSQL(sql, values);
   }
 

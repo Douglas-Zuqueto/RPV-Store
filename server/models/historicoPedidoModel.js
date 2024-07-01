@@ -1,4 +1,4 @@
-const dbConnection = require('../db/dbConnection');
+const dbConnection = new URL('./db/dbConnection.js', import.meta.url);
 
 class HistoricoPedidosModel {
   executeSQL(sql, parameters = "") {
@@ -22,8 +22,8 @@ class HistoricoPedidosModel {
     return this.executeSQL(sql, values);
   }
   update(updatedHistoricoPedido, id) {
-    const sql = "UPDATE historico_pedidos SET pedido_id = ?, status = ?, data_status = ? WHERE id = ?";
-    const values = [updatedHistoricoPedido.pedido_id, updatedHistoricoPedido.status, updatedHistoricoPedido.data_status, id];
+    const sql = "UPDATE historico_pedidos SET status = ?, data_status = ? WHERE id = ?";
+    const values = [updatedHistoricoPedido.status, updatedHistoricoPedido.data_status, id];
     return this.executeSQL(sql, values);
   }
 }

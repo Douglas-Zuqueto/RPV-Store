@@ -1,4 +1,4 @@
-const dbConnection = require('../db/dbConnection');
+const dbConnection = new URL('./db/dbConnection.js', import.meta.url);
 
 class MensagemModel {
   executeSQL(sql, parameters = "") {
@@ -29,8 +29,8 @@ class MensagemModel {
   }
 
   update(updatedMensagem, id) {
-    const sql = "UPDATE mensagens SET chat_id = ?, texto = ?, data_envio = ? WHERE id = ?";
-    const values = [updatedMensagem.chat_id, updatedMensagem.texto, updatedMensagem.data_envio, id];
+    const sql = "UPDATE mensagens SET texto = ?, data_envio = ? WHERE id = ?";
+    const values = [updatedMensagem.texto, updatedMensagem.data_envio, id];
     return this.executeSQL(sql, values);
   }
 

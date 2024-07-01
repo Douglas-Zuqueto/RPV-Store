@@ -1,4 +1,4 @@
-const CompradorModel = require('../models/compradorModel');
+const CompradorModel = new URL('../models/compradorModel.js', import.meta.url);
 
 exports.getAllCompradores = async (req, res) => {
   try {

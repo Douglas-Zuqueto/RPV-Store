@@ -241,7 +241,9 @@ class eCommerceDatabase {
             CREATE TABLE IF NOT EXISTS db_ecommerce.enderecos (
               id INT NOT NULL AUTO_INCREMENT,
               comprador_id INT NULL DEFAULT NULL,
-              endereco VARCHAR(255) NOT NULL,
+              rua VARCHAR(100) NOT NULL,
+              numero VARCHAR(100) NOT NULL,
+              bairro VARCHAR(100) NOT NULL,
               cidade VARCHAR(100) NOT NULL,
               estado VARCHAR(100) NOT NULL,
               cep VARCHAR(20) NOT NULL,
