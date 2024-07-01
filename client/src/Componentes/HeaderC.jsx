@@ -9,13 +9,16 @@ import {
 
 export default function Header() {
   return (
+    
     <header>
       <SignedOut>
-        <SignInButton />
+        <SignInButton/>
       </SignedOut>
       <SignedIn>
+        <Auth />
         <UserButton />
       </SignedIn>
     </header>
+    
   );
 }
