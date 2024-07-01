@@ -2,9 +2,8 @@ import 'dotenv/config'; // To read CLERK_API_KEY
 import { ClerkExpressRequireAuth, } from "@clerk/clerk-sdk-node";
 import express from "express";
 import cors from "cors";
-import dbConnection from './db/dbConnection';
 
-const db = dbConnection;
+const database = new URL('./db/index.js', import.meta.url);
 const port = process.env.PORT;
 const app = express();
 app.use(cors());
