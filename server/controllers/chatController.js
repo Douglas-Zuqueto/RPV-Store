@@ -1,4 +1,4 @@
-const ChatModel = new URL('../models/chatModel.js', import.meta.url);
+const ChatModel = require('../models/chatModel.js')
 
 exports.getAllChats = async (req, res) => {
   try {

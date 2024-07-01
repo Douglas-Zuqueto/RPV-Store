@@ -1,4 +1,4 @@
-const PedidoModel = new URL('../models/pedidoModel.js', import.meta.url);
+const PedidoModel = require('../models/pedidoModel.js')
 
 exports.getAllPedidos = async (req, res) => {
   try {

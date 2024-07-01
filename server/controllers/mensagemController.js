@@ -1,4 +1,4 @@
-const MensagemModel = new URL('../models/mensagemModel.js', import.meta.url);
+const MensagemModel = require('../models/mensagemModel.js')
 
 exports.getAllMensagens = async (req, res) => {
   try {

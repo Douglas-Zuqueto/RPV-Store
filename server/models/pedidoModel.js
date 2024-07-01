@@ -1,4 +1,4 @@
-const dbConnection = new URL('./db/dbConnection.js', import.meta.url);
+const dbConnection = require('../db/dbConnection.js')
 
 class PedidoModel {
   executeSQL(sql, parameters = "") {

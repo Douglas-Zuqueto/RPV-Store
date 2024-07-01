@@ -1,4 +1,4 @@
-const CarrinhoModel = new URL('../models/carrinhoModel.js', import.meta.url);
+const CarrinhoModel = require('../models/carrinhoModel.js')
 
 exports.getAllCarrinhos = async (req, res) => {
   try {
