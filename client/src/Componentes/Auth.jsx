@@ -1,8 +1,8 @@
-//src/auth.js
 
 import fetch from "isomorphic-fetch";
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
+
 
 import { useAuth } from "@clerk/clerk-react";
 
@@ -16,15 +16,15 @@ function Auth() {
     const fetchData = async () => {
       try {
         const token = await getToken();
-        console.log(token);
+
         const response = await fetch(
           "http://localhost:3000/protected-endpoint",
           {
             method: "GET",
-            headers: {
-              "Content-Type": "application/json",
+            header: {
+              Accept: "application/json",
               Authorization: `Bearer ${token}`,
-              // mode: 'cors',
+              mode: "cors",
             },
           }
         );
@@ -34,6 +34,7 @@ function Auth() {
         }
 
         const result = await response.json();
+        
         setData(result);
         setLoading(false);
       } catch (err) {
