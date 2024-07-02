@@ -18,7 +18,7 @@ function Auth() {
         const token = await getToken();
 
         const response = await fetch(
-          "http://localhost:3000/protected-endpoint",
+          "http://localhost:3000/produtos",
           {
             method: "GET",
             header: {

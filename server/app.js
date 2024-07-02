@@ -1,7 +1,7 @@
 require('dotenv/config'); // To read CLERK_API_KEY
 const cors = require('cors')
 
-const clerk = require('@clerk/clerk-sdk-node')
+const clerk = require('@clerk/clerk-sdk-node');
 const express = require('express');
 const port = process.env.PORT;
 const app = express();
@@ -18,7 +18,7 @@ app.use(cors());
 app.get("/", )
 
 app.get(
-  "http://localhost:3000/protected-endpoint",
+  "/produtos",
   clerk.ClerkExpressRequireAuth(),
   (req, res) => {
     res.json(req.auth);
@@ -26,7 +26,7 @@ app.get(
   }
 );
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(401).send("Unauthenticated!");
 });

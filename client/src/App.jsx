@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./styles.goblal.css";
 import Provider from "./context/Provider";
 import FormProdutos from "./Componentes/FormProdutos";
+import Produtos from './Componentes/Produtos'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Sidebar />} />
           <Route path="/historico" element={<FormProdutos />} />
+          <Route path='/produtos' element={<Produtos />} />
         </Routes>
       </Router>
     </Provider>
