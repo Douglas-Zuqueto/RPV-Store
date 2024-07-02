@@ -7,6 +7,7 @@ import "./styles.goblal.css";
 import Provider from "./context/Provider";
 import FormProdutos from "./Componentes/FormProdutos";
 import Produtos from './Componentes/Produtos'
+import Chat from "./Componentes/Chat";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/" element={<Sidebar />} />
           <Route path="/historico" element={<FormProdutos />} />
           <Route path='/produtos' element={<Produtos />} />
+          <Route path="/chat" element={<Chat />} />
         </Routes>
       </Router>
     </Provider>

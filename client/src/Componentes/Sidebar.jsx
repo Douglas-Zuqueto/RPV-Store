@@ -1,7 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+// import { Link } from 'react-router-dom';
+// import { useNavigate } from "react-router-dom";
+import Contato from "./Contato";
 
 // Componentes do Material-UI
 import {
@@ -21,7 +23,6 @@ import {
   Badge,
 } from "@mui/material";
 
-// Ícones do Material-UI
 import {
   ShoppingCart as ShoppingCartIcon,
   Notifications as NotificationsIcon,
@@ -46,6 +47,8 @@ import Produtos from "./Produtos";
 
 // Imagem
 import Logo from "../assets/Logo.png";
+import Categorias from "./Categorias";
+import PerguntasFrequentes from "./PerguntasFrequentes";
 
 const drawerWidth = 240;
 
@@ -54,7 +57,7 @@ function Sidebar(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [selectedContent, setSelectedContent] = useState("Produtos");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Estado para o menu mobile
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -224,14 +227,13 @@ function Sidebar(props) {
                 <MessageIcon />
               </Badge>
             </IconButton>
+
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
+              <NotificationsIcon />
             </IconButton>
             <Perfil />
           </Box>
@@ -249,16 +251,15 @@ function Sidebar(props) {
             </IconButton>
           </Box>
         </Toolbar>
-        {/* Menu mobile */}
+
         {renderMobileMenu}
       </AppBar>
-      {/* Drawer */}
+
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* Drawer temporário para dispositivos móveis */}
         <Drawer
           container={container}
           variant="temporary"
@@ -276,7 +277,7 @@ function Sidebar(props) {
         >
           {drawer}
         </Drawer>
-        {/* Drawer permanente para desktop */}
+
         <Drawer
           variant="permanent"
           sx={{
@@ -301,10 +302,12 @@ function Sidebar(props) {
         }}
       >
         <Toolbar />
-        {/* Renderização do conteúdo com base no item selecionado */}
+       
         {selectedContent === "Produtos" && <Produtos />}
-        {selectedContent === "Categorias" && navigate("/historico")}
+        {selectedContent === "Categorias" && <Categorias />}
         {selectedContent === "Histórico" && <FormProdutos />}
+        {selectedContent === "Contato" && <Contato/>}
+        {selectedContent === "Perguntas Frequentes" && <PerguntasFrequentes />}
       </Box>
     </Box>
   );
