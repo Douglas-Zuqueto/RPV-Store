@@ -19,7 +19,7 @@ exports.createAdmin = async (req, res) => {
   }
 };
 
-exports.getCarrinhoById = async (req, res) => {
+exports.getAdminById = async (req, res) => {
   try {
     const admin = await AdminModel.read(req.params.id);
     if (admin) {

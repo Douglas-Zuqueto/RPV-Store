@@ -42,7 +42,7 @@ exports.updateChat = async (req, res) => {
   }
 };
 
-exports.deleteCategoria = async (req, res) => {
+exports.deleteChat = async (req, res) => {
   try {
     await ChatModel.delete(req.params.id);
     res.status(204).send();
