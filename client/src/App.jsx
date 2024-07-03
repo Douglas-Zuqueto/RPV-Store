@@ -12,6 +12,8 @@ import Historico from "./Componentes/Historico";
 import Contato from "./Componentes/Contato";
 import Sobre from "./Componentes/Sobre";
 import PerguntasFrequentes from "./Componentes/PerguntasFrequentes";
+import CategoriasM from "./Componentes/CategoriasM";
+import CategoriasF from "./Componentes/CategoriasF";
 
 export default function App() {
   return (
@@ -20,11 +22,13 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Sidebar />}>
             <Route index element={<Produtos />} ></Route>
-            <Route path="/categorias" element={<Categorias/>} ></Route>
-            <Route path="/historico" element={<FormProdutos />} ></Route>
-            <Route path="/contato" element={<Contato />} ></Route>
+            <Route path="/categorias" element={<Categorias/>} />
+            <Route path="/historico" element={<FormProdutos />} />
+            <Route path="/contato" element={<Contato />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/perguntasFrequentes" element={<PerguntasFrequentes />} />
+            <Route path="/categorias/masculinas" element={<CategoriasM />}/>
+            <Route path="/categorias/femininas" element={<CategoriasF />} />
           </Route>
         </Routes>
       </Router>
