@@ -23,8 +23,8 @@ export default function App() {
             <Route path="/categorias" element={<Categorias/>} ></Route>
             <Route path="/historico" element={<FormProdutos />} ></Route>
             <Route path="/contato" element={<Contato />} ></Route>
-            <Route path="/sobre" element={<Sobre />} ></Route>
-            <Route path="/perguntasFrequentes" element={<PerguntasFrequentes />} ></Route>
+            <Route path="/sobre" element={<Sobre />} />
+            <Route path="/perguntasFrequentes" element={<PerguntasFrequentes />} />
           </Route>
         </Routes>
       </Router>
