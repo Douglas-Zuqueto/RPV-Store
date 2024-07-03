@@ -168,7 +168,7 @@ class eCommerceDatabase {
             CREATE TABLE IF NOT EXISTS db_ecommerce.cartoes (
               id INT NOT NULL AUTO_INCREMENT,
               comprador_id INT NULL DEFAULT NULL,
-              tipo ENUM(credito, debito) NOT NULL,
+              tipo ENUM("credito", "debito") NOT NULL,
               nome_titular VARCHAR(255) NOT NULL,
               numero_cartao VARCHAR(20) NOT NULL,
               validade DATE NOT NULL,
@@ -304,7 +304,7 @@ class eCommerceDatabase {
       }
       console.log("Tabela pedidos criada com sucesso...");
     });
-    
+
     const sqlHistoricoPedidos = `
             CREATE TABLE IF NOT EXISTS db_ecommerce.historico_pedidos(
               id INT NOT NULL AUTO_INCREMENT,
