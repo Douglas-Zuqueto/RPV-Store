@@ -13,6 +13,7 @@ function Provider({ children }) {
   const [categoria, setCategoria] = useState("");
   const [loading, setLoading] = useState(true);
   const [produtos, setProdutos] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
   const value = {
     loading,
@@ -31,6 +32,8 @@ function Provider({ children }) {
     setCategoria,
     produtos,
     setProdutos,
+    cartItems,
+    setCartItems,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

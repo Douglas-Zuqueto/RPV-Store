@@ -15,7 +15,7 @@ db.initConnection(dbConnection);
 app.use(cors());
 // Use the strict middleware that raises an error when unauthenticated
 
-app.get("/", )
+app.get("/");
 
 app.get(
   "/produtos",

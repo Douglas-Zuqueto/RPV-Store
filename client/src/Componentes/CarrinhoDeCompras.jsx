@@ -4,19 +4,16 @@ import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-// import ListItemButton from "@mui/material/ListItemButton";
-// import ListItemIcon from "@mui/material/ListItemIcon";
-// import ListItemText from "@mui/material/ListItemText";
-// import InboxIcon from "@mui/icons-material/MoveToInbox";
 import Typography from "@mui/material/Typography";
-// import MailIcon from "@mui/icons-material/Mail";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import Divider from "@mui/material/Divider";
 import ItemCarrinho from "./ItemCarrinho";
+import AppContext from "../context/AppContext";
 
 export default function CarrinhoDeCompras() {
+  const { cartItems } = React.useContext(AppContext);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -32,9 +29,13 @@ export default function CarrinhoDeCompras() {
     setState({ ...state, [anchor]: open });
   };
 
+  const totalCompra = cartItems.reduce((acc, item) => {
+    return item.preco + acc;
+  }, 0);
+
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+      sx={{ width: 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -46,10 +47,20 @@ export default function CarrinhoDeCompras() {
 
         <Divider />
 
-        <ListItem>
-          <ItemCarrinho  />
-        </ListItem>
+        {cartItems.map((cartItem) => (
+          <div key={cartItem.id}>
+            <ListItem>
+              <ItemCarrinho data={cartItem} />
+            </ListItem>
+            <Divider />
+          </div>
+        ))}
+
         <Divider />
+
+        <Typography variant="h6" align="center">
+          Total: {totalCompra}
+        </Typography>
       </List>
     </Box>
   );
@@ -57,9 +68,13 @@ export default function CarrinhoDeCompras() {
   return (
     <div>
       <Button onClick={toggleDrawer("right", true)}>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={0} color="error">
-            <ShoppingCartIcon sx={{ color: "Black" }} />
+        <IconButton
+          size="large"
+          aria-label="show shopping cart"
+          color="inherit"
+        >
+          <Badge badgeContent={cartItems.length} color="error">
+            <ShoppingCartIcon sx={{ color: "black" }} />
           </Badge>
         </IconButton>
       </Button>

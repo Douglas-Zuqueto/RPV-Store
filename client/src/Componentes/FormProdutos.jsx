@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -7,9 +7,9 @@ import {
   Paper,
   MenuItem,
   Select,
+  Alert,
 } from "@mui/material";
 import AppContext from "../context/AppContext";
-import { useNavigate } from "react-router-dom";
 
 export default function FormProdutos() {
   const {
@@ -29,9 +29,8 @@ export default function FormProdutos() {
     setProdutos,
   } = useContext(AppContext);
 
-  const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(false);
 
-  // Efeito para carregar dados do localStorage ao inicializar o componente
   useEffect(() => {
     const storedFormData = JSON.parse(localStorage.getItem("formData")) || {};
     setNome(storedFormData.nome || "");
@@ -39,10 +38,9 @@ export default function FormProdutos() {
     setPreco(storedFormData.preco || "");
     setQuantidade(storedFormData.quantidade || "");
     setCategoria(storedFormData.categoria || "");
-    setSelectedFile(null); // Limpar o arquivo selecionado ao carregar
+    setSelectedFile(null);
   }, []);
 
-  // Efeito para salvar dados no localStorage ao atualizar o estado
   useEffect(() => {
     const formData = {
       nome,
@@ -57,6 +55,11 @@ export default function FormProdutos() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!selectedFile) {
+      alert("Por favor, selecione uma imagem para o produto.");
+      return;
+    }
+
     const novoProduto = {
       id: crypto.randomUUID(),
       nome: nome,
@@ -64,11 +67,10 @@ export default function FormProdutos() {
       preco: preco,
       quantidade: quantidade,
       categoria: categoria,
-      imagem: selectedFile ? selectedFile.name : "",
+      imagem: selectedFile.name,
     };
 
-    console.log("dados", produtos);
-    setProdutos([ ...produtos, novoProduto]);
+    setProdutos([...produtos, novoProduto]);
 
     setSelectedFile(null);
     setNome("");
@@ -77,10 +79,12 @@ export default function FormProdutos() {
     setQuantidade("");
     setCategoria("");
 
-    // Limpar o localStorage após o envio
     localStorage.removeItem("formData");
 
-    navigate("/");
+    setShowAlert(true); // Mostra o alerta de sucesso
+    setTimeout(() => {
+      setShowAlert(false); // Esconde o alerta após 3 segundos
+    }, 3000);
   };
 
   const handleFileChange = (e) => {
@@ -102,10 +106,12 @@ export default function FormProdutos() {
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               required
+              color="success"
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
+              color="success"
               label="Descrição"
               variant="outlined"
               fullWidth
@@ -116,6 +122,7 @@ export default function FormProdutos() {
           </Grid>
           <Grid item xs={12}>
             <TextField
+             color="success"
               label="Preço"
               variant="outlined"
               fullWidth
@@ -127,6 +134,7 @@ export default function FormProdutos() {
           </Grid>
           <Grid item xs={12}>
             <TextField
+              color="success"
               label="Imagem Selecionada"
               variant="outlined"
               fullWidth
@@ -142,15 +150,17 @@ export default function FormProdutos() {
               id="image-upload-button"
               type="file"
               onChange={handleFileChange}
+              required
             />
             <label htmlFor="image-upload-button">
-              <Button variant="outlined" component="span">
+              <Button variant="outlined" component="span" color="success">
                 Escolher Imagem
               </Button>
             </label>
           </Grid>
           <Grid item xs={12}>
             <TextField
+              color="success"
               label="Quantidade estoque"
               variant="outlined"
               fullWidth
@@ -170,6 +180,7 @@ export default function FormProdutos() {
               required
               value={categoria}
               onChange={(e) => setCategoria(e.target.value)}
+              color="success"
             >
               <MenuItem value={1}>Categoria 1</MenuItem>
               <MenuItem value={2}>Categoria 2</MenuItem>
@@ -183,6 +194,12 @@ export default function FormProdutos() {
           </Grid>
         </Grid>
       </form>
+
+      {showAlert && (
+        <div style={{ marginTop: 10 }}>
+          <Alert severity="success">Produto adicionado com sucesso!</Alert>
+        </div>
+      )}
     </Paper>
   );
 }

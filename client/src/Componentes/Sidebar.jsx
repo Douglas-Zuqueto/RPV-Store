@@ -1,9 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-// import { Link } from 'react-router-dom';
-// import { useNavigate } from "react-router-dom";
-import Contato from "./Contato";
+import { Outlet, Link } from "react-router-dom";
 
 // Componentes do Material-UI
 import {
@@ -42,8 +40,8 @@ import BarraDePesquisa from "./BarraDePesquisa";
 import CarrinhoDeCompras from "./CarrinhoDeCompras";
 import Perfil from "./Perfil";
 import BotaoTema from "./BotaoTema";
-import FormProdutos from "./FormProdutos";
-import Produtos from "./Produtos";
+// import FormProdutos from "./FormProdutos";
+// import Produtos from "./Produtos";
 
 // Imagem
 import Logo from "../assets/Logo.png";
@@ -56,7 +54,8 @@ function Sidebar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [selectedContent, setSelectedContent] = useState("Produtos");
+  const [selectedItem, setSelectedItem] = useState("Produtos");
+  // const [selectedContent, setSelectedContent] = useState("Produtos");
   // const navigate = useNavigate();
 
   // Estado para o menu mobile
@@ -70,6 +69,10 @@ function Sidebar(props) {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClick = (text) => {
+    setSelectedItem(text);
   };
 
   // Renderização do menu mobile
@@ -93,9 +96,7 @@ function Sidebar(props) {
       {/* Itens do menu mobile */}
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <ShoppingCartIcon />
-          </Badge>
+          <ShoppingCartIcon />
         </IconButton>
       </MenuItem>
       <MenuItem>
@@ -124,18 +125,18 @@ function Sidebar(props) {
     }
   };
 
-  // Função para lidar com o clique nos itens do drawer
-  const handleMenuClick = (content) => {
-    setSelectedContent(content);
-  };
-
   // Itens do menu lateral
   const items = [
-    { text: "Produtos", icon: <AppsIcon /> },
-    { text: "Categorias", icon: <FormatListBulletedIcon /> },
-    { text: "Histórico", icon: <ArticleIcon /> },
-    { text: "Contato", icon: <ContactPageIcon /> },
-    { text: "Perguntas Frequentes", icon: <HelpIcon /> },
+    { text: "Produtos", icon: <AppsIcon />, route: "/" },
+    {
+      text: "Categorias",
+      icon: <FormatListBulletedIcon />,
+      route: "/categorias",
+    },
+    { text: "Histórico", icon: <ArticleIcon />, route: "/historico" },
+    { text: "Contato", icon: <ContactPageIcon />, route: "/contato" },
+    { text: "Perguntas Frequentes", icon: <HelpIcon />, route: "/perguntasFrequentes" },
+    { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
   ];
 
   // Estrutura do drawer
@@ -155,11 +156,23 @@ function Sidebar(props) {
       <List>
         {/* Renderização dos itens do menu */}
         {items.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton button onClick={() => handleMenuClick(item.text)}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
+          <ListItem key={item.text} disablePadding style={{ width: "100%" }}>
+            <Link
+              to={item.route}
+              onClick={() => handleMenuClick(item.text)}
+              style={{
+                paddingLeft: "10px",
+                width: "100%",
+                textDecoration: "none",
+                color: "inherit",
+                background: selectedItem === item.text ? 'linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))' : 'inherit',
+              }}
+            >
+              <ListItemButton>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -167,18 +180,30 @@ function Sidebar(props) {
       <List>
         {/* Renderização dos itens finais do drawer */}
         {["Sair", "Sobre"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index === 0 ? <LogoutIcon /> : <InfoIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
+          <Link
+            to={text === "Sair" ? "/logout" : "/sobre"}
+            onClick={() => handleMenuClick(text)}
+            style={{
+              paddingLeft: "10px",
+              width: "100%",
+              textDecoration: "none",
+              color: "inherit",
+            }}
+          >
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index === 0 ? <LogoutIcon /> : <InfoIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>
   );
+
 
   // Container para o drawer
   const container =
@@ -302,12 +327,11 @@ function Sidebar(props) {
         }}
       >
         <Toolbar />
-       
-        {selectedContent === "Produtos" && <Produtos />}
-        {selectedContent === "Categorias" && <Categorias />}
-        {selectedContent === "Histórico" && <FormProdutos />}
-        {selectedContent === "Contato" && <Contato/>}
-        {selectedContent === "Perguntas Frequentes" && <PerguntasFrequentes />}
+        {/* Renderização do conteúdo com base no item selecionado */}
+        {/* {selectedContent === "Produtos" && <Produtos />}
+        {selectedContent === "Categorias" && navigate("/historico")}
+        {selectedContent === "Histórico" && <FormProdutos />} */}
+        <Outlet />
       </Box>
     </Box>
   );

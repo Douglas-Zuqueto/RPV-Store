@@ -39,20 +39,16 @@ class eCommerceDatabase {
       });
     });
   }
-
+  // -- Tabela de Admin
   createTable() {
     const sqlAdmin = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.admin (
-              id INT NOT NULL AUTO_INCREMENT,
-              nome VARCHAR(255) NOT NULL,
-              email VARCHAR(255) NOT NULL,
-              senha VARCHAR(255) NOT NULL,
-              PRIMARY KEY (id),
-              UNIQUE INDEX email (email ASC) VISIBLE)
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 3
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.admin (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          nome VARCHAR(255) NOT NULL,
+          email VARCHAR(255) NOT NULL UNIQUE,
+          senha VARCHAR(255) NOT NULL
+        )
+      `;
 
     this.connection.query(sqlAdmin, (error) => {
       if (error) {
@@ -64,20 +60,15 @@ class eCommerceDatabase {
     });
 
     const sqlCompradores = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.compradores (
-              id INT NOT NULL AUTO_INCREMENT,
-              nome VARCHAR(255) NOT NULL,
-              email VARCHAR(255) NOT NULL,
-              senha VARCHAR(255) NOT NULL,
-              telefone VARCHAR(45) NULL DEFAULT NULL,
-              cpf VARCHAR(20) NULL DEFAULT NULL,
-              PRIMARY KEY (id),
-              UNIQUE INDEX email (email ASC) VISIBLE,
-              UNIQUE INDEX cpf_UNIQUE (cpf ASC) VISIBLE)
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 3
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.compradores (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          nome VARCHAR(255) NOT NULL,
+          email VARCHAR(255) NOT NULL UNIQUE,
+          senha VARCHAR(255) NOT NULL,
+          telefone VARCHAR(20),
+          cpf VARCHAR(20) UNIQUE 
+        )
+      `;
 
     this.connection.query(sqlCompradores, (error) => {
       if (error) {
@@ -89,14 +80,11 @@ class eCommerceDatabase {
     });
 
     const sqlCategorias = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.categorias (
-              id INT NOT NULL AUTO_INCREMENT,
-              nome VARCHAR(255) NOT NULL,
-              PRIMARY KEY (id))
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 6
-            DEFAULT CHARACTER SET = utf8mb4
-          COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.categorias (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          nome VARCHAR(255) NOT NULL
+        )
+      `;
 
     this.connection.query(sqlCategorias, (error) => {
       if (error) {
@@ -108,23 +96,17 @@ class eCommerceDatabase {
     });
 
     const sqlProdutos = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.produtos (
-              id INT NOT NULL AUTO_INCREMENT,
-              nome VARCHAR(255) NOT NULL,
-              preco DECIMAL(10,2) NOT NULL,
-              descricao_detalhada TEXT NULL DEFAULT NULL,
-              imagem VARCHAR(255) NULL DEFAULT NULL,
-              qnt_estoque DECIMAL(10,2) NOT NULL,
-              categoria_id INT NULL DEFAULT NULL,
-              PRIMARY KEY (id),
-              INDEX categoria_id (categoria_id ASC) VISIBLE,
-              CONSTRAINT produtos_ibfk_2
-                FOREIGN KEY (categoria_id)
-                REFERENCES db_ecommerce.categorias (id))
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 6
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.produtos (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          nome VARCHAR(255) NOT NULL,
+          preco DECIMAL(10, 2) NOT NULL, 
+          descricao TEXT, 
+          imagem VARCHAR(255),
+          estoque INT NOT NULL,
+          categoria_id INT, 
+          FOREIGN KEY (categoria_id) REFERENCES categorias(id) 
+        )
+      `;
 
     this.connection.query(sqlProdutos, (error) => {
       if (error) {
@@ -136,24 +118,15 @@ class eCommerceDatabase {
     });
 
     const sqlCarrinho = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.carrinho (
-              id INT NOT NULL AUTO_INCREMENT,
-              comprador_id INT NULL DEFAULT NULL,
-              produto_id INT NULL DEFAULT NULL,
-              quantidade INT NOT NULL,
-              PRIMARY KEY (id),
-              INDEX comprador_id (comprador_id ASC) VISIBLE,
-              INDEX produto_id (produto_id ASC) VISIBLE,
-              CONSTRAINT carrinho_ibfk_1
-                FOREIGN KEY (comprador_id)
-                REFERENCES db_ecommerce.compradores (id),
-              CONSTRAINT carrinho_ibfk_2
-                FOREIGN KEY (produto_id)
-                REFERENCES db_ecommerce.produtos (id))
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 5
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.carrinho (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          comprador_id INT,
+          produto_id INT,
+          quantidade INT NOT NULL, 
+          FOREIGN KEY (comprador_id) REFERENCES compradores(id),
+          FOREIGN KEY (produto_id) REFERENCES produtos(id) 
+        )
+      `;
 
     this.connection.query(sqlCarrinho, (error) => {
       if (error) {
@@ -165,23 +138,17 @@ class eCommerceDatabase {
     });
 
     const sqlCartoes = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.cartoes (
-              id INT NOT NULL AUTO_INCREMENT,
-              comprador_id INT NULL DEFAULT NULL,
-              tipo ENUM("credito", "debito") NOT NULL,
-              nome_titular VARCHAR(255) NOT NULL,
-              numero_cartao VARCHAR(20) NOT NULL,
-              validade DATE NOT NULL,
-              cvv VARCHAR(4) NOT NULL,
-              PRIMARY KEY (id),
-              INDEX comprador_id (comprador_id ASC) VISIBLE,
-              CONSTRAINT cartoes_ibfk_1
-                FOREIGN KEY (comprador_id)
-                REFERENCES db_ecommerce.compradores (id))
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 3
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.cartoes (
+          id INT AUTO_INCREMENT PRIMARY KEY, 
+          comprador_id INT,
+          tipo ENUM('credito', 'debito') NOT NULL, 
+          nome_titular VARCHAR(255) NOT NULL, 
+          numero_cartao VARCHAR(20) NOT NULL, 
+          validade DATE NOT NULL, 
+          cvv VARCHAR(4) NOT NULL, 
+          FOREIGN KEY (comprador_id) REFERENCES compradores(id) 
+        )
+      `;
 
     this.connection.query(sqlCartoes, (error) => {
       if (error) {
@@ -193,18 +160,13 @@ class eCommerceDatabase {
     });
 
     const sqlChats = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.chats (
-              id INT NOT NULL AUTO_INCREMENT,
-              comprador_id INT NULL DEFAULT NULL,
-              data_inicio TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-              PRIMARY KEY (id),
-              INDEX comprador_id (comprador_id ASC) VISIBLE,
-              CONSTRAINT chats_ibfk_1
-                FOREIGN KEY (comprador_id)
-                REFERENCES db_ecommerce.compradores (id))
-            ENGINE = InnoDB
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.chats (
+          id INT AUTO_INCREMENT PRIMARY KEY, 
+          comprador_id INT, 
+          data_inicio TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+          FOREIGN KEY (comprador_id) REFERENCES compradores(id) 
+        )  
+      `;
 
     this.connection.query(sqlChats, (error) => {
       if (error) {
@@ -216,17 +178,13 @@ class eCommerceDatabase {
     });
 
     const sqlCupons = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.cupons (
-              id INT NOT NULL AUTO_INCREMENT,
-              codigo VARCHAR(50) NOT NULL,
-              desconto DECIMAL(5,2) NOT NULL,
-              data_validade DATE NOT NULL,
-              PRIMARY KEY (id),
-              UNIQUE INDEX codigo (codigo ASC) VISIBLE)
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 3
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.cupons (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          codigo VARCHAR(50) NOT NULL UNIQUE,
+          desconto DECIMAL(5, 2) NOT NULL,
+          data_validade DATE NOT NULL
+        )
+      `;
 
     this.connection.query(sqlCupons, (error) => {
       if (error) {
@@ -238,25 +196,17 @@ class eCommerceDatabase {
     });
 
     const sqlEnderecos = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.enderecos (
-              id INT NOT NULL AUTO_INCREMENT,
-              comprador_id INT NULL DEFAULT NULL,
-              rua VARCHAR(100) NOT NULL,
-              numero VARCHAR(100) NOT NULL,
-              bairro VARCHAR(100) NOT NULL,
-              cidade VARCHAR(100) NOT NULL,
-              estado VARCHAR(100) NOT NULL,
-              cep VARCHAR(20) NOT NULL,
-              pais VARCHAR(100) NOT NULL,
-              PRIMARY KEY (id),
-              INDEX comprador_id (comprador_id ASC) VISIBLE,
-              CONSTRAINT enderecos_ibfk_1
-                FOREIGN KEY (comprador_id)
-                REFERENCES db_ecommerce.compradores (id))
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 5
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.enderecos (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          comprador_id INT, 
+          endereco VARCHAR(255) NOT NULL, 
+          cidade VARCHAR(100) NOT NULL, 
+          estado VARCHAR(100) NOT NULL,
+          cep VARCHAR(20) NOT NULL, 
+          pais VARCHAR(100) NOT NULL, 
+          FOREIGN KEY (comprador_id) REFERENCES compradores(id)
+        )
+      `;
 
     this.connection.query(sqlEnderecos, (error) => {
       if (error) {
@@ -268,33 +218,21 @@ class eCommerceDatabase {
     });
 
     const sqlPedidos = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.pedidos (
-              id INT NOT NULL AUTO_INCREMENT,
-              comprador_id INT NULL DEFAULT NULL,
-              data_pedido TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-              total DECIMAL(10,2) NULL DEFAULT NULL,
-              forma_pagamento VARCHAR(50) NULL DEFAULT NULL,
-              status VARCHAR(50) NULL DEFAULT 'pendente',
-              endereco_id INT NULL DEFAULT NULL,
-              cupom_id INT NULL DEFAULT NULL,
-              frete DECIMAL(10,2) NULL DEFAULT NULL,
-              PRIMARY KEY (id),
-              INDEX comprador_id (comprador_id ASC) VISIBLE,
-              INDEX endereco_id (endereco_id ASC) VISIBLE,
-              INDEX cupom_id (cupom_id ASC) VISIBLE,
-              CONSTRAINT pedidos_ibfk_1
-                FOREIGN KEY (comprador_id)
-                REFERENCES db_ecommerce.compradores (id),
-              CONSTRAINT pedidos_ibfk_2
-                FOREIGN KEY (endereco_id)
-                REFERENCES db_ecommerce.enderecos (id),
-              CONSTRAINT pedidos_ibfk_3
-                FOREIGN KEY (cupom_id)
-                REFERENCES db_ecommerce.cupons (id))
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 3
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.pedidos (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          comprador_id INT,
+          data_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+          total DECIMAL(10, 2), 
+          forma_pagamento VARCHAR(50), 
+          status VARCHAR(50) DEFAULT 'pendente',
+          endereco_id INT, 
+          cupom_id INT, 
+          frete DECIMAL(10, 2),
+          FOREIGN KEY (comprador_id) REFERENCES compradores(id),
+          FOREIGN KEY (endereco_id) REFERENCES enderecos(id),
+          FOREIGN KEY (cupom_id) REFERENCES cupons(id) 
+        )
+      `;
 
     this.connection.query(sqlPedidos, (error) => {
       if (error) {
@@ -304,22 +242,16 @@ class eCommerceDatabase {
       }
       console.log("Tabela pedidos criada com sucesso...");
     });
-    
+
     const sqlHistoricoPedidos = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.historico_pedidos(
-              id INT NOT NULL AUTO_INCREMENT,
-              pedido_id INT NULL DEFAULT NULL,
-              status VARCHAR(50) NULL DEFAULT NULL,
-              data_status TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-              PRIMARY KEY (id),
-              INDEX pedido_id (pedido_id ASC) VISIBLE,
-              CONSTRAINT historico_pedidos_ibfk_1
-                FOREIGN KEY (pedido_id)
-                REFERENCES db_ecommerce.pedidos (id))
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 7
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.historico_pedidos(
+            id INT AUTO_INCREMENT PRIMARY KEY, 
+            pedido_id INT,
+            status VARCHAR(50), 
+            data_status TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+            FOREIGN KEY (pedido_id) REFERENCES pedidos(id)
+          )
+        `;
 
     this.connection.query(sqlHistoricoPedidos, (error) => {
       if (error) {
@@ -331,27 +263,18 @@ class eCommerceDatabase {
     });
 
     const sqlItensPedidos = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.itens_pedidos(
-              id INT NOT NULL AUTO_INCREMENT,
-              pedido_id INT NULL DEFAULT NULL,
-              produto_id INT NULL DEFAULT NULL,
-              quantidade DECIMAL(10,2) NOT NULL,
-              preco_unitario DECIMAL(10,2) NOT NULL,
-              desconto DECIMAL(5,2) NOT NULL DEFAULT '0.00',
-              total DECIMAL(10,2) GENERATED ALWAYS AS ((quantidade * (preco_unitario - ((preco_unitario * desconto) / 100)))) STORED,
-              PRIMARY KEY (id),
-              INDEX pedido_id (pedido_id ASC) VISIBLE,
-              INDEX produto_id (produto_id ASC) VISIBLE,
-              CONSTRAINT itens_pedido_ibfk_1
-                FOREIGN KEY (pedido_id)
-                REFERENCES db_ecommerce.pedidos (id),
-              CONSTRAINT itens_pedido_ibfk_2
-                FOREIGN KEY (produto_id)
-                REFERENCES db_ecommerce.produtos (id))
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 5
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.itens_pedidos(
+          id INT AUTO_INCREMENT PRIMARY KEY, 
+          pedido_id INT, 
+          produto_id INT, 
+          quantidade INT NOT NULL, 
+          preco_unitario DECIMAL(10, 2) NOT NULL, 
+          desconto DECIMAL(5, 2) NOT NULL DEFAULT 0, 
+          total DECIMAL(10, 2) GENERATED ALWAYS AS (quantidade * (preco_unitario - (preco_unitario * desconto / 100))) STORED,
+          FOREIGN KEY (pedido_id) REFERENCES pedidos(id), 
+          FOREIGN KEY (produto_id) REFERENCES produtos(id)
+        )
+      `;
 
     this.connection.query(sqlItensPedidos, (error) => {
       if (error) {
@@ -363,20 +286,15 @@ class eCommerceDatabase {
     });
 
     const sqlMensagens = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.mensagens(
-              id INT NOT NULL AUTO_INCREMENT,
-              chat_id INT NULL DEFAULT NULL,
-              remetente ENUM('comprador', 'admin') NOT NULL,
-              mensagem TEXT NOT NULL,
-              data_envio TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-              PRIMARY KEY (id),
-              INDEX chat_id (chat_id ASC) VISIBLE,
-              CONSTRAINT mensagens_ibfk_1
-                FOREIGN KEY (chat_id)
-                REFERENCES db_ecommerce.chats (id))
-            ENGINE = InnoDB
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.mensagens(
+          id INT AUTO_INCREMENT PRIMARY KEY, 
+          chat_id INT, 
+          remetente ENUM('comprador', 'admin') NOT NULL, 
+          mensagem TEXT NOT NULL, 
+          data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY (chat_id) REFERENCES chats(id)
+        )
+      `;
 
     this.connection.query(sqlMensagens, (error) => {
       if (error) {
@@ -388,21 +306,15 @@ class eCommerceDatabase {
     });
 
     const sqlPromocoes = `
-            CREATE TABLE IF NOT EXISTS db_ecommerce.promocoes(
-              id INT NOT NULL AUTO_INCREMENT,
-              produto_id INT NULL DEFAULT NULL,
-              desconto DECIMAL(5,2) NOT NULL,
-              data_inicio DATE NOT NULL,
-              data_fim DATE NOT NULL,
-              PRIMARY KEY (id),
-              INDEX produto_id (produto_id ASC) VISIBLE,
-              CONSTRAINT promocoes_ibfk_1
-                FOREIGN KEY (produto_id)
-                REFERENCES db_ecommerce.produtos (id))
-            ENGINE = InnoDB
-            AUTO_INCREMENT = 3
-            DEFAULT CHARACTER SET = utf8mb4
-            COLLATE = utf8mb4_0900_ai_ci`;
+        CREATE TABLE IF NOT EXISTS db_ecommerce.promocoes(
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          produto_id INT, 
+          desconto DECIMAL(5, 2) NOT NULL, 
+          data_inicio DATE NOT NULL, 
+          data_fim DATE NOT NULL, 
+          FOREIGN KEY (produto_id) REFERENCES produtos(id) 
+        )
+      `;
 
     this.connection.query(sqlPromocoes, (error) => {
       if (error) {
@@ -412,6 +324,9 @@ class eCommerceDatabase {
       }
       console.log("Tabela promocoes criada com sucesso...");
     });
+
+
+    
   }
 }
 

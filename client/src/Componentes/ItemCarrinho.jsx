@@ -4,30 +4,33 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import propTypes from "prop-types";
 
-const ItemCarrinho = () => {
+const ItemCarrinho = ({ data }) => {
+  const { imagem, nome, preco } = data;
+
   return (
-    <Card sx={{ maxWidth: 300, display: "flex" }}>
+    <Card sx={{ width:"100%", display: "flex" }}>
       {/* Imagem do produto */}
       <img
-        src="https://cdn.pixabay.com/photo/2024/02/26/19/39/monochrome-image-8598798_1280.jpg"
-        alt="Imagem do produto"
+        src={imagem}
+        alt={nome}
         style={{ width: "70px", height: "auto", objectFit: "cover" }}
       />
-      <CardContent>
+      <CardContent style={{ display: "flex", flexDirection:"column" , justifyContent:"flex-end"}}> 
         <Typography variant="subtitle3" component="div">
-          Título do Produto
+          {nome}
         </Typography>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center" , justifyContent:"flex-end"}}>
           <Typography variant="body2" color="text.secondary">
-            R$ 99,99
+            {preco}
           </Typography>
           <IconButton
             aria-label="delete"
             color="error"
-            sx={{ marginLeft: "auto",  }}
+            sx={{ marginLeft: "auto" }}
           >
-            <DeleteForeverIcon style={{width:"20px"}}/>
+            <DeleteForeverIcon style={{ width: "20px" }} />
           </IconButton>
         </div>
       </CardContent>
@@ -36,3 +39,7 @@ const ItemCarrinho = () => {
 };
 
 export default ItemCarrinho;
+
+ItemCarrinho.propTypes = {
+  data: propTypes.object,
+}.isRequired;

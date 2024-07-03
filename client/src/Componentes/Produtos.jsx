@@ -59,11 +59,8 @@ function Produtos() {
               <ProdutoCard key={produto.id} data={produto} />
             ))
           ) : (
-
-            
             <p
               style={{
-                
                 textAlign: "center",
                 marginTop: "50px",
                 fontSize: "1.3rem",
