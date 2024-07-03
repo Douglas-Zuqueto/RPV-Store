@@ -1,4 +1,4 @@
-const PromocaoModel = new URL('../models/promocaoModel.js', import.meta.url);
+const PromocaoModel = require('../models/promocaoModel.js')
 
 exports.getAllPromocoes = async (req, res) => {
   try {

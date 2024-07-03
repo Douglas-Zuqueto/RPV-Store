@@ -1,4 +1,4 @@
-const AdminModel = new URL('../models/adminModel.js', import.meta.url);
+const AdminModel = require('../models/adminModel.js')
 
 exports.getAllAdmins = async (req, res) => {
   try {
@@ -19,7 +19,7 @@ exports.createAdmin = async (req, res) => {
   }
 };
 
-exports.getCarrinhoById = async (req, res) => {
+exports.getAdminById = async (req, res) => {
   try {
     const admin = await AdminModel.read(req.params.id);
     if (admin) {

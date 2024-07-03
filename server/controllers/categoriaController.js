@@ -1,4 +1,4 @@
-const CategoriaModel = new URL('../models/categoriaModel.js', import.meta.url);
+const CategoriaModel = require('../models/categoriaModel.js')
 
 exports.getAllCategorias = async (req, res) => {
   try {

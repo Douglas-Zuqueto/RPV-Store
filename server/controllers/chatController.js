@@ -1,4 +1,4 @@
-const ChatModel = new URL('../models/chatModel.js', import.meta.url);
+const ChatModel = require('../models/chatModel.js')
 
 exports.getAllChats = async (req, res) => {
   try {
@@ -42,7 +42,7 @@ exports.updateChat = async (req, res) => {
   }
 };
 
-exports.deleteCategoria = async (req, res) => {
+exports.deleteChat = async (req, res) => {
   try {
     await ChatModel.delete(req.params.id);
     res.status(204).send();

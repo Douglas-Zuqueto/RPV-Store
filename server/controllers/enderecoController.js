@@ -1,4 +1,4 @@
-const EnderecoModel = new URL('../models/enderecoModel.js', import.meta.url);
+const EnderecoModel = require('../models/enderecoModel.js')
 
 exports.getAllEnderecos = async (req, res) => {
   try {

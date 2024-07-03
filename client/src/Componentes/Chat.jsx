@@ -1,7 +1,6 @@
-import React from 'react'
+import React from "react";
 
-export default function Chat() {
-  return (
-    <div>Chat</div>
-  )
+function Chat() {
+  return <div>Chat</div>;
 }
+export default Chat;

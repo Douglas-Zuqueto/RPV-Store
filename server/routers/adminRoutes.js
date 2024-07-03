@@ -1,6 +1,6 @@
-import express from 'express';
+const express = require('express');
 const router = express.Router();
-const adminController = new URL('../controllers/adminController', import.meta.url);
+const adminController = require('../controllers/adminController');
 
 router.get('/', adminController.getAllAdmins);
 router.post('/', adminController.createAdmin);

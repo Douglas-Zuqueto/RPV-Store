@@ -21,7 +21,6 @@ import {
   Badge,
 } from "@mui/material";
 
-// Ícones do Material-UI
 import {
   ShoppingCart as ShoppingCartIcon,
   Notifications as NotificationsIcon,
@@ -46,6 +45,8 @@ import BotaoTema from "./BotaoTema";
 
 // Imagem
 import Logo from "../assets/Logo.png";
+import Categorias from "./Categorias";
+import PerguntasFrequentes from "./PerguntasFrequentes";
 
 const drawerWidth = 240;
 
@@ -244,14 +245,13 @@ function Sidebar(props) {
                 <MessageIcon />
               </Badge>
             </IconButton>
+
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
+              <NotificationsIcon />
             </IconButton>
             <Perfil />
           </Box>
@@ -269,16 +269,15 @@ function Sidebar(props) {
             </IconButton>
           </Box>
         </Toolbar>
-        {/* Menu mobile */}
+
         {renderMobileMenu}
       </AppBar>
-      {/* Drawer */}
+
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* Drawer temporário para dispositivos móveis */}
         <Drawer
           container={container}
           variant="temporary"
@@ -296,7 +295,7 @@ function Sidebar(props) {
         >
           {drawer}
         </Drawer>
-        {/* Drawer permanente para desktop */}
+
         <Drawer
           variant="permanent"
           sx={{

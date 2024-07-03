@@ -1,27 +1,32 @@
-import "dotenv/config"; // To read CLERK_API_KEY
-import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
-import express from "express";
-import cors from "cors";
+require('dotenv/config'); // To read CLERK_API_KEY
+const cors = require('cors')
 
-const database = new URL("./db/index.js", import.meta.url);
-database();
+const clerk = require('@clerk/clerk-sdk-node');
+const express = require('express');
 const port = process.env.PORT;
 const app = express();
+
+const dbConnection = require("./db/dbConnection.js");
+
+const db = require("./db/dbCreate.js");
+
+db.initConnection(dbConnection);
+
 app.use(cors());
 // Use the strict middleware that raises an error when unauthenticated
 
 app.get("/");
 
 app.get(
-  "http://localhost:3000/protected-endpoint",
-  ClerkExpressRequireAuth(),
+  "/produtos",
+  clerk.ClerkExpressRequireAuth(),
   (req, res) => {
     res.json(req.auth);
     console.log(req.auth);
   }
 );
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(401).send("Unauthenticated!");
 });
