@@ -10,6 +10,8 @@ import Produtos from "./Componentes/Produtos";
 import Categorias from "./Componentes/Categorias";
 import Historico from "./Componentes/Historico";
 import Contato from "./Componentes/Contato";
+import Sobre from "./Componentes/Sobre";
+import PerguntasFrequentes from "./Componentes/PerguntasFrequentes";
 
 export default function App() {
   return (
@@ -19,9 +21,10 @@ export default function App() {
           <Route path="/" element={<Sidebar />}>
             <Route index element={<Produtos />} ></Route>
             <Route path="/categorias" element={<Categorias/>} ></Route>
-            <Route path="/historico" element={<Historico />} ></Route>
+            <Route path="/historico" element={<FormProdutos />} ></Route>
             <Route path="/contato" element={<Contato />} ></Route>
-            <Route path="/perguntasFrequentes" element={<FormProdutos />} ></Route>
+            <Route path="/sobre" element={<Sobre />} ></Route>
+            <Route path="/perguntasFrequentes" element={<PerguntasFrequentes />} ></Route>
           </Route>
         </Routes>
       </Router>

@@ -136,6 +136,8 @@ function Sidebar(props) {
     { text: "Histórico", icon: <ArticleIcon />, route: "/historico" },
     { text: "Contato", icon: <ContactPageIcon />, route: "/contato" },
     { text: "Perguntas Frequentes", icon: <HelpIcon />, route: "/perguntasFrequentes" },
+    { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
+
   ];
 
   // Estrutura do drawer
