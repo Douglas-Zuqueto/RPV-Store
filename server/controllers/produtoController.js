@@ -19,7 +19,9 @@ exports.createProduto = async (req, res) => {
   }
 };
 
-exports.getProdutoById = async (req, res) => {
+
+
+exports.getProdutoByName = async (req, res) => {
   try {
     const produto = await ProdutoModel.read(req.params.nome);
     if (produto) {
