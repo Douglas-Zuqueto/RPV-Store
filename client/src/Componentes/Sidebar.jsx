@@ -54,7 +54,6 @@ function Sidebar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("Produtos");
   // const [selectedContent, setSelectedContent] = useState("Produtos");
   // const navigate = useNavigate();
 
@@ -135,7 +134,6 @@ function Sidebar(props) {
     },
     { text: "Histórico", icon: <ArticleIcon />, route: "/historico" },
     { text: "Contato", icon: <ContactPageIcon />, route: "/contato" },
-    { text: "Perguntas Frequentes", icon: <HelpIcon />, route: "/perguntasFrequentes" },
   ];
 
   // Estrutura do drawer
