@@ -13,21 +13,21 @@ const db = require("./db/dbCreate.js");
 db.initConnection(dbConnection);
 
 app.use(cors());
-// Use the strict middleware that raises an error when unauthenticated
-
-app.get("/");
-
-app.get(
-  "/produtos",
-  clerk.ClerkExpressRequireAuth(),
-  (req, res) => {
-    res.json(req.auth);
-    console.log(req.auth);
-  }
-);
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Use the strict middleware that raises an error when unauthenticated
+
+// app.get("/");
+
+// app.get(
+//   "/produtos",
+//   clerk.ClerkExpressRequireAuth(),
+//   (req, res) => {
+//     res.json(req.auth);
+//     console.log(req.auth);
+//   }
+// );
+console.log("cheguei no app")
 app.use(produtoRouter);
 
 app.use((err, req, res, next) => {

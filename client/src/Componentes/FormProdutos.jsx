@@ -17,7 +17,7 @@ export default function FormProdutos() {
   const [values, setValues] = useState();
 
 const handleChangeValues = (values) => {
-  console.log(values)
+  console.log(values);
   setValues((prevValue) => ({
     ...prevValue,
     [values.target.name]: values.target.value,
@@ -129,7 +129,8 @@ const handleClickButton = () => {
               name="nome"
               variant="outlined"
               fullWidth
-              onChange={handleChangeValues}
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
               required
               color="success"
             />
@@ -141,7 +142,8 @@ const handleClickButton = () => {
               name="descricao_detalhada"
               variant="outlined"
               fullWidth
-              onChange={handleChangeValues}
+              value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
               required
             />
           </Grid>
@@ -153,7 +155,8 @@ const handleClickButton = () => {
               variant="outlined"
               fullWidth
               type="number"
-              onChange={handleChangeValues}
+              value={preco}
+              onChange={(e) => setPreco(e.target.value)}
               required
             />
           </Grid>
@@ -192,7 +195,8 @@ const handleClickButton = () => {
               variant="outlined"
               fullWidth
               type="number"
-              onChange={handleChangeValues}
+              value={quantidade}
+              onChange={(e) => setQuantidade(e.target.value)}
               required
             />
           </Grid>
@@ -205,7 +209,8 @@ const handleClickButton = () => {
               id="demo-simple-select"
               fullWidth
               required
-              onChange={handleChangeValues}
+              value={categoria}
+              onChange={(e) => setCategoria(e.target.value)}
               color="success"
             >
               <MenuItem value={1}>Categoria 1</MenuItem>

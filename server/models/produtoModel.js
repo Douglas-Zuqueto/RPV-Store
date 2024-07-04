@@ -23,6 +23,7 @@ class ProdutoModel {
   }
 
   create(newProduto) {
+    console.log("cheguei no model")
     const sql = "INSERT INTO produtos (nome, preco, descricao_detalhada, imagem, qnt_estoque, categoria_id ) VALUES (?, ?, ?, ?, ?, ?)";
     const values = [newProduto.nome, newProduto.preco, newProduto.descricao_detalhada, newProduto.imagem, newProduto.qnt_estoque, newProduto.categoria_id ];
     return this.executeSQL(sql, values);

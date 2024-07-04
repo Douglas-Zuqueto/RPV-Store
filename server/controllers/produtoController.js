@@ -11,6 +11,8 @@ exports.getAllProdutos = async (req, res) => {
 
 exports.createProduto = async (req, res) => {
   try {
+    console.log("cheguei no controller")
+    console.log(req)
     const newProduto = {
       name: req.body.nome,
       preco: req.body.preco,
