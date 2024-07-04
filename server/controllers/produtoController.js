@@ -11,7 +11,16 @@ exports.getAllProdutos = async (req, res) => {
 
 exports.createProduto = async (req, res) => {
   try {
-    const newProduto = req.body;
+    console.log("cheguei no controller")
+    console.log(req)
+    const newProduto = {
+      name: req.body.nome,
+      preco: req.body.preco,
+      descricao_detalhada: req.body.descricao_detalhada,
+      imagem: req.body.imagem,
+      qnt_estoque: req.body.qnt_estoque,
+      categoria_id: req.body.categoria_id,
+    }
     const produto = await ProdutoModel.create(newProduto);
     res.status(201).json(produto);
   } catch (error) {
