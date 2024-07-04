@@ -1,5 +1,4 @@
 /* eslint-disable react/react-in-jsx-scope */
-
 import { useState } from "react";
 import AppContext from "./AppContext";
 import PropTypes from "prop-types";
