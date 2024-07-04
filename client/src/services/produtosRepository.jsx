@@ -11,9 +11,10 @@ const produtosRepository = {
         }
       },
 
-      createProdutos: async () => {
+      createProdutos: async (data) => {
+        console.log(data);
         try {
-          const response = await api.get(`/produtos`);
+          const response = await api.post(`/historico`, data);
           return response.data;
         } catch (error) {
           console.error(`Erro ao criar produtos:`, error);
@@ -51,3 +52,5 @@ const produtosRepository = {
         }
       }
 }
+
+export default produtosRepository

@@ -19,10 +19,10 @@ export default function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Sidebar />}>
-            <Route index element={<Produtos />} ></Route>
-            <Route path="/categorias" element={<Categorias/>} ></Route>
-            <Route path="/historico" element={<FormProdutos />} ></Route>
-            <Route path="/contato" element={<Contato />} ></Route>
+            <Route index element={<Produtos />} />
+            <Route path="/categorias" element={<Categorias/>} />
+            <Route path="/historico" element={<FormProdutos />} />
+            <Route path="/contato" element={<Contato />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/perguntasFrequentes" element={<PerguntasFrequentes />} />
           </Route>

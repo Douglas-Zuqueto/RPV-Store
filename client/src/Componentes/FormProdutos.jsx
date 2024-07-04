@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   TextField,
   Button,
@@ -10,8 +10,33 @@ import {
   Alert,
 } from "@mui/material";
 import AppContext from "../context/AppContext";
+import produtosRepository from "../services/produtosRepository";
 
 export default function FormProdutos() {
+
+  const [values, setValues] = useState();
+
+const handleChangeValues = (values) => {
+  console.log(values)
+  setValues((prevValue) => ({
+    ...prevValue,
+    [values.target.name]: values.target.value,
+  }))
+};
+
+const handleClickButton = () => {
+  produtosRepository.createProdutos({
+    nome: values.nome,
+    preco: values.preco,
+    descricao_detalhada: values.descricao_detalhada,
+    imagem: "imagem",
+    qnt_estoque: values.qnt_estoque,
+    categoria_id: values.categoria_id, 
+  }).then((response) => {
+    console.log(response);
+  })
+}
+
   const {
     selectedFile,
     setSelectedFile,
@@ -96,15 +121,15 @@ export default function FormProdutos() {
 
   return (
     <Paper elevation={3} style={{ padding: 20 }}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onChange={handleChangeValues}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
               label="Nome"
+              name="nome"
               variant="outlined"
               fullWidth
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
+              onChange={handleChangeValues}
               required
               color="success"
             />
@@ -113,10 +138,10 @@ export default function FormProdutos() {
             <TextField
               color="success"
               label="Descrição"
+              name="descricao_detalhada"
               variant="outlined"
               fullWidth
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
+              onChange={handleChangeValues}
               required
             />
           </Grid>
@@ -124,11 +149,11 @@ export default function FormProdutos() {
             <TextField
              color="success"
               label="Preço"
+              name="preco"
               variant="outlined"
               fullWidth
               type="number"
-              value={preco}
-              onChange={(e) => setPreco(e.target.value)}
+              onChange={handleChangeValues}
               required
             />
           </Grid>
@@ -136,6 +161,7 @@ export default function FormProdutos() {
             <TextField
               color="success"
               label="Imagem Selecionada"
+              name="imagem"
               variant="outlined"
               fullWidth
               value={selectedFile ? selectedFile.name : ""}
@@ -162,24 +188,24 @@ export default function FormProdutos() {
             <TextField
               color="success"
               label="Quantidade estoque"
+              name="qnt_estoque"
               variant="outlined"
               fullWidth
               type="number"
-              value={quantidade}
-              onChange={(e) => setQuantidade(e.target.value)}
+              onChange={handleChangeValues}
               required
             />
           </Grid>
           <Grid item xs={12}>
             <Select
               label="Categoria"
+              name="categoria_id"
               variant="outlined"
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               fullWidth
               required
-              value={categoria}
-              onChange={(e) => setCategoria(e.target.value)}
+              onChange={handleChangeValues}
               color="success"
             >
               <MenuItem value={1}>Categoria 1</MenuItem>
@@ -188,7 +214,7 @@ export default function FormProdutos() {
             </Select>
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="success">
+            <Button type="submit" variant="contained" color="success" onClick={() => handleClickButton()}>
               Adicionar Produto
             </Button>
           </Grid>
