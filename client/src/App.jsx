@@ -1,6 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
-// import Header from "./Componentes/HeaderC";
-// import React from 'react';
+import React from "react";
 import Sidebar from "./Componentes/Sidebar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./styles.goblal.css";
@@ -12,8 +10,10 @@ import Historico from "./Componentes/Historico";
 import Contato from "./Componentes/Contato";
 import Sobre from "./Componentes/Sobre";
 import PerguntasFrequentes from "./Componentes/PerguntasFrequentes";
+import CategoriasM from "./Componentes/CategoriasM";
+import CategoriasF from "./Componentes/CategoriasF";
 
-export default function App() {
+function App() {
   return (
     <Provider>
       <Router>
@@ -25,9 +25,13 @@ export default function App() {
             <Route path="/contato" element={<Contato />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/perguntasFrequentes" element={<PerguntasFrequentes />} />
+            <Route path="/categorias/masculinas" element={<CategoriasM />} />
+            <Route path="/categorias/femininas" element={<CategoriasF />} />
           </Route>
         </Routes>
       </Router>
     </Provider>
   );
 }
+
+export default App;
