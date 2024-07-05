@@ -18,7 +18,7 @@ class ProdutoModel {
   }
 
   read(nome) {
-    const sql = "SELECT nome, preco, descricao_detalhada, imagem, qnt_estoque, categoria_id  FROM produtos WHERE nome = ?";
+    const sql = "SELECT nome, preco, descricao_detalhada, imagem, qnt_estoque, categoria_id  FROM produtos WHERE nome LIKE %?%";
     return this.executeSQL(sql, nome);
   }
 
@@ -30,8 +30,8 @@ class ProdutoModel {
   }
 
   update(updatedProduto, id) {
-    const sql = "UPDATE produtos SET nome = ?, preco = ?, descricao_detalhada = ?, imagem = ?, qnt_estoque = ?,  WHERE id = ?";
-    const values = [updatedProduto.nome, updatedProduto.preco, updatedProduto.descricao_detalhada, updatedProduto.imagem, updatedProduto.qnt_estoque, updatedProduto.categoria_id , id];
+    const sql = "UPDATE produtos SET nome = ?, preco = ?, descricao_detalhada = ?, imagem = ?, qnt_estoque = ?  WHERE id = ?";
+    const values = [updatedProduto.nome, updatedProduto.preco, updatedProduto.descricao_detalhada, updatedProduto.imagem, updatedProduto.qnt_estoque, id];
     return this.executeSQL(sql, values);
   }
 
