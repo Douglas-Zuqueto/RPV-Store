@@ -29,7 +29,7 @@ const handleClickButton = () => {
     nome: values.nome,
     preco: values.preco,
     descricao_detalhada: values.descricao_detalhada,
-    imagem: "imagem",
+    imagem: values.imagem,
     qnt_estoque: values.qnt_estoque,
     categoria_id: values.categoria_id, 
   }).then((response) => {

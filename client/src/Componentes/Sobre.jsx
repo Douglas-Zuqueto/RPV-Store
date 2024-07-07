@@ -1,4 +1,5 @@
 import React from "react";
+import Chat from '../Componentes/Chat'
 
 function Sobre() {
   const sobreStyles = {
@@ -37,6 +38,7 @@ function Sobre() {
   };
 
   return (
+    <>
     <div style={sobreStyles.container}>
       <h1 style={sobreStyles.heading}>Sobre</h1>
       <p style={sobreStyles.paragraph}>
@@ -91,6 +93,8 @@ function Sobre() {
         estilo de forma consciente.
       </p>
     </div>
+    <Chat />
+    </>
   );
 }
 
