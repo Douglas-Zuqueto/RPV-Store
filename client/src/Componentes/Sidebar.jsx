@@ -25,12 +25,10 @@ import {
   ShoppingCart as ShoppingCartIcon,
   Notifications as NotificationsIcon,
   MoreVert as MoreIcon,
-  Message as MessageIcon,
   Apps as AppsIcon,
   FormatListBulleted as FormatListBulletedIcon,
   Article as ArticleIcon,
   Help as HelpIcon,
-  Logout as LogoutIcon,
   Info as InfoIcon,
 } from "@mui/icons-material";
 
@@ -44,8 +42,6 @@ import BotaoTema from "./BotaoTema";
 
 // Imagem
 import Logo from "../assets/Logo.png";
-import Categorias from "./Categorias";
-import PerguntasFrequentes from "./PerguntasFrequentes";
 
 const drawerWidth = 240;
 
@@ -175,30 +171,7 @@ function Sidebar(props) {
         ))}
       </List>
       <Divider />
-      <List>
-        {/* Renderização dos itens finais do drawer */}
-        {["Sair", "Sobre"].map((text, index) => (
-          <Link
-            to={text === "Sair" ? "/logout" : "/sobre"}
-            onClick={() => handleMenuClick(text)}
-            style={{
-              paddingLeft: "10px",
-              width: "100%",
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index === 0 ? <LogoutIcon /> : <InfoIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
-      </List>
+      
     </div>
   );
 
@@ -240,16 +213,6 @@ function Sidebar(props) {
           <BotaoTema />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <CarrinhoDeCompras />
-
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MessageIcon />
-              </Badge>
-            </IconButton>
 
             <IconButton
               size="large"

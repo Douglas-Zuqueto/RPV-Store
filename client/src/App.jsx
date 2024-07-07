@@ -6,7 +6,6 @@ import Provider from "./context/Provider";
 import FormProdutos from "./Componentes/FormProdutos";
 import Produtos from "./Componentes/Produtos";
 import Categorias from "./Componentes/Categorias";
-import Historico from "./Componentes/Historico";
 import Sobre from "./Componentes/Sobre";
 import PerguntasFrequentes from "./Componentes/PerguntasFrequentes";
 import CategoriasM from "./Componentes/CategoriasM";
