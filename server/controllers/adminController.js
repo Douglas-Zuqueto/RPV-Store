@@ -43,7 +43,7 @@ exports.updateAdmin = async (req, res) => {
   }
 };
 
-exports.deleteCarrinho = async (req, res) => {
+exports.deleteAdmin = async (req, res) => {
   try {
     await AdminModel.delete(req.params.id);
     res.status(204).send();
