@@ -7,7 +7,6 @@ import FormProdutos from "./Componentes/FormProdutos";
 import Produtos from "./Componentes/Produtos";
 import Categorias from "./Componentes/Categorias";
 import Historico from "./Componentes/Historico";
-import Contato from "./Componentes/Contato";
 import Sobre from "./Componentes/Sobre";
 import PerguntasFrequentes from "./Componentes/PerguntasFrequentes";
 import CategoriasM from "./Componentes/CategoriasM";
@@ -22,7 +21,6 @@ function App() {
             <Route index element={<Produtos />} />
             <Route path="/categorias" element={<Categorias/>} />
             <Route path="/historico" element={<FormProdutos />} />
-            <Route path="/contato" element={<Contato />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/perguntasFrequentes" element={<PerguntasFrequentes />} />
             <Route path="/categorias/masculinas" element={<CategoriasM />} />

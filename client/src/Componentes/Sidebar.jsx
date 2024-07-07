@@ -29,7 +29,6 @@ import {
   Apps as AppsIcon,
   FormatListBulleted as FormatListBulletedIcon,
   Article as ArticleIcon,
-  ContactPage as ContactPageIcon,
   Help as HelpIcon,
   Logout as LogoutIcon,
   Info as InfoIcon,
@@ -134,7 +133,6 @@ function Sidebar(props) {
       route: "/categorias",
     },
     { text: "Histórico", icon: <ArticleIcon />, route: "/historico" },
-    { text: "Contato", icon: <ContactPageIcon />, route: "/contato" },
     { text: "Perguntas Frequentes", icon: <HelpIcon />, route: "/perguntasFrequentes" },
     { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
   ];

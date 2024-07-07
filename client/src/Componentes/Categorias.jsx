@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Box } from "@mui/material";
+import Chat from '../Componentes/Chat'
 
 function Categorias() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ function Categorias() {
   };
 
   return (
+    <>
     <Box
       display="flex"
       flexDirection="column"
@@ -40,6 +42,8 @@ function Categorias() {
         </Button>
       </Box>
     </Box>
+    <Chat />
+    </>
   );
 }
 

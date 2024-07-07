@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import ProdutoCard from "./ProdutoCard";
 import Loading from "./Loading";
 import AppContext from "../context/AppContext";
+import Chat from '../Componentes/Chat'
 // import Paper from '@mui/material/Paper';
 
 function Produtos() {
@@ -55,6 +56,7 @@ function Produtos() {
           )}
         </div>
       )}
+      <Chat />
     </>
   );
 }

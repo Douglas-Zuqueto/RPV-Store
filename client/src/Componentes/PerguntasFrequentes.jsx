@@ -1,4 +1,5 @@
 import React from "react";
+import Chat from '../Componentes/Chat'
 
 function PerguntasFrequentes() {
   const faqStyles = {
@@ -28,6 +29,7 @@ function PerguntasFrequentes() {
   };
 
   return (
+    <>
     <div style={faqStyles.container}>
       <h1 style={faqStyles.heading}>Perguntas Frequentes</h1>
 
@@ -59,6 +61,8 @@ function PerguntasFrequentes() {
         e instruções.
       </p>
     </div>
+    <Chat />
+    </>
   );
 }
 
