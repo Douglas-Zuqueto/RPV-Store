@@ -11,11 +11,9 @@ import {
   Divider,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import formatCurrency from "../utils/formatCurrency";
 import AppContext from "../context/AppContext";
 
 function ProdutoCard({ data }) {
-  const { nome, imagem, preco } = data;
 
   const { cartItems, setCartItems } = useContext(AppContext);
 
@@ -27,14 +25,14 @@ function ProdutoCard({ data }) {
         <CardMedia
           component="img"
           height="150"
-          image={imagem}
-          alt={nome}
+          image={data.imagem}
+          alt={data.nome}
         />
         <CardContent>
           <Divider />
-          <Typography variant="h6">{nome}</Typography>
+          <Typography variant="h6">{data.nome}</Typography>
           <Typography variant="body2" color="textSecondary">
-            {formatCurrency(preco, 'BRL')}
+            {data.preco}
           </Typography>
           <Divider />
           <Rating defaultValue={1} size="small" />

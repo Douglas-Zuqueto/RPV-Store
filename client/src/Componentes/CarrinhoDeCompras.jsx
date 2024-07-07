@@ -28,10 +28,9 @@ export default function CarrinhoDeCompras() {
 
     setState({ ...state, [anchor]: open });
   };
-
-  const totalCompra = cartItems.reduce((acc, item) => {
-    return item.preco * item.quantidade + acc;
-  }, 0);
+  let totalCompra = cartItems.reduce((acc, item) => {
+      return parseFloat(item.preco) + parseFloat(acc);
+  }, 0)
 
   const list = (anchor) => (
     <Box

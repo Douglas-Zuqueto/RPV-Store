@@ -3,7 +3,8 @@ import api from './base/api'
 const produtosRepository = {
     getAllProdutos: async () => {
         try {
-          const response = await api.get('/produtos');
+          const response = await api.get('http://localhost:3000/produtos');
+          console.log(response.data)
           return response.data;
         } catch (error) {
           console.error('Erro ao buscar produtos:', error);
@@ -12,7 +13,6 @@ const produtosRepository = {
       },
 
       createProdutos: async (data) => {
-        console.log(data);
         try {
           const response = await api.post('http://localhost:3000/historico',  data);
           console.log("response.data", response.data);

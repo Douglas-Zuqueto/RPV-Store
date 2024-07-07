@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const produtoController = require('../controllers/produtoController');
 
-router.get('/historico', produtoController.getAllProdutos);
+router.get('/produtos', produtoController.getAllProdutos);
 router.post('/historico', produtoController.createProduto);
 router.get('/historico', produtoController.getProdutoByName);
 router.put('/historico/:id', produtoController.updateProduto);

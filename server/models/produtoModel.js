@@ -13,7 +13,7 @@ class ProdutoModel {
   }
 
   readList() {
-    const sql = "SELECT nome, preco, descricao_detalhada, imagem, qnt_estoque, categoria_id  FROM produtos";
+    const sql = "SELECT * FROM produtos";
     return this.executeSQL(sql);
   }
 

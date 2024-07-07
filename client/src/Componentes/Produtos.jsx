@@ -1,29 +1,24 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ProdutoCard from "./ProdutoCard";
-import Loading from "./Loading";
-import AppContext from "../context/AppContext";
 import Chat from '../Componentes/Chat'
+import produtosRepository from "../services/produtosRepository";
 // import Paper from '@mui/material/Paper';
 
 function Produtos() {
-  const { loading, produtos, setLoading, setProdutos } = useContext(AppContext);
-
-  useEffect(() => {
-    const fetchProdutos = async () => {
-      setLoading(true);
-      try {
-        const response = await produtos;
-        setProdutos(response);
-        console.log("dados response", response);
-      } catch (error) {
-        console.error("Erro ao carregar produtos:", error);
-      } finally {
-        setLoading(false);
+  const [produtos, setProdutos] = useState([]);
+  
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const produtosBD = await produtosRepository.getAllProdutos()
+          setProdutos(produtosBD);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
       }
-    };
-
-    fetchProdutos();
-  }, [produtos, setLoading, setProdutos]);
+  
+      fetchData();
+    },  [produtos, setProdutos]);
 
   const tema = {
     // padding: "120px 20px 50px",
@@ -34,13 +29,10 @@ function Produtos() {
 
   return (
     <>
-      {loading ? (
-        <Loading />
-      ) : (
         <div style={tema}>
           {produtos.length > 0 ? (
-            produtos.map((produto) => (
-              <ProdutoCard key={produto.id} data={produto} />
+            produtos.map((produtos) => (
+              <ProdutoCard key={produtos.id} data={(produtos)} />
             ))
           ) : (
             <p
@@ -55,7 +47,6 @@ function Produtos() {
             </p>
           )}
         </div>
-      )}
       <Chat />
     </>
   );

@@ -18,12 +18,12 @@ function Auth() {
         const token = await getToken();
 
         const response = await fetch(
-          "http://localhost:3000/produtos",
+          "http://localhost:3000/",
           {
             method: "GET",
             header: {
               Accept: "application/json",
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer: ${token}`,
               mode: "cors",
             },
           }

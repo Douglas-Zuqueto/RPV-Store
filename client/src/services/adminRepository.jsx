@@ -51,3 +51,5 @@ const adminRepository = {
         }
       }
 }
+
+export default adminRepository

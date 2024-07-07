@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import categoriasRepository from "../services/categoriaRepository";
 
 function CategoriasM() {
- const categorias = categoriasRepository.getCategoriasByGenero('M');
+    const [categorias, setCategorias] = useState([]);
+  
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const categoriasBD = await categoriasRepository.getCategoriasByGenero('M')
+          console.log(categoriasBD)
+          console.log(categoriasBD.data)
+          setCategorias(categoriasBD);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+  
+      fetchData();
+    }, []);
   return (
-    <div>
-      klsadjlas
+    <div className="h-screen">
+      {categorias.map((categorias) => (
+        <div key={categorias.id}>{categorias.nome}</div>
+      ))}
     </div>
   )
 }
