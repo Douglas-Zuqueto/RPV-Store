@@ -67,5 +67,3 @@ function PerguntasFrequentes() {
 }
 
 export default PerguntasFrequentes;
-
-export default PerguntasFrequentes;

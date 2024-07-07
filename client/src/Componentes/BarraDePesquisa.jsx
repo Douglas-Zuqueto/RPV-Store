@@ -4,7 +4,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { styled } from "@mui/material/styles";
 import { Button } from "@mui/material";
-import AppContext from "../context/AppContext";
 
 const StyledInputBase = styled(InputBase)(() => ({
   color: "black",
@@ -24,7 +23,6 @@ const temaDiv = {
 
 function BarraDePesquisa() {
   const [searchValue, setSearchValue] = useState("");
-  const { nome } = useContext(AppContext);
 
   const handleSearch = (event) => {
     event.preventDefault(); // Prevenir o comportamento padrão do formulário
@@ -40,7 +38,6 @@ function BarraDePesquisa() {
         onChange={({ target }) => setSearchValue(target.value)}
         required
       />
-      {nome}
       <Button type="submit" style={{ color: "black" }}>
         <SearchIcon />
       </Button>
