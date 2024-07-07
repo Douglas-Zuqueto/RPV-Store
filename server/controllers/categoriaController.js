@@ -12,10 +12,10 @@ exports.createCategoria = async (req, res) => {
 
 exports.getCategoriasByGenero = async (req, res) => {
   try {
-    console.log(req)
+    console.log(req.body.gen)
     const categoria = await CategoriaModel.read(req.body);
     if (categoria) {
-      res.json(categoria);
+      res.status(200).json(categoria);
     } else {
       res.status(404).json({ message: 'Categoria não encontrada' });
     }

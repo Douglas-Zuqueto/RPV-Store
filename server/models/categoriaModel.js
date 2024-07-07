@@ -13,19 +13,19 @@ class CategoriaModel {
   }
 
     read(genero) {
-    const sql = "SELECT * FROM categorias WHERE genero = ?";
+    const sql = "SELECT * FROM categorias WHERE genero = '?'";
     return this.executeSQL(sql, genero);
   }
 
   create(newCategoria) {
     const sql = "INSERT INTO categorias (nome,genero) VALUES (?,?)";
-    const values = [newCategoria.nome,newCategoria.genero];
+    const values = [newCategoria.nome, newCategoria.genero];
     return this.executeSQL(sql, values);
   }
 
   update(updatedCategoria, id) {
     const sql = "UPDATE categorias SET nome = ?, genero = ? WHERE id = ?";
-    const values = [updatedCategoria.nome,updatedCategoria.genero, id];
+    const values = [updatedCategoria.nome, updatedCategoria.genero, id];
     return this.executeSQL(sql, values);
   }
 
