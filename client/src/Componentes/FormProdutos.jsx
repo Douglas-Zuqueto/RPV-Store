@@ -31,7 +31,7 @@ const handleClickButton = () => {
     descricao_detalhada: values.descricao_detalhada,
     imagem: values.imagem,
     qnt_estoque: values.qnt_estoque,
-    categoria_id: values.categoria_id, 
+    categoria_id: "7", 
   }).then((response) => {
     console.log(response);
   })
@@ -213,9 +213,9 @@ const handleClickButton = () => {
               onChange={(e) => setCategoria(e.target.value)}
               color="success"
             >
-              <MenuItem value={1}>Categoria 1</MenuItem>
-              <MenuItem value={2}>Categoria 2</MenuItem>
-              <MenuItem value={3}>Categoria 3</MenuItem>
+              <MenuItem value={6}>Categoria 1</MenuItem>
+              <MenuItem value={7}>Categoria 2</MenuItem>
+              <MenuItem value={8}>Categoria 3</MenuItem>
             </Select>
           </Grid>
           <Grid item xs={12}>
