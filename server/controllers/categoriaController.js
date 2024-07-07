@@ -1,14 +1,5 @@
 const CategoriaModel = require('../models/categoriaModel.js')
 
-exports.getAllCategorias = async (req, res) => {
-  try {
-    const categorias = await CategoriaModel.readList();
-    res.json(categorias);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
 exports.createCategoria = async (req, res) => {
   try {
     const newCategoria = req.body;
@@ -19,11 +10,12 @@ exports.createCategoria = async (req, res) => {
   }
 };
 
-exports.getCategoriaById = async (req, res) => {
+exports.getCategoriasByGenero = async (req, res) => {
   try {
-    const categoria = await CategoriaModel.read(req.params.id);
+    console.log(req.body.gen)
+    const categoria = await CategoriaModel.read(req.body);
     if (categoria) {
-      res.json(categoria);
+      res.status(200).json(categoria);
     } else {
       res.status(404).json({ message: 'Categoria não encontrada' });
     }

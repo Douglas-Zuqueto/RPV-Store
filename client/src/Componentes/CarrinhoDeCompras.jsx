@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -30,7 +30,7 @@ export default function CarrinhoDeCompras() {
   };
 
   const totalCompra = cartItems.reduce((acc, item) => {
-    return item.preco + acc;
+    return item.preco * item.quantidade + acc;
   }, 0);
 
   const list = (anchor) => (
@@ -47,19 +47,25 @@ export default function CarrinhoDeCompras() {
 
         <Divider />
 
-        {cartItems.map((cartItem) => (
-          <div key={cartItem.id}>
-            <ListItem>
-              <ItemCarrinho data={cartItem} />
-            </ListItem>
-            <Divider />
-          </div>
-        ))}
+        {cartItems.length === 0 ? (
+          <Typography variant="body1" align="center">
+            Seu carrinho está vazio.
+          </Typography>
+        ) : (
+          cartItems.map((cartItem) => (
+            <div key={cartItem.id}>
+              <ListItem>
+                <ItemCarrinho data={cartItem} />
+              </ListItem>
+              <Divider />
+            </div>
+          ))
+        )}
 
         <Divider />
 
         <Typography variant="h6" align="center">
-          Total: {totalCompra}
+          Total: {totalCompra.toFixed(2)}
         </Typography>
       </List>
     </Box>

@@ -82,7 +82,8 @@ class eCommerceDatabase {
     const sqlCategorias = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.categorias (
           id INT AUTO_INCREMENT PRIMARY KEY,
-          nome VARCHAR(255) NOT NULL
+          nome VARCHAR(255) NOT NULL,
+          genero VARCHAR(1) NOT NULL
         )
       `;
 
@@ -101,7 +102,7 @@ class eCommerceDatabase {
           nome VARCHAR(255) NOT NULL,
           preco DECIMAL(10, 2) NOT NULL, 
           descricao TEXT, 
-          imagem VARCHAR(255),
+          imagem MEDIUMBLOB,
           estoque INT NOT NULL,
           categoria_id INT, 
           FOREIGN KEY (categoria_id) REFERENCES categorias(id) 

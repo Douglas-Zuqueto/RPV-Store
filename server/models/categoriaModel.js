@@ -12,25 +12,20 @@ class CategoriaModel {
     });
   }
 
-  readList() {
-    const sql = "SELECT * FROM categorias";
-    return this.executeSQL(sql);
-  }
-
-  read(id) {
-    const sql = "SELECT * FROM categorias WHERE id = ?";
-    return this.executeSQL(sql, id);
+    read(genero) {
+    const sql = "SELECT * FROM categorias WHERE genero = '?'";
+    return this.executeSQL(sql, genero);
   }
 
   create(newCategoria) {
-    const sql = "INSERT INTO categorias (nome) VALUES (?)";
-    const values = [newCategoria.nome];
+    const sql = "INSERT INTO categorias (nome,genero) VALUES (?,?)";
+    const values = [newCategoria.nome, newCategoria.genero];
     return this.executeSQL(sql, values);
   }
 
   update(updatedCategoria, id) {
-    const sql = "UPDATE categorias SET nome = ? WHERE id = ?";
-    const values = [updatedCategoria.nome, id];
+    const sql = "UPDATE categorias SET nome = ?, genero = ? WHERE id = ?";
+    const values = [updatedCategoria.nome, updatedCategoria.genero, id];
     return this.executeSQL(sql, values);
   }
 

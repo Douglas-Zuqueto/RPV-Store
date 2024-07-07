@@ -26,13 +26,10 @@ import {
   ShoppingCart as ShoppingCartIcon,
   Notifications as NotificationsIcon,
   MoreVert as MoreIcon,
-  Message as MessageIcon,
   Apps as AppsIcon,
   FormatListBulleted as FormatListBulletedIcon,
   Article as ArticleIcon,
-  ContactPage as ContactPageIcon,
   Help as HelpIcon,
-  Logout as LogoutIcon,
   Info as InfoIcon,
 } from "@mui/icons-material";
 
@@ -135,8 +132,8 @@ function Sidebar(props) {
       route: "/categorias",
     },
     { text: "Histórico", icon: <ArticleIcon />, route: "/historico" },
-    { text: "Contato", icon: <ContactPageIcon />, route: "/contato" },
     { text: "Perguntas Frequentes", icon: <HelpIcon />, route: "/perguntasFrequentes" },
+    { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
     { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
   ];
 
@@ -164,11 +161,13 @@ function Sidebar(props) {
               style={{
                 paddingLeft: "10px",
                 width: "100%",
+                width: "100%",
                 textDecoration: "none",
                 color: "inherit",
                 background: selectedItem === item.text ? 'linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))' : 'inherit',
               }}
             >
+              <ListItemButton>
               <ListItemButton>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.text} />
@@ -204,6 +203,7 @@ function Sidebar(props) {
       </List>
     </div>
   );
+
 
 
   // Container para o drawer
@@ -243,16 +243,6 @@ function Sidebar(props) {
           <BotaoTema />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <CarrinhoDeCompras />
-
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MessageIcon />
-              </Badge>
-            </IconButton>
 
             <IconButton
               size="large"

@@ -9,9 +9,11 @@ exports.getAllProdutos = async (req, res) => {
   }
 };
 
-exports.createProduto = async (req, res) => {
+ exports.createProduto = async (req, res) => {
   try {
-    const newProduto = req.body;
+    console.log(req);
+    const newProduto =req.body
+    console.log(newProduto)
     const produto = await ProdutoModel.create(newProduto);
     res.status(201).json(produto);
   } catch (error) {

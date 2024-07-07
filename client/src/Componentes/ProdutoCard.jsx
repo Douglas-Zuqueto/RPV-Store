@@ -15,7 +15,7 @@ import formatCurrency from "../utils/formatCurrency";
 import AppContext from "../context/AppContext";
 
 function ProdutoCard({ data }) {
-  const { nome, selectedFile, preco } = data;
+  const { nome, imagem, preco } = data;
 
   const { cartItems, setCartItems } = useContext(AppContext);
 
@@ -27,7 +27,7 @@ function ProdutoCard({ data }) {
         <CardMedia
           component="img"
           height="150"
-          image={selectedFile}
+          image={imagem}
           alt={nome}
         />
         <CardContent>
