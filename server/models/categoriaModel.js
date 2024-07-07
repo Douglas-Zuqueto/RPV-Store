@@ -13,7 +13,7 @@ class CategoriaModel {
   }
 
     read(genero) {
-    const sql = "SELECT * FROM categorias WHERE genero = '?'";
+    const sql = "SELECT * FROM categorias WHERE genero = ?";
     return this.executeSQL(sql, genero);
   }
 

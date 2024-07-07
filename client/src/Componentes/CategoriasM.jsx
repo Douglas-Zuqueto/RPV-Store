@@ -1,10 +1,8 @@
 import React from "react";
 import categoriasRepository from "../services/categoriaRepository";
 
-const gen = {gen: 'M'}
 function CategoriasM() {
- const categorias = categoriasRepository.getCategoriasByGenero(gen);
- console.log(categorias)
+ const categorias = categoriasRepository.getCategoriasByGenero('M');
   return (
     <div>
       klsadjlas

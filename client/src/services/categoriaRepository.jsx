@@ -15,9 +15,14 @@ const categoriasRepository = {
 
       getCategoriasByGenero: async (genero) => {
         try {
-          const response = await api.get('http://localhost:3000/categorias', genero);
-          console.log(response.data)
-          return response.data;
+          if(genero == 'M'){
+            const response = await api.get('http://localhost:3000/categorias/M');
+            return response.data;
+          }
+          else if(genero == 'F'){
+            const response = await api.get('http://localhost:3000/categorias/F');
+            return response.data;
+          }
         } catch (error) {
           console.error(`Erro ao buscar categorias com esse genero:${genero}`, error);
           throw error;

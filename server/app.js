@@ -6,6 +6,7 @@ const port = process.env.PORT;
 const app = express();
 const produtoRouter = require('./routers/produtoRoutes.js')
 const categoriaRouter = require('./routers/categoriaRoutes.js')
+const bodyParser = require('body-parser')
 
 const dbConnection = require("./db/dbConnection.js");
 
@@ -15,6 +16,7 @@ db.initConnection(dbConnection);
 
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 // Use the strict middleware that raises an error when unauthenticated
 
@@ -28,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 //     console.log(req.auth);
 //   }
 // );
-console.log("cheguei no app")
+
 app.use(produtoRouter);
 app.use(categoriaRouter)
 
