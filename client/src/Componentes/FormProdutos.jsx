@@ -26,21 +26,19 @@ export default function FormProdutos() {
   };
 
   const handleClickButton = () => {
-    produtosRepository
-      .createProdutos({
-        nome: values.nome,
-        preco: values.preco,
-        descricao_detalhada: values.descricao_detalhada,
-        imagem: values.imagem,
-        qnt_estoque: values.qnt_estoque,
-        categoria_id: values.categoria,
-      })
+    const produtoCreate = {
+      nome: values.nome,
+      preco: values.preco,
+      descricao_detalhada: values.descricao_detalhada,
+      imagem: values.imagem,
+      qnt_estoque: values.qnt_estoque,
+      categoria_id: categoria,
+    }
+    produtosRepository.createProdutos(produtoCreate)
 
       .then((response) => {
         console.log(response);
       });
-
-    console.log(values);
   };
 
   const {
@@ -73,22 +71,10 @@ export default function FormProdutos() {
   }, []);
 
   useEffect(() => {
-    const formData = {
-      nome,
-      descricao,
-      preco,
-      quantidade,
-      categoria,
-    };
-    localStorage.setItem("formData", JSON.stringify(formData));
-  }, [nome, descricao, preco, quantidade, categoria]);
-
-  useEffect(() => {
     async function fetchData() {
       try {
         const categoriasBD = await categoriasRepository.getCategoriasAll();
         console.log(categoriasBD);
-        console.log(categoriasBD.data);
         setCategorias(categoriasBD);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -229,15 +215,16 @@ export default function FormProdutos() {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               fullWidth
-              required
               value={categoria}
+              required
               onChange={(e) => setCategoria(e.target.value)}
               color="success"
             >
               {categorias.map((categoria) => (
-                <MenuItem value={categoria.id} key={categoria.id}>
+                <MenuItem value={categoria.id} key={categoria.id} onSelect={(e) => setCategorias(e.target.value)}>
                   {categoria.nome}
                 </MenuItem>
+
               ))}
             </Select>
           </Grid>
