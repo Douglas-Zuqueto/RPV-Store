@@ -18,7 +18,7 @@ function Produtos() {
       }
   
       fetchData();
-    },  [produtos, setProdutos]);
+    },[]);
 
   const tema = {
     // padding: "120px 20px 50px",

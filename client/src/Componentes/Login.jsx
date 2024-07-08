@@ -26,26 +26,24 @@ const Login = () => {
 
   const { setLogged } = useContext(AppContext);
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    
     const comprador = compradores.find(
       (comprador) => comprador.email === email && comprador.senha === password
     );
-
+    console.log(comprador)
     if (comprador) {
-      setRedirect(true);
       setLogged(true);
+      setRedirect(true);
     } else {
       setLoginError(true);
     }
 
     console.log("Dados de Login:", { email, password });
   };
-
-  if (redirect) {
-    return <Navigate to="/" replace={true} />;
-  }
 
   useEffect(() => {
     async function fetchData() {
@@ -59,8 +57,10 @@ const Login = () => {
 
     fetchData();
   }, []);
-
-  return (
+  if (redirect) {
+    return <Navigate to="/" replace={true} />;
+  }
+  else {return (
     <Container maxWidth="xs">
       <Paper elevation={3} sx={{ padding: 3, mt: 5 }}>
         <form onSubmit={handleSubmit}>
@@ -142,7 +142,7 @@ const Login = () => {
         </form>
       </Paper>
     </Container>
-  );
+  );}
 };
 
 export default Login;

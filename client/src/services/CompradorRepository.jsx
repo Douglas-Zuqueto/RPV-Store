@@ -1,6 +1,5 @@
 import api from './base/api'
 
-
 const CompradorRepository = {
     getAllCompradores: async () => {
         try {
@@ -12,9 +11,9 @@ const CompradorRepository = {
         }
       },
 
-      createComprador: async () => {
+      createComprador: async (data) => {
         try {
-          const response = await api.get(`http://localhost:3000/Registrar`);
+          const response = await api.post('http://localhost:3000/Registrar', data);
           return response.data;
         } catch (error) {
           console.error(`Erro ao criar Compradores:`, error);
