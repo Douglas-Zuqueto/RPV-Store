@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Chat from '../Componentes/Chat';
+import Chat from "../Componentes/Chat";
 import produtosRepository from "../services/produtosRepository";
 import {
   Grid,
@@ -15,14 +15,20 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import Modal from '@mui/material/Modal';
+import Modal from "@mui/material/Modal";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 function TabelaProdutos() {
   const [produtos, setProdutos] = useState([]);
   const [open, setOpen] = useState(false);
-  const [currentProduto, setCurrentProduto] = useState({ id: '', nome: '', descricao: '', preco: '' });
+  const [currentProduto, setCurrentProduto] = useState({
+    id: "",
+    nome: "",
+    descricao_detalhada: "",
+    preco: "",
+    qnt_estoque: "",
+  });
 
   useEffect(() => {
     async function fetchData() {
@@ -30,7 +36,7 @@ function TabelaProdutos() {
         const produtosBD = await produtosRepository.getAllProdutos();
         setProdutos(produtosBD);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     }
     fetchData();
@@ -43,7 +49,13 @@ function TabelaProdutos() {
 
   const handleClose = () => {
     setOpen(false);
-    setCurrentProduto({ id: '', nome: '', descricao: '', preco: '' });
+    setCurrentProduto({
+      id: "",
+      nome: "",
+      descricao_detalhada: "",
+      preco: "",
+      qnt_estoque: "",
+    });
   };
 
   const handleChange = (e) => {
@@ -53,7 +65,10 @@ function TabelaProdutos() {
 
   const handleEdit = async () => {
     try {
-      await produtosRepository.updateProdutos(currentProduto.id, currentProduto);
+      await produtosRepository.updateProdutos(
+        currentProduto.id,
+        currentProduto
+      );
       setProdutos((prevProdutos) =>
         prevProdutos.map((produto) =>
           produto.id === currentProduto.id ? currentProduto : produto
@@ -61,7 +76,7 @@ function TabelaProdutos() {
       );
       handleClose();
     } catch (error) {
-      console.error('Erro', error);
+      console.error("Erro", error);
     }
   };
 
@@ -72,7 +87,7 @@ function TabelaProdutos() {
         prevProdutos.filter((produto) => produto.id !== id)
       );
     } catch (error) {
-      console.error('Error deleting product:', error);
+      console.error("Erro ao deletar produto", error);
     }
   };
 
@@ -95,6 +110,7 @@ function TabelaProdutos() {
                     <TableCell>Nome</TableCell>
                     <TableCell>Descrição</TableCell>
                     <TableCell align="right">Preço</TableCell>
+                    <TableCell align="right">Qnt. Estoque</TableCell>
                     <TableCell align="right">Ações</TableCell>
                   </TableRow>
                 </TableHead>
@@ -103,20 +119,21 @@ function TabelaProdutos() {
                     <TableRow key={produto.id}>
                       <TableCell>{produto.id}</TableCell>
                       <TableCell>{produto.nome}</TableCell>
-                      <TableCell>{produto.descricao}</TableCell>
+                      <TableCell>{produto.descricao_detalhada}</TableCell>
                       <TableCell align="right">{produto.preco}</TableCell>
+                      <TableCell align="right">{produto.qnt_estoque}</TableCell>
                       <TableCell align="right">
                         <IconButton
                           color="primary"
                           onClick={() => handleOpen(produto)}
                         >
-                          <EditIcon />
+                          <EditIcon color="success" />
                         </IconButton>
                         <IconButton
                           color="error"
                           onClick={() => handleDelete(produto.id)}
                         >
-                          <DeleteIcon />
+                          <DeleteIcon color="success" />
                         </IconButton>
                       </TableCell>
                     </TableRow>
@@ -138,7 +155,14 @@ function TabelaProdutos() {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <div style={{ padding: 20, background: 'white', margin: '10% auto', width: '50%' }}>
+        <div
+          style={{
+            padding: 20,
+            background: "white",
+            margin: "10% auto",
+            width: "50%",
+          }}
+        >
           <Typography id="modal-title" variant="h6" component="h2">
             Editar Produto
           </Typography>
@@ -148,6 +172,7 @@ function TabelaProdutos() {
               fullWidth
               label="Nome"
               name="nome"
+              color="success"
               value={currentProduto.nome}
               onChange={handleChange}
             />
@@ -155,8 +180,9 @@ function TabelaProdutos() {
               margin="normal"
               fullWidth
               label="Descrição"
-              name="descricao"
-              value={currentProduto.descricao}
+              name="descricao_detalhada"
+              color="success"
+              value={currentProduto.descricao_detalhada}
               onChange={handleChange}
             />
             <TextField
@@ -164,6 +190,7 @@ function TabelaProdutos() {
               fullWidth
               label="Preço"
               name="preco"
+              color="success"
               value={currentProduto.preco}
               onChange={handleChange}
             />
@@ -171,15 +198,16 @@ function TabelaProdutos() {
               margin="normal"
               fullWidth
               label="Quantidade"
-              name="quantidade"
-              value={currentProduto.quantidade}
+              name="qnt_estoque"
+              color="success"
+              value={currentProduto.qnt_estoque}
               onChange={handleChange}
             />
             <Button
               type="button"
               fullWidth
               variant="contained"
-              color="primary"
+              color="success"
               onClick={handleEdit}
               style={{ marginTop: 20 }}
             >
