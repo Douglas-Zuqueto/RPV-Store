@@ -14,6 +14,7 @@ import TabelaProdutos from "./Componentes/TabelaProdutos";
 import Login from "./Componentes/Login";
 import FinalizarCompra from "./Componentes/FinalizarCompra";
 import Registrar from "./Componentes/Registrar";
+import Estoque from "./Componentes/Estoque";
 
 function App() {
   return (
@@ -22,19 +23,23 @@ function App() {
         <Routes>
           <Route path="/" element={<Sidebar />}>
             <Route index element={<Produtos />} />
-            <Route path="/categorias" element={<Categorias/>} />
+            <Route path="/categorias" element={<Categorias />} />
             <Route path="/historico" element={<FormProdutos />} />
             <Route path="/sobre" element={<Sobre />} />
-            <Route path="/perguntasFrequentes" element={<PerguntasFrequentes />} />
+            <Route
+              path="/perguntasFrequentes"
+              element={<PerguntasFrequentes />}
+            />
             <Route path="/categorias/masculinas" element={<CategoriasM />} />
             <Route path="/categorias/femininas" element={<CategoriasF />} />
+            <Route path="/TabelaProdutos" element={<TabelaProdutos />} />
+            <Route path="/estoque" element={<Estoque />} />
+            <Route path="/addNovoProduto" element={<FormProdutos />} />
           </Route>
-          <Route path="/Login" element = {<Login/>} />
-          <Route path="/Registrar" element = {<Registrar/>} />
-          <Route path="/FinalizarCompra" element = {<FinalizarCompra/>} />
-          <Route path="/TabelaProdutos" element = {<TabelaProdutos/>} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Registrar" element={<Registrar />} />
+          <Route path="/FinalizarCompra" element={<FinalizarCompra />} />
         </Routes>
-        
       </Router>
     </Provider>
   );

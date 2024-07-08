@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/react-in-jsx-scope */
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { Outlet, Link } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
@@ -33,7 +33,10 @@ import {
   Info as InfoIcon,
 } from "@mui/icons-material";
 
-
+import OutputIcon from "@mui/icons-material/Output";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import TableRowsIcon from "@mui/icons-material/TableRows";
 
 // Componentes locais
 import BarraDePesquisa from "./BarraDePesquisa";
@@ -43,6 +46,7 @@ import BotaoTema from "./BotaoTema";
 
 // Imagem
 import Logo from "../assets/Logo.png";
+import AppContext from "../context/AppContext";
 
 const drawerWidth = 240;
 
@@ -51,14 +55,26 @@ function Sidebar(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Produtos");
+
+  const { logged, setLogged } = useContext(AppContext);
   // const [selectedContent, setSelectedContent] = useState("Produtos");
   // const navigate = useNavigate();
+
+  const StyledBotao = {
+    background: `linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))`,
+    borderRadius: "8px",
+    display: "flex",
+    gap: "5px",
+    alignItems: "center",
+    padding: "8px",
+    margin: "10px",
+    color: "#FFFF",
+  };
 
   // Estado para o menu mobile
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  // Funções para abrir e fechar o menu mobile
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -97,24 +113,19 @@ function Sidebar(props) {
         <CarrinhoDeCompras />
       </MenuItem>
       <MenuItem onClick={handleMobileMenuClose}>
-        <Link to={"/Login"} style={{ textDecoration: "none" }}>
-          <Button
-            style={{
-              background: `linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))`,
-              borderRadius: "8px",
-              display: "flex",
-              gap: "5px",
-              alignItems: "center",
-              padding: "8px",
-              margin: "10px",
-              color: "#FFFF",
-              // text-decoration: none;
-            }}
-          >
-            <PersonIcon />
-            Entrar
+        {logged ? (
+          <Button style={StyledBotao} onClick={() => setLogged(false)}>
+            <OutputIcon />
+            Sair
           </Button>
-        </Link>
+        ) : (
+          <Link to={"/Login"} style={{ textDecoration: "none" }}>
+            <Button style={StyledBotao}>
+              <PersonIcon />
+              Entrar
+            </Button>
+          </Link>
+        )}
       </MenuItem>
     </Menu>
   );
@@ -136,6 +147,22 @@ function Sidebar(props) {
   };
 
   // Itens do menu lateral
+  // eslint-disable-next-line no-unused-vars
+  const itemsAdmin = [
+    { text: "Produtos", icon: <TableRowsIcon />, route: "/TabelaProdutos" },
+    {
+      text: "Estoque",
+      icon: <BarChartIcon />,
+      route: "/estoque",
+    },
+    {
+      text: "Adicionar Novo Produto",
+      icon: <AddCircleIcon />,
+      route: "/addNovoProduto",
+    },
+  ];
+
+  // eslint-disable-next-line no-unused-vars
   const items = [
     { text: "Produtos", icon: <AppsIcon />, route: "/" },
     {
@@ -167,7 +194,7 @@ function Sidebar(props) {
       </div>
       <Divider />
       <List>
-        {items.map((item) => (
+        {itemsAdmin.map((item) => (
           <ListItem key={item.text} disablePadding style={{ width: "100%" }}>
             <Link
               to={item.route}
@@ -240,24 +267,19 @@ function Sidebar(props) {
             >
               <NotificationsIcon />
             </IconButton>
-            <Link to={"/Login"} style={{ textDecoration: "none" }}>
-              <Button
-                style={{
-                  background: `linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))`,
-                  borderRadius: "8px",
-                  display: "flex",
-                  gap: "5px",
-                  alignItems: "center",
-                  padding: "8px",
-                  margin: "10px",
-                  color: "#FFFF",
-                  // text-decoration: none;
-                }}
-              >
-                <PersonIcon />
-                Entrar
+            {logged ? (
+              <Button style={StyledBotao} onClick={() => setLogged(false)}>
+                <OutputIcon />
+                Sair
               </Button>
-            </Link>
+            ) : (
+              <Link to={"/Login"} style={{ textDecoration: "none" }}>
+                <Button style={StyledBotao}>
+                  <PersonIcon />
+                  Entrar
+                </Button>
+              </Link>
+            )}
           </Box>
           {/* Ícone de mais opções no modo mobile */}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>

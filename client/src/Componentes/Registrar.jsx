@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Container,
   TextField,
@@ -18,16 +18,19 @@ import {
 import { Link, Navigate } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import CompradorRepository from "../services/CompradorRepository";
+import AppContext from "../context/AppContext";
 
 const Registrar = () => {
   const [showAlert, setShowAlert] = useState(false);
-  const [fullName, setFullName] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [cpf, setCpf] = useState("");
   const [redirectToLogin, setRedirectToLogin] = useState(false);
   const [values, setValues] = useState();
+
+  const { fullName, setFullName } = useContext(AppContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -36,7 +39,7 @@ const Registrar = () => {
     setTimeout(() => {
       setShowAlert(false);
       setRedirectToLogin(true);
-    }, 3000);
+    }, 1000);
 
     console.log("Dados de Registro:", {
       fullName,
@@ -66,8 +69,7 @@ const Registrar = () => {
       senha: values.password,
       telefone: values.phone,
       cpf: values.cpf,
-    })
-    .then((response) => {
+    }).then((response) => {
       console.log(response);
     });
 
@@ -79,11 +81,13 @@ const Registrar = () => {
       <Paper elevation={3} sx={{ padding: 3, mt: 5 }}>
         <form onSubmit={handleSubmit} onChange={handleChangeValues}>
           <Typography variant="h5" align="center" gutterBottom>
-            <img
-              src={Logo}
-              alt="Logo"
-              style={{ width: "150px", height: "auto", margin: "30px" }}
-            />
+            <Link to={"/"}>
+              <img
+                src={Logo}
+                alt="Logo"
+                style={{ width: "150px", height: "auto", margin: "30px" }}
+              />
+            </Link>
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <AccountCircle sx={{ mr: 1, color: "action.active" }} />

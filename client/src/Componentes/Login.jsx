@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Container,
   TextField,
@@ -9,53 +9,69 @@ import {
   Box,
   FormControlLabel,
   Checkbox,
+  Alert,
 } from "@mui/material";
 import { AccountCircle, Lock } from "@mui/icons-material";
-import { Link ,  Navigate} from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import CompradorRepository from "../services/CompradorRepository";
+import AppContext from "../context/AppContext";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setredirect] = useState(false);
-  const [produtos, setProdutos] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+  const [compradores, setCompradores] = useState([]);
+  const [loginError, setLoginError] = useState(false);
+
+  const { setLogged } = useContext(AppContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setredirect(true);
-    console.log("Dados de Login:", { username, password });
+
+    const comprador = compradores.find(
+      (comprador) => comprador.email === email && comprador.senha === password
+    );
+
+    if (comprador) {
+      setRedirect(true);
+      setLogged(true);
+    } else {
+      setLoginError(true);
+    }
+
+    console.log("Dados de Login:", { email, password });
   };
 
   if (redirect) {
     return <Navigate to="/" replace={true} />;
   }
 
- 
-  
   useEffect(() => {
     async function fetchData() {
       try {
-        const compradoresBD = await CompradorRepository.getAllCompradores()
-        setProdutos(compradoresBD);
+        const compradoresBD = await CompradorRepository.getAllCompradores();
+        setCompradores(compradoresBD);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     }
 
     fetchData();
-  },  [produtos, setProdutos]);
+  }, []);
 
   return (
     <Container maxWidth="xs">
       <Paper elevation={3} sx={{ padding: 3, mt: 5 }}>
         <form onSubmit={handleSubmit}>
           <Typography variant="h5" align="center" gutterBottom>
-            <img
-              src={Logo}
-              alt="Logo"
-              style={{ width: "150px", height: "auto", margin: "30px" }}
-            />
+            <Link to={"/"}>
+              <img
+                src={Logo}
+                alt="Logo"
+                style={{ width: "150px", height: "auto", margin: "30px" }}
+              />
+            </Link>
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -66,8 +82,8 @@ const Login = () => {
               required
               fullWidth
               color="success"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -82,6 +98,11 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Box>
+          {loginError && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              E-mail ou senha incorretos.
+            </Alert>
+          )}
           <Grid
             container
             justifyContent="space-between"

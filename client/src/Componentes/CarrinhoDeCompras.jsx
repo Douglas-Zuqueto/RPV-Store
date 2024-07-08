@@ -15,7 +15,7 @@ import AppContext from "../context/AppContext";
 import { Link } from "react-router-dom";
 
 export default function CarrinhoDeCompras() {
-  const { cartItems } = React.useContext(AppContext);
+  const { cartItems, logged } = React.useContext(AppContext);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -68,7 +68,7 @@ export default function CarrinhoDeCompras() {
         <Typography variant="h6" align="center">
           Total: {totalCompra.toFixed(2)}
         </Typography>
-        <Link to={"/FinalizarCompra"}>
+        <Link to={logged ? "/FinalizarCompra" : "/Login"}>
           <Button>Finalizar Compra</Button>
         </Link>
       </List>
