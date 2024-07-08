@@ -22,6 +22,7 @@ exports.getCategoriasAll = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 exports.getCategoriasByMale = async (req, res) => {
   try {
     const categoria = await CategoriaModel.read('M');

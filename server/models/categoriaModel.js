@@ -16,6 +16,7 @@ class CategoriaModel {
     const sql = "SELECT * FROM categorias WHERE genero = ?";
     return this.executeSQL(sql, genero);
   }
+
   readAll() {
     const sql = "SELECT * FROM categorias ";
     return this.executeSQL(sql);
