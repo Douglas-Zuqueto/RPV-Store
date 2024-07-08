@@ -24,13 +24,13 @@ const Registrar = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
+  const [senha, setSenha] = useState("");
+  const [telefone, setTelefone] = useState("");
   const [cpf, setCpf] = useState("");
   const [redirectToLogin, setRedirectToLogin] = useState(false);
   const [values, setValues] = useState();
 
-  const { fullName, setFullName } = useContext(AppContext);
+  const { nome, setNome } = useContext(AppContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,10 +42,10 @@ const Registrar = () => {
     }, 1000);
 
     console.log("Dados de Registro:", {
-      fullName,
+      nome,
       email,
-      password,
-      phone,
+      senha,
+      telefone,
       cpf,
     });
   };
@@ -55,7 +55,6 @@ const Registrar = () => {
   }
 
   const handleChangeValues = (values) => {
-    console.log(values);
     setValues((prevValue) => ({
       ...prevValue,
       [values.target.name]: values.target.value,
@@ -64,16 +63,14 @@ const Registrar = () => {
 
   const handleClickButton = () => {
     CompradorRepository.createComprador({
-      nome: values.fullName,
+      nome: values.nome,
       email: values.email,
-      senha: values.password,
-      telefone: values.phone,
+      senha: values.senha,
+      telefone: values.telefone,
       cpf: values.cpf,
     }).then((response) => {
       console.log(response);
     });
-
-    console.log(values);
   };
 
   return (
@@ -93,18 +90,20 @@ const Registrar = () => {
             <AccountCircle sx={{ mr: 1, color: "action.active" }} />
             <TextField
               type="text"
+              name="nome"
               label="Nome completo"
               required
               color="success"
               fullWidth
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <Email sx={{ mr: 1, color: "action.active" }} />
             <TextField
               type="email"
+              name="email"
               label="E-mail"
               color="success"
               required
@@ -117,29 +116,32 @@ const Registrar = () => {
             <Lock sx={{ mr: 1, color: "action.active" }} />
             <TextField
               type="password"
+              name="senha"
               label="Senha"
               color="success"
               required
               fullWidth
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <Phone sx={{ mr: 1, color: "action.active" }} />
             <TextField
               type="tel"
+              name="telefone"
               label="Telefone"
               color="success"
               fullWidth
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <Fingerprint sx={{ mr: 1, color: "action.active" }} />
             <TextField
               type="text"
+              name="cpf"
               label="CPF"
               color="success"
               fullWidth

@@ -15,7 +15,6 @@ const produtosRepository = {
       createProdutos: async (data) => {
         try {
           const response = await api.post('http://localhost:3000/historico',  data);
-          console.log("response.data", response.data);
           return response.data;
         } catch (error) {
           console.error(`Erro ao criar produtos:`, error);
