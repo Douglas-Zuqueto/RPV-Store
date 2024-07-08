@@ -12,6 +12,8 @@ import Divider from "@mui/material/Divider";
 import ItemCarrinho from "./ItemCarrinho";
 import AppContext from "../context/AppContext";
 
+import { Link } from "react-router-dom";
+
 export default function CarrinhoDeCompras() {
   const { cartItems } = React.useContext(AppContext);
   const [state, setState] = React.useState({
@@ -29,8 +31,8 @@ export default function CarrinhoDeCompras() {
     setState({ ...state, [anchor]: open });
   };
   let totalCompra = cartItems.reduce((acc, item) => {
-      return parseFloat(item.preco) + parseFloat(acc);
-  }, 0)
+    return parseFloat(item.preco) + parseFloat(acc);
+  }, 0);
 
   const list = (anchor) => (
     <Box
@@ -66,6 +68,9 @@ export default function CarrinhoDeCompras() {
         <Typography variant="h6" align="center">
           Total: {totalCompra.toFixed(2)}
         </Typography>
+        <Link to={"/FinalizarCompra"}>
+          <Button>Finalizar Compra</Button>
+        </Link>
       </List>
     </Box>
   );

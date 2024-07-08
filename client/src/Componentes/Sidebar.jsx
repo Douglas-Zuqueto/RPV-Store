@@ -3,11 +3,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Outlet, Link } from "react-router-dom";
+import PersonIcon from "@mui/icons-material/Person";
 
 // Componentes do Material-UI
 import {
   AppBar,
   Box,
+  Button,
   Divider,
   Drawer,
   IconButton,
@@ -22,7 +24,6 @@ import {
 } from "@mui/material";
 
 import {
-  ShoppingCart as ShoppingCartIcon,
   Notifications as NotificationsIcon,
   MoreVert as MoreIcon,
   Apps as AppsIcon,
@@ -32,18 +33,16 @@ import {
   Info as InfoIcon,
 } from "@mui/icons-material";
 
+
+
 // Componentes locais
 import BarraDePesquisa from "./BarraDePesquisa";
 import CarrinhoDeCompras from "./CarrinhoDeCompras";
-import Perfil from "./Perfil";
+
 import BotaoTema from "./BotaoTema";
-// import FormProdutos from "./FormProdutos";
-// import Produtos from "./Produtos";
 
 // Imagem
 import Logo from "../assets/Logo.png";
-// import Categorias from "./Categorias";
-// import PerguntasFrequentes from "./PerguntasFrequentes";
 
 const drawerWidth = 240;
 
@@ -91,17 +90,31 @@ function Sidebar(props) {
       onClose={handleMobileMenuClose}
     >
       {/* Itens do menu mobile */}
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <ShoppingCartIcon />
-        </IconButton>
+      <MenuItem onClick={handleMobileMenuClose}>
+        <NotificationsIcon />
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={handleMobileMenuClose}>
         <CarrinhoDeCompras />
-        <p>Carrinho</p>
       </MenuItem>
-      <MenuItem>
-        <Perfil />
+      <MenuItem onClick={handleMobileMenuClose}>
+        <Link to={"/Login"} style={{ textDecoration: "none" }}>
+          <Button
+            style={{
+              background: `linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))`,
+              borderRadius: "8px",
+              display: "flex",
+              gap: "5px",
+              alignItems: "center",
+              padding: "8px",
+              margin: "10px",
+              color: "#FFFF",
+              // text-decoration: none;
+            }}
+          >
+            <PersonIcon />
+            Entrar
+          </Button>
+        </Link>
       </MenuItem>
     </Menu>
   );
@@ -131,7 +144,11 @@ function Sidebar(props) {
       route: "/categorias",
     },
     { text: "Histórico", icon: <ArticleIcon />, route: "/historico" },
-    { text: "Perguntas Frequentes", icon: <HelpIcon />, route: "/perguntasFrequentes" },
+    {
+      text: "Perguntas Frequentes",
+      icon: <HelpIcon />,
+      route: "/perguntasFrequentes",
+    },
     { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
   ];
 
@@ -150,7 +167,6 @@ function Sidebar(props) {
       </div>
       <Divider />
       <List>
-        {/* Renderização dos itens do menu */}
         {items.map((item) => (
           <ListItem key={item.text} disablePadding style={{ width: "100%" }}>
             <Link
@@ -161,7 +177,10 @@ function Sidebar(props) {
                 width: "100%",
                 textDecoration: "none",
                 color: "inherit",
-                background: selectedItem === item.text ? 'linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))' : 'inherit',
+                background:
+                  selectedItem === item.text
+                    ? "linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))"
+                    : "inherit",
               }}
             >
               <ListItemButton>
@@ -175,8 +194,6 @@ function Sidebar(props) {
       <Divider />
     </div>
   );
-
-
 
   // Container para o drawer
   const container =
@@ -223,7 +240,24 @@ function Sidebar(props) {
             >
               <NotificationsIcon />
             </IconButton>
-            <Perfil />
+            <Link to={"/Login"} style={{ textDecoration: "none" }}>
+              <Button
+                style={{
+                  background: `linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))`,
+                  borderRadius: "8px",
+                  display: "flex",
+                  gap: "5px",
+                  alignItems: "center",
+                  padding: "8px",
+                  margin: "10px",
+                  color: "#FFFF",
+                  // text-decoration: none;
+                }}
+              >
+                <PersonIcon />
+                Entrar
+              </Button>
+            </Link>
           </Box>
           {/* Ícone de mais opções no modo mobile */}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>

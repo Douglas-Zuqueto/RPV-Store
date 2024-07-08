@@ -10,6 +10,10 @@ import Sobre from "./Componentes/Sobre";
 import PerguntasFrequentes from "./Componentes/PerguntasFrequentes";
 import CategoriasM from "./Componentes/CategoriasM";
 import CategoriasF from "./Componentes/CategoriasF";
+import TabelaProdutos from "./Componentes/TabelaProdutos";
+import Login from "./Componentes/Login";
+import FinalizarCompra from "./Componentes/FinalizarCompra";
+import Registrar from "./Componentes/Registrar";
 
 function App() {
   return (
@@ -25,7 +29,12 @@ function App() {
             <Route path="/categorias/masculinas" element={<CategoriasM />} />
             <Route path="/categorias/femininas" element={<CategoriasF />} />
           </Route>
+          <Route path="/Login" element = {<Login/>} />
+          <Route path="/Registrar" element = {<Registrar/>} />
+          <Route path="/FinalizarCompra" element = {<FinalizarCompra/>} />
+          <Route path="/TabelaProdutos" element = {<TabelaProdutos/>} />
         </Routes>
+        
       </Router>
     </Provider>
   );

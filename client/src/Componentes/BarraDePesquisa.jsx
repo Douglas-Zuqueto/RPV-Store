@@ -16,16 +16,13 @@ const temaDiv = {
   padding: "6px",
   borderRadius: "10px",
   border: "1px solid rgba(126, 217, 87)",
-  // "&:hover": {
-  //   border: `10px solid linear-gradient(45deg, rgba(0, 151, 178, 0.1), rgba(126, 217, 87, 0.1))`,
-  // },
 };
 
 function BarraDePesquisa() {
   const [searchValue, setSearchValue] = useState("");
 
   const handleSearch = (event) => {
-    event.preventDefault(); // Prevenir o comportamento padrão do formulário
+    event.preventDefault();
     setSearchValue("");
     alert("teste");
   };
