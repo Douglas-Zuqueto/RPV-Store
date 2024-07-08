@@ -10,6 +10,18 @@ exports.createCategoria = async (req, res) => {
   }
 };
 
+exports.getCategoriasAll = async (req, res) => {
+  try {
+    const categoria = await CategoriaModel.readAll();
+    if (categoria) {
+      res.status(200).json(categoria);
+    } else {
+      res.status(404).json({ message: 'Categoria não encontrada' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 exports.getCategoriasByMale = async (req, res) => {
   try {
     const categoria = await CategoriaModel.read('M');

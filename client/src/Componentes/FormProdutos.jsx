@@ -11,31 +11,37 @@ import {
 } from "@mui/material";
 import AppContext from "../context/AppContext";
 import produtosRepository from "../services/produtosRepository";
+import categoriasRepository from "../services/categoriaRepository";
 
 export default function FormProdutos() {
-
   const [values, setValues] = useState();
+  const [categorias, setCategorias] = useState([]);
 
-const handleChangeValues = (values) => {
-  console.log(values);
-  setValues((prevValue) => ({
-    ...prevValue,
-    [values.target.name]: values.target.value,
-  }))
-};
+  const handleChangeValues = (values) => {
+    console.log(values);
+    setValues((prevValue) => ({
+      ...prevValue,
+      [values.target.name]: values.target.value,
+    }));
+  };
 
-const handleClickButton = () => {
-  produtosRepository.createProdutos({
-    nome: values.nome,
-    preco: values.preco,
-    descricao_detalhada: values.descricao_detalhada,
-    imagem: values.imagem,
-    qnt_estoque: values.qnt_estoque,
-    categoria_id: "7", 
-  }).then((response) => {
-    console.log(response);
-  })
-}
+  const handleClickButton = () => {
+    produtosRepository
+      .createProdutos({
+        nome: values.nome,
+        preco: values.preco,
+        descricao_detalhada: values.descricao_detalhada,
+        imagem: values.imagem,
+        qnt_estoque: values.qnt_estoque,
+        categoria_id: values.categoria,
+      })
+
+      .then((response) => {
+        console.log(response);
+      });
+
+    console.log(values);
+  };
 
   const {
     selectedFile,
@@ -76,6 +82,21 @@ const handleClickButton = () => {
     };
     localStorage.setItem("formData", JSON.stringify(formData));
   }, [nome, descricao, preco, quantidade, categoria]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const categoriasBD = await categoriasRepository.getCategoriasAll();
+        console.log(categoriasBD);
+        console.log(categoriasBD.data);
+        setCategorias(categoriasBD);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -149,7 +170,7 @@ const handleClickButton = () => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-             color="success"
+              color="success"
               label="Preço"
               name="preco"
               variant="outlined"
@@ -213,13 +234,20 @@ const handleClickButton = () => {
               onChange={(e) => setCategoria(e.target.value)}
               color="success"
             >
-              <MenuItem value={6}>Categoria 1</MenuItem>
-              <MenuItem value={7}>Categoria 2</MenuItem>
-              <MenuItem value={8}>Categoria 3</MenuItem>
+              {categorias.map((categoria) => (
+                <MenuItem value={categoria.id} key={categoria.id}>
+                  {categoria.nome}
+                </MenuItem>
+              ))}
             </Select>
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="success" onClick={() => handleClickButton()}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="success"
+              onClick={() => handleClickButton()}
+            >
               Adicionar Produto
             </Button>
           </Grid>

@@ -1,4 +1,4 @@
-const dbConnection = require('../db/dbConnection.js')
+const dbConnection = require("../db/dbConnection.js");
 
 class CategoriaModel {
   executeSQL(sql, parameters = "") {
@@ -12,9 +12,13 @@ class CategoriaModel {
     });
   }
 
-    read(genero) {
+  read(genero) {
     const sql = "SELECT * FROM categorias WHERE genero = ?";
     return this.executeSQL(sql, genero);
+  }
+  readAll() {
+    const sql = "SELECT * FROM categorias ";
+    return this.executeSQL(sql);
   }
 
   create(newCategoria) {
