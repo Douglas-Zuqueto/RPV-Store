@@ -13,6 +13,7 @@
     "@clerk/clerk-react": "^5.2.5",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@mercadopago/sdk-js": "^0.0.3",
     "@mui/icons-material": "^5.15.20",
     "@mui/material": "^5.15.20",
     "@mui/x-charts": "^7.9.0",
@@ -20,6 +21,7 @@
     "dotenv": "^16.4.5",
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^3.0.0",
+    "mercadopago": "^2.0.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.24.0"
