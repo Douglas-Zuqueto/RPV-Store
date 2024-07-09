@@ -34,7 +34,6 @@ const Login = () => {
 
     if (comprador) {
       setLogged(true);
-      localStorage.setItem("logged", JSON.stringify(true));
       setRedirect(true);
     } else {
       setLoginError(true);
