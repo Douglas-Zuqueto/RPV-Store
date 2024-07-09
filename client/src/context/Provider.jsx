@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AppContext from "./AppContext";
 import PropTypes from "prop-types";
 
@@ -15,6 +15,26 @@ function Provider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [logged, setLogged] = useState();
   const [fullName, setFullName] = useState("");
+
+  useEffect(() => {
+    const salvarCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    if (salvarCartItems.length > 0) {
+      setCartItems(salvarCartItems);
+    }
+  }, [setCartItems]);
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  useEffect(() => {
+    const salvarLogged = localStorage.getItem("logged");
+    setLogged(salvarLogged);
+  }, [setLogged]);
+
+  useEffect(() => {
+    localStorage.setItem("logged", JSON.stringify(logged));
+  }, [logged]);
 
   const value = {
     loading,
@@ -37,7 +57,8 @@ function Provider({ children }) {
     setCartItems,
     logged,
     setLogged,
-    fullName, setFullName
+    fullName,
+    setFullName,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

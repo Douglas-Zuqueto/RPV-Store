@@ -135,10 +135,7 @@ function Sidebar(props) {
     setMobileOpen(false);
   };
 
-  React.useEffect(() => {
-    const salvarLogged = localStorage.getItem("logged") === "true";
-    setLogged(salvarLogged);
-  }, [setLogged]);
+
 
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
@@ -167,6 +164,7 @@ function Sidebar(props) {
     },
   ];
 
+  // eslint-disable-next-line no-unused-vars
   const items = [
     { text: "Produtos", icon: <AppsIcon />, route: "/" },
     {
@@ -199,7 +197,7 @@ function Sidebar(props) {
       </div>
       <Divider />
       <List>
-        {items.map((item) => (
+        {itemsAdmin.map((item) => (
           <ListItem key={item.text} disablePadding style={{ width: "100%" }}>
             <Link
               to={item.route}

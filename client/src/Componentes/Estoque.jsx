@@ -1,17 +1,32 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import Paper from "@mui/material/Paper";
-// import Typography from "@mui/material/Typography";
+import produtosRepository from "../services/produtosRepository";
 
 function Estoque() {
+  const [produtos, setProdutos] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const produtosBD = await produtosRepository.getAllProdutos();
+        setProdutos(produtosBD);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <Paper elevation={3} style={{ padding: "20px" }}>
       <BarChart
-        series={[{ data: [35, 44, 24, 34] }]}
+        series={[{ data: produtos.map((produto) => produto.qnt_estoque) }]}
         height={290}
         xAxis={[
           {
-            data: ["Produto 1", "Produto 2", "Produto 3", "Produto 4"],
+            data: produtos.map((produto) => produto.nome),
             scaleType: "band",
           },
         ]}

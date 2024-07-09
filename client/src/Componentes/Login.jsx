@@ -25,11 +25,6 @@ const Login = () => {
   const [loginError, setLoginError] = useState(false);
   const { setLogged } = useContext(AppContext);
 
-  useEffect(() => {
-    const salvarLogged = localStorage.getItem("logged") === "true";
-    setLogged(salvarLogged);
-  }, [setLogged]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -39,7 +34,7 @@ const Login = () => {
 
     if (comprador) {
       setLogged(true);
-      localStorage.setItem("logged", "true");
+      localStorage.setItem("logged", JSON.stringify(true));
       setRedirect(true);
     } else {
       setLoginError(true);

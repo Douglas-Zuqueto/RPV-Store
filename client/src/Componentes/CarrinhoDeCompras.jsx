@@ -14,8 +14,7 @@ import AppContext from "../context/AppContext";
 import { Link } from "react-router-dom";
 
 export default function CarrinhoDeCompras() {
-  const { cartItems, setCartItems, logged, setLogged } =
-    React.useContext(AppContext);
+  const { cartItems, logged } = React.useContext(AppContext);
   const [state, setState] = React.useState({
     right: false,
   });
@@ -34,22 +33,6 @@ export default function CarrinhoDeCompras() {
   let totalCompra = cartItems.reduce((acc, item) => {
     return parseFloat(item.preco) + parseFloat(acc);
   }, 0);
-
-  React.useEffect(() => {
-    const salvarLogged = localStorage.getItem("logged") === "true";
-    setLogged(salvarLogged);
-  }, [setLogged]);
-
-  React.useEffect(() => {
-    const salvarCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    if (salvarCartItems.length > 0) {
-      setCartItems(salvarCartItems);
-    }
-  }, [setCartItems]);
-
-  React.useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
 
   const list = (anchor) => (
     <Box

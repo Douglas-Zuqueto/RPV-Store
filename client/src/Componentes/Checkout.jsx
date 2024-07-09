@@ -1,4 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import AppContext from "../context/AppContext";
+import Alert from '@mui/material/Alert';
+
 
 function Checkout() {
   const [paid, setPaid] = useState(false);
@@ -7,7 +10,7 @@ function Checkout() {
   let paypalRef = useRef();
 
   const product = {
-    price: 16.70,
+    price: 1.00,
     description: 'Produto teste'
   }
 
@@ -56,16 +59,20 @@ function Checkout() {
     }
   }, [loaded, product.description, product.price]);
 
+  // eslint-disable-next-line no-unused-vars
+  const {cartItems} = useContext(AppContext);
+
   return (
     <div>
       {paid ? (
-        <div>
-          <h1>Parabéns você comprou o produto</h1>
-        </div>
+        <div style={{ marginTop: 10 }}>
+        <Alert severity="success">Compra Finalizada com sucesso!</Alert>
+      </div>
       ) : (
         <div>
+          
           <h1>{product.description} por R${product.price}</h1>
-          <div ref={paypalRef}></div>
+          <div ref={paypalRef}> oiii</div>
         </div>
       )}
     </div>
