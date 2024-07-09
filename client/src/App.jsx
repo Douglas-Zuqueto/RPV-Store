@@ -15,6 +15,8 @@ import Login from "./Componentes/Login";
 import FinalizarCompra from "./Componentes/FinalizarCompra";
 import Registrar from "./Componentes/Registrar";
 import Estoque from "./Componentes/Estoque";
+import Checkout from "./Componentes/Checkout";
+
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
             <Route path="/categorias" element={<Categorias />} />
             <Route path="/historico" element={<FormProdutos />} />
             <Route path="/sobre" element={<Sobre />} />
+            <Route path="/pix" element={<Checkout />} />
+
+            
             <Route
               path="/perguntasFrequentes"
               element={<PerguntasFrequentes />}
@@ -38,7 +43,6 @@ function App() {
           </Route>
           <Route path="/Login" element={<Login />} />
           <Route path="/Registrar" element={<Registrar />} />
-          <Route path="/FinalizarCompra" element={<FinalizarCompra />} />
         </Routes>
       </Router>
     </Provider>
