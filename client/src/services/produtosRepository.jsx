@@ -1,4 +1,5 @@
 import api from './base/api'
+import axios from 'axios'
 
 const produtosRepository = {
     getAllProdutos: async () => {
@@ -14,7 +15,7 @@ const produtosRepository = {
 
       createProdutos: async (data) => {
         try {
-          const response = await api.post('http://localhost:3000/historico',  data);
+          const response = await api.post('http://localhost:3000/produtos',  data);
           return response.data;
         } catch (error) {
           console.error(`Erro ao criar produtos:`, error);
@@ -32,9 +33,13 @@ const produtosRepository = {
         }
       },
 
-      updateProdutos: async (id) => {
+      uploadImage: async (bodyFormData) => {
         try {
-          const response = await api.get(`/produtos/${id}`);
+          const response = await axios({method: "post",
+            url: "http://localhost:3000/produto",
+            data: bodyFormData,
+            headers: {"Content-Type": "multipart/form-data"}
+          })
           return response.data;
         } catch (error) {
           console.error(`Erro ao atualizar produtos:`, error);

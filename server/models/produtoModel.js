@@ -29,9 +29,9 @@ class ProdutoModel {
     return this.executeSQL(sql, values);
   }
 
-  update(updatedProduto, id) {
-    const sql = "UPDATE produtos SET nome = ?, preco = ?, descricao_detalhada = ?, imagem = ?, qnt_estoque = ?  WHERE id = ?";
-    const values = [updatedProduto.nome, updatedProduto.preco, updatedProduto.descricao_detalhada, updatedProduto.imagem, updatedProduto.qnt_estoque, id];
+  updateImagem(updatedProduto, id) {
+    const sql = "UPDATE produtos SET  imagem = ?  WHERE id = ?";
+    const values = [updatedProduto.imagem, id];
     return this.executeSQL(sql, values);
   }
 

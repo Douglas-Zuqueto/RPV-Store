@@ -14,31 +14,15 @@ import produtosRepository from "../services/produtosRepository";
 import categoriasRepository from "../services/categoriaRepository";
 
 export default function FormProdutos() {
+  const [file, setFile] = useState();
   const [values, setValues] = useState();
   const [categorias, setCategorias] = useState([]);
 
   const handleChangeValues = (values) => {
-    console.log(values);
     setValues((prevValue) => ({
       ...prevValue,
       [values.target.name]: values.target.value,
     }));
-  };
-
-  const handleClickButton = () => {
-    const produtoCreate = {
-      nome: values.nome,
-      preco: values.preco,
-      descricao_detalhada: values.descricao_detalhada,
-      imagem: values.imagem,
-      qnt_estoque: values.qnt_estoque,
-      categoria_id: categoria,
-    }
-    produtosRepository.createProdutos(produtoCreate)
-
-      .then((response) => {
-        console.log(response);
-      });
   };
 
   const {
@@ -86,8 +70,25 @@ export default function FormProdutos() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const produtoCreate = {
+      nome: values.nome,
+      preco: values.preco,
+      descricao_detalhada: values.descricao_detalhada,
+      imagem: "",
+      qnt_estoque: values.qnt_estoque,
+      categoria_id: categoria,
+    }
+    produtosRepository.createProdutos(produtoCreate)
 
-    if (!selectedFile) {
+      .then((response) => {
+        const prodId = response.insertId
+        const formData = new FormData();
+        formData.append('image', file)
+        formData.append('id', prodId)
+        produtosRepository.uploadImage(formData)
+      });
+
+    if (!file) {
       alert("Por favor, selecione uma imagem para o produto.");
       return;
     }
@@ -99,7 +100,7 @@ export default function FormProdutos() {
       preco: preco,
       quantidade: quantidade,
       categoria: categoria,
-      imagem: selectedFile.name,
+      imagem: file.name,
     };
 
     setProdutos([...produtos, novoProduto]);
@@ -120,10 +121,7 @@ export default function FormProdutos() {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-    }
+    setFile(e.target.files[0])
   };
 
   return (
@@ -174,7 +172,7 @@ export default function FormProdutos() {
               name="imagem"
               variant="outlined"
               fullWidth
-              value={selectedFile ? selectedFile.name : ""}
+              value={file ? file.name : ""}
               InputProps={{
                 readOnly: true,
               }}
@@ -233,7 +231,6 @@ export default function FormProdutos() {
               type="submit"
               variant="contained"
               color="success"
-              onClick={() => handleClickButton()}
             >
               Adicionar Produto
             </Button>

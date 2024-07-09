@@ -16,6 +16,7 @@ import { Link, Navigate } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import CompradorRepository from "../services/CompradorRepository";
 import AppContext from "../context/AppContext";
+import Utils from "../utils/Funcoes"
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -35,6 +36,10 @@ const Login = () => {
     if (comprador) {
       setLogged(true);
       setRedirect(true);
+      Utils.setCookie('login',JSON.stringify(comprador));
+      const getCookie = Utils.getCookie(JSON.stringify(comprador))
+      console.log(getCookie)
+
     } else {
       setLoginError(true);
     }

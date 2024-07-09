@@ -1,5 +1,6 @@
 const ProdutoModel = require('../models/produtoModel.js')
 
+
 exports.getAllProdutos = async (req, res) => {
   try {
     const produtos = await ProdutoModel.readList();
@@ -11,9 +12,7 @@ exports.getAllProdutos = async (req, res) => {
 
  exports.createProduto = async (req, res) => {
   try {
-    console.log(req);
     const newProduto =req.body
-    console.log(newProduto)
     const produto = await ProdutoModel.create(newProduto);
     res.status(201).json(produto);
   } catch (error) {
@@ -36,10 +35,12 @@ exports.getProdutoByName = async (req, res) => {
   }
 };
 
-exports.updateProduto = async (req, res) => {
+exports.updateImagemProduto = async (req, res) => {
   try {
-    const updatedProduto = req.body;
-    const produto = await ProdutoModel.update(updatedProduto, req.params.id);
+    console.log(req.body)
+    const updatedProduto = req.body.file.filename;
+    console.log(updatedProduto)
+    const produto = await ProdutoModel.updateImagem(updatedProduto, req.id);
     res.json(produto);
   } catch (error) {
     res.status(500).json({ error: error.message });
