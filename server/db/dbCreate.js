@@ -11,7 +11,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Banco de dados conectado com sucesso...");
       this.createDatabase();
     });
   }
@@ -26,7 +25,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Banco de dados criado com sucesso...");
 
       this.connection.query("USE db_ecommerce", (error) => {
         if (error) {
@@ -34,7 +32,6 @@ class eCommerceDatabase {
           console.log(error.message);
           return;
         }
-        console.log("Banco de dados selecionado com sucesso...");
         this.createTable();
       });
     });
@@ -56,7 +53,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela admin criada com sucesso...");
     });
 
     const sqlCompradores = `
@@ -76,7 +72,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela compradores criada com sucesso...");
     });
 
     const sqlCategorias = `
@@ -93,7 +88,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela categorias criada com sucesso...");
     });
 
     const sqlProdutos = `
@@ -102,7 +96,7 @@ class eCommerceDatabase {
           nome VARCHAR(255) NOT NULL,
           preco DECIMAL(10, 2) NOT NULL, 
           descricao_detalhada TEXT, 
-          imagem MEDIUMBLOB,
+          imagem VARCHAR(255) NOT NULL, 
           qnt_estoque INT NOT NULL,
           categoria_id INT, 
           FOREIGN KEY (categoria_id) REFERENCES categorias(id) 
@@ -115,7 +109,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela produtos criada com sucesso...");
     });
 
     const sqlCarrinho = `
@@ -135,7 +128,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela carrinho criada com sucesso...");
     });
 
     const sqlCartoes = `
@@ -157,7 +149,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela cartoes criada com sucesso...");
     });
 
     const sqlChats = `
@@ -175,7 +166,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela chats criada com sucesso...");
     });
 
     const sqlCupons = `
@@ -193,7 +183,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela cupos criada com sucesso...");
     });
 
     const sqlEnderecos = `
@@ -215,7 +204,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela enderecos criada com sucesso...");
     });
 
     const sqlPedidos = `
@@ -241,7 +229,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela pedidos criada com sucesso...");
     });
 
     const sqlHistoricoPedidos = `
@@ -260,7 +247,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela historico_pedidos criada com sucesso...");
     });
 
     const sqlItensPedidos = `
@@ -283,7 +269,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela itens_pedidos criada com sucesso...");
     });
 
     const sqlMensagens = `
@@ -303,7 +288,6 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela mensagens criada com sucesso...");
     });
 
     const sqlPromocoes = `
@@ -323,11 +307,7 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      console.log("Tabela promocoes criada com sucesso...");
     });
-
-
-    
   }
 }
 

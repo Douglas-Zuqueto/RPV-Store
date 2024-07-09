@@ -14,10 +14,10 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AppContext from "../context/AppContext";
 
 function ProdutoCard({ data }) {
-
   const { cartItems, setCartItems } = useContext(AppContext);
 
   const handleAddCart = () => setCartItems([...cartItems, data]);
+  const imagem = data.imagem
 
   return (
     <div>
@@ -25,7 +25,8 @@ function ProdutoCard({ data }) {
         <CardMedia
           component="img"
           height="150"
-          image={data.imagem}
+          image={imagem}
+          src={imagem}
           alt={data.nome}
         />
         <CardContent>
