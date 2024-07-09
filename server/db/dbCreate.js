@@ -101,7 +101,7 @@ class eCommerceDatabase {
           id INT AUTO_INCREMENT PRIMARY KEY,
           nome VARCHAR(255) NOT NULL,
           preco DECIMAL(10, 2) NOT NULL, 
-          descricao TEXT, 
+          descricao_detalhada TEXT, 
           imagem MEDIUMBLOB,
           estoque INT NOT NULL,
           categoria_id INT, 
