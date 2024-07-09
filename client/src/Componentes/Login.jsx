@@ -24,20 +24,18 @@ const Login = () => {
   const [redirect, setRedirect] = useState(false);
   const [compradores, setCompradores] = useState([]);
   const [loginError, setLoginError] = useState(false);
-
   const { setLogged } = useContext(AppContext);
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    
     const comprador = compradores.find(
       (comprador) => comprador.email === email && comprador.senha === password
     );
-    console.log(comprador)
+
     if (comprador) {
       setLogged(true);
+      localStorage.setItem("logged", JSON.stringify(true));
       setRedirect(true);
       Utils.setCookie('login',JSON.stringify(comprador));
       const getCookie = Utils.getCookie(JSON.stringify(comprador))
@@ -62,10 +60,12 @@ const Login = () => {
 
     fetchData();
   }, []);
+
   if (redirect) {
     return <Navigate to="/" replace={true} />;
   }
-  else {return (
+
+  return (
     <Container maxWidth="xs">
       <Paper elevation={3} sx={{ padding: 3, mt: 5 }}>
         <form onSubmit={handleSubmit}>
@@ -147,7 +147,7 @@ const Login = () => {
         </form>
       </Paper>
     </Container>
-  );}
+  );
 };
 
 export default Login;

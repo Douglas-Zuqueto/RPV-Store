@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable react/react-in-jsx-scope */
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { Outlet, Link } from "react-router-dom";
@@ -136,6 +134,8 @@ function Sidebar(props) {
     setIsClosing(true);
     setMobileOpen(false);
   };
+
+
 
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);

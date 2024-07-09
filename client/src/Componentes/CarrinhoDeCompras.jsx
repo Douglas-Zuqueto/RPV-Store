@@ -11,7 +11,6 @@ import Badge from "@mui/material/Badge";
 import Divider from "@mui/material/Divider";
 import ItemCarrinho from "./ItemCarrinho";
 import AppContext from "../context/AppContext";
-
 import { Link } from "react-router-dom";
 
 export default function CarrinhoDeCompras() {
@@ -30,6 +29,7 @@ export default function CarrinhoDeCompras() {
 
     setState({ ...state, [anchor]: open });
   };
+
   let totalCompra = cartItems.reduce((acc, item) => {
     return parseFloat(item.preco) + parseFloat(acc);
   }, 0);
@@ -69,7 +69,7 @@ export default function CarrinhoDeCompras() {
           Total: {totalCompra.toFixed(2)}
         </Typography>
         <Link to={logged ? "/FinalizarCompra" : "/Login"}>
-          <Button>Finalizar Compra</Button>
+          <Button color="success">Finalizar Compra</Button>
         </Link>
       </List>
     </Box>
