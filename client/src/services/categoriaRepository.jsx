@@ -18,7 +18,7 @@ const categoriasRepository = {
       const response = await api.get("http://localhost:3000/categorias");
       return response.data;
     } catch (error) {
-      console.error(`Erro ao buscar categorias `, error);
+      console.error(`Erro ao buscar categorias `, error)
       throw error;
     }
   },
