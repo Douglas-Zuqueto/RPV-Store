@@ -2,6 +2,7 @@ require('dotenv/config'); // To read CLERK_API_KEY
 const cors = require('cors')
 const clerk = require('@clerk/clerk-sdk-node');
 const express = require('express');
+const imageRouter =  require("./routers/imageRoutes.js");
 const port = process.env.PORT;
 const app = express();
 const produtoRouter = require('./routers/produtoRoutes.js')
@@ -35,6 +36,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(produtoRouter);
 app.use(categoriaRouter);
 app.use(compradorRouter);
+
+app.use('/api/images',imageRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
