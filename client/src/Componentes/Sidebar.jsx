@@ -29,6 +29,7 @@ import {
   Article as ArticleIcon,
   Help as HelpIcon,
   Info as InfoIcon,
+  Pix as PixIcon
 } from "@mui/icons-material";
 
 import OutputIcon from "@mui/icons-material/Output";
@@ -153,6 +154,7 @@ function Sidebar(props) {
   // eslint-disable-next-line no-unused-vars
   const itemsAdmin = [
     { text: "Produtos", icon: <TableRowsIcon />, route: "/TabelaProdutos" },
+    { text: "Compra", icon: <PixIcon />, route: "/pix" },
     {
       text: "Estoque",
       icon: <BarChartIcon />,
@@ -179,6 +181,7 @@ function Sidebar(props) {
       route: "/perguntasFrequentes",
     },
     { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
+
   ];
 
   // Estrutura do drawer
