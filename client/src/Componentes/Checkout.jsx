@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 function Checkout() {
-  const [paid, setPaid] = useState(true);
+  const [paid, setPaid] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const paypalRef = useRef();
   // const [redirect, setRedirect] = useState(false);
