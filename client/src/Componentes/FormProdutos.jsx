@@ -26,6 +26,7 @@ export default function FormProdutos() {
   };
 
   const {
+    // eslint-disable-next-line no-unused-vars
     selectedFile,
     setSelectedFile,
     nome,
@@ -77,15 +78,16 @@ export default function FormProdutos() {
       imagem: "",
       qnt_estoque: values.qnt_estoque,
       categoria_id: categoria,
-    }
-    produtosRepository.createProdutos(produtoCreate)
+    };
+    produtosRepository
+      .createProdutos(produtoCreate)
 
       .then((response) => {
-        const prodId = response.insertId
+        const prodId = response.insertId;
         const formData = new FormData();
-        formData.append('image', file)
-        formData.append('id', prodId)
-        produtosRepository.uploadImage(formData)
+        formData.append("image", file);
+        formData.append("id", prodId);
+        produtosRepository.uploadImage(formData);
       });
 
     if (!file) {
@@ -114,14 +116,14 @@ export default function FormProdutos() {
 
     localStorage.removeItem("formData");
 
-    setShowAlert(true); // Mostra o alerta de sucesso
+    setShowAlert(true);
     setTimeout(() => {
-      setShowAlert(false); // Esconde o alerta após 3 segundos
+      setShowAlert(false);
     }, 3000);
   };
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0])
+    setFile(e.target.files[0]);
   };
 
   return (
@@ -219,19 +221,18 @@ export default function FormProdutos() {
               color="success"
             >
               {categorias.map((categoria) => (
-                <MenuItem value={categoria.id} key={categoria.id} onSelect={(e) => setCategorias(e.target.value)}>
-                  {categoria.nome}
+                <MenuItem
+                  value={categoria.id}
+                  key={categoria.id}
+                  onSelect={(e) => setCategorias(e.target.value)}
+                >
+                  {categoria.nome} ({categoria.genero})
                 </MenuItem>
-
               ))}
             </Select>
           </Grid>
           <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="success"
-            >
+            <Button type="submit" variant="contained" color="success">
               Adicionar Produto
             </Button>
           </Grid>
