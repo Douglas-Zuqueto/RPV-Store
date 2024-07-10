@@ -6,11 +6,14 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Logo from "../assets/Logo.png";
 import { TextField, Grid } from "@mui/material";
+import { Link } from "react-router-dom";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 function Checkout() {
-  const [paid, setPaid] = useState(false);
+  const [paid, setPaid] = useState(true);
   const [loaded, setLoaded] = useState(false);
   const paypalRef = useRef();
+  // const [redirect, setRedirect] = useState(false);
 
   const { cartItems } = useContext(AppContext);
 
@@ -100,8 +103,22 @@ function Checkout() {
     >
       <div>
         {paid ? (
-          <div style={{ marginTop: 10 }}>
-            <Alert severity="success">Compra Finalizada com sucesso!</Alert>
+          <div style={{ margin: "20px" }}>
+            <Alert style={{ marginBottom: "20px" }} severity="success">
+              Compra Finalizada com sucesso!
+            </Alert>
+            <Link
+              to="/"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              <ArrowBackIosIcon />
+              <small>Voltar para página principal</small>
+            </Link>
           </div>
         ) : (
           <div>

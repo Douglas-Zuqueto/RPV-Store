@@ -148,7 +148,7 @@ function Sidebar(props) {
   };
 
   // Itens do menu lateral
-  // eslint-disable-next-line no-unused-vars
+
   const itemsAdmin = [
     { text: "Produtos", icon: <TableRowsIcon />, route: "/TabelaProdutos" },
     { text: "Compra", icon: <PixIcon />, route: "/pix" },
