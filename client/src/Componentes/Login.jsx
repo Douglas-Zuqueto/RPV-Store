@@ -35,7 +35,6 @@ const Login = () => {
 
     if (comprador) {
       setLogged(true);
-      localStorage.setItem("logged", JSON.stringify(true));
       setRedirect(true);
       Utils.setCookie('login',JSON.stringify(comprador));
       const getCookie = Utils.getCookie(JSON.stringify(comprador))

@@ -12,7 +12,7 @@ import CategoriasM from "./Componentes/CategoriasM";
 import CategoriasF from "./Componentes/CategoriasF";
 import TabelaProdutos from "./Componentes/TabelaProdutos";
 import Login from "./Componentes/Login";
-import FinalizarCompra from "./Componentes/FinalizarCompra";
+// import FinalizarCompra from "./Componentes/FinalizarCompra";
 import Registrar from "./Componentes/Registrar";
 import Estoque from "./Componentes/Estoque";
 import Checkout from "./Componentes/Checkout";
@@ -43,6 +43,7 @@ function App() {
           </Route>
           <Route path="/Login" element={<Login />} />
           <Route path="/Registrar" element={<Registrar />} />
+          <Route path="/FinalizarCompra" element={<Checkout />} />
         </Routes>
       </Router>
     </Provider>
