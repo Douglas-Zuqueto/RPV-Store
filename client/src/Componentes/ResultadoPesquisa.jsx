@@ -7,8 +7,7 @@ import { useSearchParams } from "react-router-dom";
 
 function produtosSearch() {
   const [produtos, setProdutos] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  let [searchParams, setSearchParams] = useSearchParams();
+  let [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
     async function fetchData() {
@@ -21,7 +20,6 @@ function produtosSearch() {
         console.error("Error fetching data:", error);
       }
     }
-
     fetchData();
   }, [searchParams]);
 
