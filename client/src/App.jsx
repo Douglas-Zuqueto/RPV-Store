@@ -17,11 +17,14 @@ import Registrar from "./Componentes/Registrar";
 import Estoque from "./Componentes/Estoque";
 import Checkout from "./Componentes/Checkout";
 import ProdutosSearch from "./Componentes/ResultadoPesquisa";
+import Chat from "./Componentes/Chat";
 
 
 function App() {
+  
   return (
-    <Provider>
+    <>
+    <Provider>    
       <Router>
         <Routes>
           <Route path="/" element={<Sidebar />}>
@@ -29,8 +32,8 @@ function App() {
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/search" element={<ProdutosSearch />} />
             <Route path="/pix" element={<Checkout />} />
-
-            
+            <Route path="/chat" element={<Chat />} />
+          
             <Route
               path="/perguntasFrequentes"
               element={<PerguntasFrequentes />}
@@ -48,6 +51,7 @@ function App() {
         </Routes>
       </Router>
     </Provider>
+    </>
   );
 }
 
