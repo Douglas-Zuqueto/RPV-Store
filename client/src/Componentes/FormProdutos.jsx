@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import React, { useContext, useEffect, useState } from "react";
 import {
   TextField,

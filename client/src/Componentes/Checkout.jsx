@@ -255,6 +255,19 @@ function Checkout() {
               <div ref={paypalRef}></div>
               <div ref={paypalRef}></div>
             </Typography>
+            <Link
+              to="/"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+                margin:"30px",
+              }}
+            >
+              <ArrowBackIosIcon />
+              <small>Voltar para página principal</small>
+            </Link>
           </div>
         )}
       </div>
