@@ -31,7 +31,7 @@ function BarraDePesquisa() {
 
   if(redirect) {
     const path = "/search?term=" + searchValue
-    return <Navigate to={path} />;
+    return <Navigate to={path} replace={false}/>;
   }
 
   return (

@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 
 function produtosSearch() {
   const [produtos, setProdutos] = useState([]);
-  let [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   useEffect(() => {
     async function fetchData() {
@@ -16,12 +16,10 @@ function produtosSearch() {
         console.log(term)
         const produtosSearch = await searchRepository.searchNome(term);
         setProdutos(produtosSearch);
-
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
-
     fetchData();
   }, []);
 
