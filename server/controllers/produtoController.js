@@ -47,6 +47,16 @@ exports.updateImagemProduto = async (req, res) => {
   }
 };
 
+exports.updateProduto = async (req, res) => {
+  try {
+    const newData =req.body
+    const produto = await ProdutoModel.updateProduto(newData);
+    res.status(201).json(produto);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 exports.deleteProduto = async (req, res) => {
   try {
     await ProdutoModel.delete(req.params.id);

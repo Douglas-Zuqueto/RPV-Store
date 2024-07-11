@@ -1,9 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate, redirect } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { styled } from "@mui/material/styles";
 import { Button } from "@mui/material";
+import ProdutosSearch from "./ResultadoPesquisa";
 
 const StyledInputBase = styled(InputBase)(() => ({
   color: "black",
@@ -20,12 +22,17 @@ const temaDiv = {
 
 function BarraDePesquisa() {
   const [searchValue, setSearchValue] = useState("");
+  const [redirect, setRedirect] = useState("");
 
-  const handleSearch = (event) => {
+  const  handleSearch = async (event) => {
     event.preventDefault();
-    setSearchValue("");
-    alert("teste");
+    setRedirect(true);
   };
+
+  if(redirect) {
+    const path = "/search?term=" + searchValue
+    return <Navigate to={path} />;
+  }
 
   return (
     <form style={temaDiv} onSubmit={handleSearch}>

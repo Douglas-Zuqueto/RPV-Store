@@ -24,7 +24,7 @@ const Login = () => {
   const [redirect, setRedirect] = useState(false);
   const [compradores, setCompradores] = useState([]);
   const [loginError, setLoginError] = useState(false);
-  const { setLogged } = useContext(AppContext);
+  const { setLogged, setFullName } = useContext(AppContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,6 +34,7 @@ const Login = () => {
     );
 
     if (comprador) {
+      setFullName(comprador.nome)
       setLogged(true);
       setRedirect(true);
       Utils.setCookie('login',JSON.stringify(comprador));

@@ -29,7 +29,7 @@ import {
   Article as ArticleIcon,
   Help as HelpIcon,
   Info as InfoIcon,
-  Pix as PixIcon
+  Home as HomeIcon
 } from "@mui/icons-material";
 
 import OutputIcon from "@mui/icons-material/Output";
@@ -55,7 +55,7 @@ function Sidebar(props) {
   const [isClosing, setIsClosing] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Produtos");
 
-  const { logged, setLogged } = useContext(AppContext);
+  const { logged, setLogged, fullName } = useContext(AppContext);
   // const [selectedContent, setSelectedContent] = useState("Produtos");
   // const navigate = useNavigate();
 
@@ -146,41 +146,43 @@ function Sidebar(props) {
       setMobileOpen(!mobileOpen);
     }
   };
+    let items = []
+  if(fullName == 'Admin') {
+     items = [
+      { text: "Home", icon: <HomeIcon />, route: "/" },
+      { text: "Produtos", icon: <TableRowsIcon />, route: "/TabelaProdutos" },
+      {
+        text: "Estoque",
+        icon: <BarChartIcon />,
+        route: "/estoque",
+      },
+      {
+        text: "Adicionar Novo Produto",
+        icon: <AddCircleIcon />,
+        route: "/addNovoProduto",
+      },
+    ];
+  }
 
   // Itens do menu lateral
-
-  const itemsAdmin = [
-    { text: "Produtos", icon: <TableRowsIcon />, route: "/TabelaProdutos" },
-    { text: "Compra", icon: <PixIcon />, route: "/pix" },
-    {
-      text: "Estoque",
-      icon: <BarChartIcon />,
-      route: "/estoque",
-    },
-    {
-      text: "Adicionar Novo Produto",
-      icon: <AddCircleIcon />,
-      route: "/addNovoProduto",
-    },
-  ];
-
-  // eslint-disable-next-line no-unused-vars
-  const items = [
-    { text: "Produtos", icon: <AppsIcon />, route: "/" },
-    {
-      text: "Categorias",
-      icon: <FormatListBulletedIcon />,
-      route: "/categorias",
-    },
-    { text: "Histórico", icon: <ArticleIcon />, route: "/historico" },
-    {
-      text: "Perguntas Frequentes",
-      icon: <HelpIcon />,
-      route: "/perguntasFrequentes",
-    },
-    { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
-
-  ];
+  
+  else {
+    items = [
+      { text: "Produtos", icon: <AppsIcon />, route: "/" },
+      {
+        text: "Categorias",
+        icon: <FormatListBulletedIcon />,
+        route: "/categorias",
+      },
+      {
+        text: "Perguntas Frequentes",
+        icon: <HelpIcon />,
+        route: "/perguntasFrequentes",
+      },
+      { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
+  
+    ];
+  }
 
   // Estrutura do drawer
   const drawer = (
@@ -197,7 +199,7 @@ function Sidebar(props) {
       </div>
       <Divider />
       <List>
-        {itemsAdmin.map((item) => (
+        {items.map((item) => (
           <ListItem key={item.text} disablePadding style={{ width: "100%" }}>
             <Link
               to={item.route}

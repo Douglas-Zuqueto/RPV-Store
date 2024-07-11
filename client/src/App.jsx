@@ -16,6 +16,7 @@ import Login from "./Componentes/Login";
 import Registrar from "./Componentes/Registrar";
 import Estoque from "./Componentes/Estoque";
 import Checkout from "./Componentes/Checkout";
+import ProdutosSearch from "./Componentes/ResultadoPesquisa";
 
 
 function App() {
@@ -25,9 +26,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Sidebar />}>
             <Route index element={<Produtos />} />
-            <Route path="/categorias" element={<Categorias />} />
-            <Route path="/historico" element={<FormProdutos />} />
             <Route path="/sobre" element={<Sobre />} />
+            <Route path="/search" element={<ProdutosSearch />} />
             <Route path="/pix" element={<Checkout />} />
 
             
@@ -35,6 +35,7 @@ function App() {
               path="/perguntasFrequentes"
               element={<PerguntasFrequentes />}
             />
+            <Route path="/categorias" element={<Categorias />} />
             <Route path="/categorias/masculinas" element={<CategoriasM />} />
             <Route path="/categorias/femininas" element={<CategoriasF />} />
             <Route path="/TabelaProdutos" element={<TabelaProdutos />} />

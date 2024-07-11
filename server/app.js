@@ -6,6 +6,7 @@ const app = express();
 const produtoRouter = require('./routers/produtoRoutes.js')
 const categoriaRouter = require('./routers/categoriaRoutes.js')
 const compradorRouter = require('./routers/compradorRoutes.js')
+const searchRouter = require('./routers/searchRoutes.js')
 const bodyParser = require('body-parser')
 
 const dbConnection = require("./db/dbConnection.js");
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(produtoRouter);
 app.use(categoriaRouter);
 app.use(compradorRouter);
+app.use(searchRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

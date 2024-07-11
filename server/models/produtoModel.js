@@ -35,6 +35,12 @@ class ProdutoModel {
     return this.executeSQL(sql, values);
   }
 
+  updateProduto(updatedProduto) {
+    const sql = "UPDATE produtos SET nome = ?, preco = ?, descricao_detalhada = ?, qnt_estoque = ?  WHERE id = ?";
+    const values = [updatedProduto.nome, updatedProduto.preco, updatedProduto.descricao_detalhada, updatedProduto.qnt_estoque, updatedProduto.id];
+    return this.executeSQL(sql, values);
+  }
+
   delete(id) {
     const sql = "DELETE FROM produtos WHERE id = ?";
     return this.executeSQL(sql, id);

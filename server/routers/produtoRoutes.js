@@ -21,7 +21,6 @@ const storage = multer.diskStorage({
 router.get('/produtos', produtoController.getAllProdutos);
 router.post('/produtos', produtoController.createProduto);
 router.post('/produto',upload.single('image'), (req, res) =>{
-  console.log(req.file)
   const id = req.body.id
   const image = req.file.destination.slice(10) + req.file.filename
   const sql="Update produtos SET imagem = ? WHERE id = ?"
@@ -30,6 +29,7 @@ router.post('/produto',upload.single('image'), (req, res) =>{
     return res.json({Status: "Success"})
   })
 });
+router.put('/produto', produtoController.updateProduto)
 router.delete('/produtos/:id', produtoController.deleteProduto);
 
 module.exports = router;

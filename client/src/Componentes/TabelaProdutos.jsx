@@ -65,8 +65,8 @@ function TabelaProdutos() {
 
   const handleEdit = async () => {
     try {
+      console.log(currentProduto)
       await produtosRepository.updateProdutos(
-        currentProduto.id,
         currentProduto
       );
       setProdutos((prevProdutos) =>
@@ -82,7 +82,7 @@ function TabelaProdutos() {
 
   const handleDelete = async (id) => {
     try {
-      await produtosRepository.deleteProduto(id);
+      await produtosRepository.deleteProdutos(id);
       setProdutos((prevProdutos) =>
         prevProdutos.filter((produto) => produto.id !== id)
       );

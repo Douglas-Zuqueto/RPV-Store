@@ -47,9 +47,21 @@ const produtosRepository = {
         }
       },
 
+      
+
+      updateProdutos: async (data) => {
+        try {
+          const response = await api.put('http://localhost:3000/produto', data);
+          return response.data;
+        } catch (error) {
+          console.error(`Erro ao buscar produtos com:`, error);
+          throw error;
+        }
+      },
+
       deleteProdutos: async (id) => {
         try {
-          const response = await api.get(`/produtos/${id}`);
+          const response = await api.delete(`http://localhost:3000/produtos/${id}`);
           return response.data;
         } catch (error) {
           console.error(`Erro ao deletarr produtos:`, error);
