@@ -8,23 +8,25 @@ import {
   MenuItem,
   Select,
   Alert,
-} from "@mui/material";
-import AppContext from "../context/AppContext";
-import produtosRepository from "../services/produtosRepository";
-import categoriasRepository from "../services/categoriaRepository";
+} from "@mui/material"; // Importa componentes da MUI para estilizar a UI
+import AppContext from "../context/AppContext"; // Importa o contexto da aplicação
+import produtosRepository from "../services/produtosRepository"; // Importa funções para interação com a tabela de produtos
+import categoriasRepository from "../services/categoriaRepository"; // Importa funções para interação com a tabela de categorias
 
 export default function FormProdutos() {
-  const [file, setFile] = useState();
-  const [values, setValues] = useState();
-  const [categorias, setCategorias] = useState([]);
+  const [file, setFile] = useState(); // Estado para armazenar o arquivo de imagem selecionado
+  const [values, setValues] = useState(); // Estado para armazenar valores do formulário
+  const [categorias, setCategorias] = useState([]); // Estado para armazenar categorias
 
   const handleChangeValues = (values) => {
+    // Função para atualizar o estado dos valores do formulário
     setValues((prevValue) => ({
       ...prevValue,
       [values.target.name]: values.target.value,
     }));
   };
 
+  // Usa o contexto da aplicação para acessar e definir estados compartilhados
   const {
     selectedFile,
     setSelectedFile,
@@ -42,9 +44,10 @@ export default function FormProdutos() {
     setProdutos,
   } = useContext(AppContext);
 
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState(false); // Estado para mostrar o alerta de sucesso
 
   useEffect(() => {
+    // Recupera dados do formulário do localStorage quando o componente é montado
     const storedFormData = JSON.parse(localStorage.getItem("formData")) || {};
     setNome(storedFormData.nome || "");
     setDescricao(storedFormData.descricao || "");
@@ -55,6 +58,7 @@ export default function FormProdutos() {
   }, []);
 
   useEffect(() => {
+    // Busca categorias do repositório quando o componente é montado
     async function fetchData() {
       try {
         const categoriasBD = await categoriasRepository.getCategoriasAll();
@@ -69,7 +73,7 @@ export default function FormProdutos() {
   }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Define o comportamento padrão do formulário
     const produtoCreate = {
       nome: values.nome,
       preco: values.preco,
@@ -77,15 +81,14 @@ export default function FormProdutos() {
       imagem: "",
       qnt_estoque: values.qnt_estoque,
       categoria_id: categoria,
-    }
+    };
     produtosRepository.createProdutos(produtoCreate)
-
-      .then((response) => {
-        const prodId = response.insertId
+      .then((response) => {   // Monta o produto conforme os dados do formulário
+        const prodId = response.insertId;
         const formData = new FormData();
-        formData.append('image', file)
-        formData.append('id', prodId)
-        produtosRepository.uploadImage(formData)
+        formData.append("image", file);
+        formData.append("id", prodId);
+        produtosRepository.uploadImage(formData);
       });
 
     if (!file) {
@@ -105,6 +108,7 @@ export default function FormProdutos() {
 
     setProdutos([...produtos, novoProduto]);
 
+    // Reseta os campos do formulário
     setSelectedFile(null);
     setNome("");
     setDescricao("");
@@ -121,7 +125,7 @@ export default function FormProdutos() {
   };
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0])
+    setFile(e.target.files[0]); // Atualiza o estado do arquivo com o arquivo selecionado
   };
 
   return (
@@ -222,7 +226,6 @@ export default function FormProdutos() {
                 <MenuItem value={categoria.id} key={categoria.id} onSelect={(e) => setCategorias(e.target.value)}>
                   {categoria.nome}
                 </MenuItem>
-
               ))}
             </Select>
           </Grid>

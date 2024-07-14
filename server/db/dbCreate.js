@@ -1,9 +1,11 @@
 class eCommerceDatabase {
+  // Método para inicializar a conexão com o banco de dados
   initConnection(connection) {
-    this.connection = connection;
-    this.initDatabase();
+    this.connection = connection; // Estabelece a conexão recebida como propriedade da classe
+    this.initDatabase(); // Inicia a configuração do banco de dados
   }
 
+  // Método para iniciar a configuração do banco de dados
   initDatabase() {
     this.connection.connect((error) => {
       if (error) {
@@ -11,10 +13,11 @@ class eCommerceDatabase {
         console.log(error.message);
         return;
       }
-      this.createDatabase();
+      this.createDatabase(); // Chama o método para criar o banco de dados
     });
   }
 
+  // Método para criar o banco de dados se não existir
   createDatabase() {
     const sql =
       "CREATE DATABASE IF NOT EXISTS db_ecommerce DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci";
@@ -26,18 +29,21 @@ class eCommerceDatabase {
         return;
       }
 
+      // Seleciona o banco de dados recém-criado para uso
       this.connection.query("USE db_ecommerce", (error) => {
         if (error) {
           console.log("Ocorreu um erro ao selecionar o banco de dados...");
           console.log(error.message);
           return;
         }
-        this.createTable();
+        this.createTable(); // Chama o método para criar as tabelas do banco de dados
       });
     });
   }
-  // -- Tabela de Admin
+
+  // Método para criar as tabelas do banco de dados
   createTable() {
+    // Criação da tabela 'admin'
     const sqlAdmin = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.admin (
           id INT AUTO_INCREMENT PRIMARY KEY,
@@ -55,6 +61,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'compradores'
     const sqlCompradores = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.compradores (
           id INT AUTO_INCREMENT PRIMARY KEY,
@@ -74,6 +81,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'categorias'
     const sqlCategorias = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.categorias (
           id INT AUTO_INCREMENT PRIMARY KEY,
@@ -90,6 +98,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'produtos'
     const sqlProdutos = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.produtos (
           id INT AUTO_INCREMENT PRIMARY KEY,
@@ -111,6 +120,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'carrinho'
     const sqlCarrinho = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.carrinho (
           id INT AUTO_INCREMENT PRIMARY KEY,
@@ -130,6 +140,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'cartoes'
     const sqlCartoes = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.cartoes (
           id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -151,6 +162,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'chats'
     const sqlChats = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.chats (
           id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -168,6 +180,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'cupons'
     const sqlCupons = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.cupons (
           id INT AUTO_INCREMENT PRIMARY KEY,
@@ -185,6 +198,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'enderecos'
     const sqlEnderecos = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.enderecos (
           id INT AUTO_INCREMENT PRIMARY KEY,
@@ -206,6 +220,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'pedidos'
     const sqlPedidos = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.pedidos (
           id INT AUTO_INCREMENT PRIMARY KEY,
@@ -231,6 +246,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'historico_pedidos'
     const sqlHistoricoPedidos = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.historico_pedidos(
             id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -249,6 +265,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'itens_pedidos'
     const sqlItensPedidos = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.itens_pedidos(
           id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -271,6 +288,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'mensagens'
     const sqlMensagens = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.mensagens(
           id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -290,6 +308,7 @@ class eCommerceDatabase {
       }
     });
 
+    // Criação da tabela 'promocoes'
     const sqlPromocoes = `
         CREATE TABLE IF NOT EXISTS db_ecommerce.promocoes(
           id INT AUTO_INCREMENT PRIMARY KEY,

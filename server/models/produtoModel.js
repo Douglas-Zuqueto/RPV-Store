@@ -1,44 +1,51 @@
-const dbConnection = require('../db/dbConnection.js')
+const dbConnection = require('../db/dbConnection.js'); // Importa o módulo de conexão com o banco de dados
 
 class ProdutoModel {
+  // Método genérico para executar consultas SQL
   executeSQL(sql, parameters = "") {
     return new Promise((resolve, reject) => {
+      // Utiliza a conexão com o banco de dados para executar a consulta
       dbConnection.query(sql, parameters, (error, response) => {
         if (error) {
-          return reject(error);
+          return reject(error); // Rejeita a Promise se houver erro
         }
-        return resolve(response);
+        return resolve(response); // Resolve a Promise com os dados da consulta
       });
     });
   }
 
+  // Retorna todos os produtos cadastrados
   readList() {
     const sql = "SELECT * FROM produtos";
     return this.executeSQL(sql);
   }
 
+  // Retorna produtos cujo nome contenha o valor especificado
   read(nome) {
-    const sql = "SELECT nome, preco, descricao_detalhada, imagem, qnt_estoque, categoria_id  FROM produtos WHERE nome LIKE %?%";
-    return this.executeSQL(sql, nome);
+    const sql = "SELECT nome, preco, descricao_detalhada, imagem, qnt_estoque, categoria_id FROM produtos WHERE nome LIKE ?";
+    const likeClause = `%${nome}%`; // Prepara o valor para uso na cláusula LIKE do SQL
+    return this.executeSQL(sql, likeClause);
   }
 
+  // Cria um novo produto na tabela 'produtos'
   create(newProduto) {
-    console.log("cheguei no model")
-    const sql = "INSERT INTO produtos (nome, preco, descricao_detalhada, imagem, qnt_estoque, categoria_id ) VALUES (?, ?, ?, ?, ?, ?)";
-    const values = [newProduto.nome, newProduto.preco, newProduto.descricao_detalhada, newProduto.imagem, newProduto.qnt_estoque, newProduto.categoria_id ];
+    const sql = "INSERT INTO produtos (nome, preco, descricao_detalhada, imagem, qnt_estoque, categoria_id) VALUES (?, ?, ?, ?, ?, ?)";
+    const values = [newProduto.nome, newProduto.preco, newProduto.descricao_detalhada, newProduto.imagem, newProduto.qnt_estoque, newProduto.categoria_id];
     return this.executeSQL(sql, values);
   }
 
+  // Atualiza a imagem de um produto existente baseado no ID
   updateImagem(updatedProduto, id) {
-    const sql = "UPDATE produtos SET  imagem = ?  WHERE id = ?";
+    const sql = "UPDATE produtos SET imagem = ? WHERE id = ?";
     const values = [updatedProduto.imagem, id];
     return this.executeSQL(sql, values);
   }
 
+  // Deleta um produto da tabela 'produtos' baseado no ID
   delete(id) {
     const sql = "DELETE FROM produtos WHERE id = ?";
     return this.executeSQL(sql, id);
   }
 }
 
-module.exports = new ProdutoModel();
+module.exports = new ProdutoModel(); // Exporta uma instância única da classe ProdutoModel

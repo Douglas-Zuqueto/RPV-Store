@@ -1,38 +1,37 @@
 import React, { useState, useEffect } from "react";
-import ProdutoCard from "./ProdutoCard";
-import Chat from "../Componentes/Chat";
-import produtosRepository from "../services/produtosRepository";
-// import Paper from '@mui/material/Paper';
+import ProdutoCard from "./ProdutoCard";  // Importa o componente para exibir cada produto
+import Chat from "../Componentes/Chat";  // Importa o componente de chat
+import produtosRepository from "../services/produtosRepository";  // Importa o serviço para buscar produtos
 
 function Produtos() {
-  const [produtos, setProdutos] = useState([]);
+  const [produtos, setProdutos] = useState([]);  // Estado para armazenar a lista de produtos
 
+  // useEffect para buscar produtos ao carregar o componente
   useEffect(() => {
     async function fetchData() {
       try {
-        const produtosBD = await produtosRepository.getAllProdutos();
-        setProdutos(produtosBD);
+        const produtosBD = await produtosRepository.getAllProdutos();  // Busca produtos do repositório
+        setProdutos(produtosBD);  // Atualiza o estado com os produtos obtidos
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error);  // Exibe erro no console se a busca falhar
       }
     }
 
-    fetchData();
-  }, []);
+    fetchData();  // Chama a função de busca de dados
+  }, []);  // Executa apenas uma vez ao carregar o componente
 
   const tema = {
-    // padding: "120px 20px 50px",
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-    gap: "20px",
+    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",  // Layout em grid com colunas automáticas
+    gap: "20px",  // Espaçamento entre os itens do grid
   };
 
   return (
     <>
       <div style={tema}>
         {produtos.length > 0 ? (
-          produtos.map((produtos) => (
-            <ProdutoCard key={produtos.id} data={produtos} />
+          produtos.map((produto) => (
+            <ProdutoCard key={produto.id} data={produto} />  // Renderiza ProdutoCard para cada produto
           ))
         ) : (
           <p
@@ -43,11 +42,11 @@ function Produtos() {
               color: "#888",
             }}
           >
-            Nenhum produto encontrado. :({" "}
+            Nenhum produto encontrado. :(  {/* Mensagem exibida se não houver produtos */}
           </p>
         )}
       </div>
-      <Chat />
+      <Chat />  {/* Componente de chat */}
     </>
   );
 }
