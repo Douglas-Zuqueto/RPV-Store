@@ -18,6 +18,7 @@ import Checkout from "./Componentes/Checkout"; // Importa o componente Checkout
 import Chat from "./Componentes/Chat"; // Importa o componente Chat
 import Dashboard from './Componentes/Dashboard' // Importa o componente Dashboard
 
+
 function App() {
   return (
     <>
