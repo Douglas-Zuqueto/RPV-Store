@@ -11,6 +11,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 function PerguntasFrequentes() {
+  // Array de objetos contendo as perguntas e respostas frequentes
   const faqItems = [
     {
       question: "O que é a RPV Store?",
@@ -36,11 +37,14 @@ function PerguntasFrequentes() {
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
+      {/* Papel para dar uma elevação visual ao conteúdo */}
       <Paper elevation={3} sx={{ p: 4 }}>
+        {/* Título da seção */}
         <Typography variant="h4" align="center" sx={{ color: "#0097B2", mb: 4 }}>
           Perguntas Frequentes
         </Typography>
 
+        {/* Mapeia os itens de FAQ e cria um acordeão para cada um */}
         {faqItems.map((item, index) => (
           <Accordion key={index} sx={{ mb: 3 }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -56,8 +60,10 @@ function PerguntasFrequentes() {
           </Accordion>
         ))}
 
+        {/* Linha divisória entre os itens FAQ e o rodapé */}
         <Divider sx={{ my: 4 }} />
 
+        {/* Comentário para futuras adições */}
         {/* <Typography variant="body2" align="center" sx={{ color: "#666" }}>
           Ainda tem dúvidas? Entre em contato conosco através do email contato@rpvstore.com
         </Typography> */}

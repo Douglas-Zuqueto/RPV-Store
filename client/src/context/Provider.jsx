@@ -1,9 +1,14 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { useState, useEffect } from "react";
-import AppContext from "./AppContext";
-import PropTypes from "prop-types";
+// Desabilita o linting para o escopo do React, pois este arquivo não utiliza JSX diretamente
+
+import { useState, useEffect } from "react"; // Importa useState e useEffect do React para gerenciar estado e efeitos
+import AppContext from "./AppContext"; // Importa o contexto global da aplicação
+import PropTypes from "prop-types"; // Importa PropTypes do prop-types para validar propriedades
 
 function Provider({ children }) {
+  // Define um componente Provider que recebe children como propriedade
+
+  // Estados para armazenar informações do formulário e do contexto global da aplicação
   const [selectedFile, setSelectedFile] = useState();
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
@@ -16,6 +21,7 @@ function Provider({ children }) {
   const [logged, setLogged] = useState();
   const [fullName, setFullName] = useState("");
 
+  // Efeito para carregar itens do carrinho salvos no localStorage quando o componente é montado
   useEffect(() => {
     const salvarCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     if (salvarCartItems.length > 0) {
@@ -23,19 +29,23 @@ function Provider({ children }) {
     }
   }, [setCartItems]);
 
+  // Efeito para salvar itens do carrinho no localStorage sempre que cartItems é atualizado
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
+  // Efeito para carregar o status de login salvo no localStorage quando o componente é montado
   useEffect(() => {
     const salvarLogged = localStorage.getItem("logged");
     setLogged(salvarLogged);
   }, [setLogged]);
 
+  // Efeito para salvar o status de login no localStorage sempre que logged é atualizado
   useEffect(() => {
     localStorage.setItem("logged", JSON.stringify(logged));
   }, [logged]);
 
+  // Objeto de contexto que contém todos os estados e funções que serão compartilhados com outros componentes
   const value = {
     loading,
     setLoading,
@@ -61,11 +71,13 @@ function Provider({ children }) {
     setFullName,
   };
 
+  // Renderiza o contexto global da aplicação Provider com o valor definido e os componentes filhos
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
+// Define as propriedades esperadas pelo componente Provider utilizando PropTypes para validação
 Provider.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any.isRequired, 
 };
 
-export default Provider;
+export default Provider; 

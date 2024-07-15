@@ -21,24 +21,28 @@ import CompradorRepository from "../services/CompradorRepository";
 import AppContext from "../context/AppContext";
 
 const Registrar = () => {
+  // Estados para controle de alerta e redirecionamento
   const [showAlert, setShowAlert] = useState(false);
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
 
+  // Estados para os campos do formulário
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [telefone, setTelefone] = useState("");
   const [cpf, setCpf] = useState("");
-  const [redirectToLogin, setRedirectToLogin] = useState(false);
-  const [values, setValues] = useState();
+  const [values, setValues] = useState({});
 
+  // Acessa o nome do contexto e função para atualizar o nome
   const { nome, setNome } = useContext(AppContext);
 
+  // Função de submit do formulário
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    setShowAlert(true);
+    setShowAlert(true); // Exibe o alerta de sucesso
     setTimeout(() => {
       setShowAlert(false);
-      setRedirectToLogin(true);
+      setRedirectToLogin(true); // Redireciona para a página de login
     }, 1000);
 
     console.log("Dados de Registro:", {
@@ -50,10 +54,12 @@ const Registrar = () => {
     });
   };
 
+  // Redireciona para a página de login se o registro for bem-sucedido
   if (redirectToLogin) {
     return <Navigate to="/Login" replace={true} />;
   }
 
+  // Função para atualizar valores dos campos
   const handleChangeValues = (values) => {
     setValues((prevValue) => ({
       ...prevValue,
@@ -61,6 +67,7 @@ const Registrar = () => {
     }));
   };
 
+  // Função para criar um novo comprador no banco de dados
   const handleClickButton = () => {
     CompradorRepository.createComprador({
       nome: values.nome,
