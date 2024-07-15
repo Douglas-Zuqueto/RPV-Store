@@ -1,9 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope */
+
 import { useState, useContext } from "react"; // Importa useState e useContext do React
 import SearchIcon from "@mui/icons-material/Search"; // Importa o ícone de pesquisa do Material UI
 import InputBase from "@mui/material/InputBase"; // Importa o componente de entrada base do Material UI
 import { styled } from "@mui/material/styles"; // Importa a função de estilização do Material UI
 import { Button } from "@mui/material"; // Importa o componente Button do Material UI
+
 
 // Estiliza o componente InputBase com cores e espaçamento personalizado
 const StyledInputBase = styled(InputBase)(() => ({
@@ -27,7 +29,13 @@ function BarraDePesquisa() {
     event.preventDefault(); // Evita o comportamento padrão do formulário ao submeter
     setSearchValue(""); // Reseta o valor da pesquisa
     alert("teste"); // Exibe um alerta de teste (pode ser substituído pela lógica de pesquisa real)
+
   };
+
+  if(redirect) {
+    const path = "/search?term=" + searchValue
+    return <Navigate to={path} replace={false}/>;
+  }
 
   return (
     <form style={temaDiv} onSubmit={handleSearch}> {/* Formulário com estilo aplicado */}

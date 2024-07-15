@@ -46,7 +46,9 @@ exports.updateImagemProduto = async (req, res) => {
   }
 };
 
+
 // Deleta um produto pelo ID
+
 exports.deleteProduto = async (req, res) => {
   try {
     await ProdutoModel.delete(req.params.id); // Chama a função delete do ProdutoModel para deletar um produto pelo ID

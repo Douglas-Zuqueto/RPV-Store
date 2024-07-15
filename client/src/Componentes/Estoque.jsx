@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from "react"; // Importa hooks do React
 import { BarChart } from "@mui/x-charts/BarChart"; // Importa o componente de gráfico de barras do Material-UI
 import Paper from "@mui/material/Paper"; // Importa o componente de papel do Material-UI
 import produtosRepository from "../services/produtosRepository"; // Importa o repositório de produtos
+
 
 function Estoque() {
   const [produtos, setProdutos] = useState([]); // Estado para armazenar os produtos do estoque
@@ -22,6 +24,12 @@ function Estoque() {
   // Renderiza o componente de gráfico de barras dentro de um Paper do Material-UI
   return (
     <Paper elevation={3} style={{ padding: "20px" }}>
+      <Typography
+        style={{ textAlign: "center", marginBottom: "20px" }}
+        variant="h5"
+      >
+        Gestão de estoque
+      </Typography>
       <BarChart
         series={[{ data: produtos.map((produto) => produto.qnt_estoque) }]} // Configura os dados do gráfico com a quantidade em estoque de cada produto
         height={290} 

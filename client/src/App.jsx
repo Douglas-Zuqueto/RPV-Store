@@ -1,3 +1,4 @@
+
 import React from "react"; // Importa o react 
 import Sidebar from "./Componentes/Sidebar"; // Importa o componente Sidebar
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Importa elementos de roteamento do React Router
@@ -17,6 +18,7 @@ import Estoque from "./Componentes/Estoque"; // Importa o componente Estoque
 import Checkout from "./Componentes/Checkout"; // Importa o componente Checkout
 import Chat from "./Componentes/Chat"; // Importa o componente Chat
 import Dashboard from './Componentes/Dashboard' // Importa o componente Dashboard
+
 
 
 function App() {

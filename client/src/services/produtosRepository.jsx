@@ -48,6 +48,7 @@ const produtosRepository = {
     }
   },
 
+
   deleteProdutos: async (id) => {
     try {
       const response = await api.delete(`/produtos/${id}`); // Faz uma requisição DELETE para excluir um produto pelo ID

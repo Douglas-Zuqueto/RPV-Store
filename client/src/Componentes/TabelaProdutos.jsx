@@ -66,8 +66,8 @@ function TabelaProdutos() {
 
   const handleEdit = async () => {
     try {
+      console.log(currentProduto)
       await produtosRepository.updateProdutos(
-        currentProduto.id,
         currentProduto
       ); // Atualiza o produto no repositório
       setProdutos((prevProdutos) =>

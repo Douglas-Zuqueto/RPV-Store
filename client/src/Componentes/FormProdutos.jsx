@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import React, { useContext, useEffect, useState } from "react";
 import {
   TextField,
@@ -28,6 +27,7 @@ export default function FormProdutos() {
 
   // Usa o contexto da aplicação para acessar e definir estados compartilhados
   const {
+    // eslint-disable-next-line no-unused-vars
     selectedFile,
     setSelectedFile,
     nome,
@@ -84,6 +84,7 @@ export default function FormProdutos() {
     };
     produtosRepository.createProdutos(produtoCreate)
       .then((response) => {   // Monta o produto conforme os dados do formulário
+
         const prodId = response.insertId;
         const formData = new FormData();
         formData.append("image", file);
@@ -118,9 +119,9 @@ export default function FormProdutos() {
 
     localStorage.removeItem("formData");
 
-    setShowAlert(true); // Mostra o alerta de sucesso
+    setShowAlert(true);
     setTimeout(() => {
-      setShowAlert(false); // Esconde o alerta após 3 segundos
+      setShowAlert(false);
     }, 3000);
   };
 
@@ -223,18 +224,18 @@ export default function FormProdutos() {
               color="success"
             >
               {categorias.map((categoria) => (
-                <MenuItem value={categoria.id} key={categoria.id} onSelect={(e) => setCategorias(e.target.value)}>
-                  {categoria.nome}
+                <MenuItem
+                  value={categoria.id}
+                  key={categoria.id}
+                  onSelect={(e) => setCategorias(e.target.value)}
+                >
+                  {categoria.nome} ({categoria.genero})
                 </MenuItem>
               ))}
             </Select>
           </Grid>
           <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="success"
-            >
+            <Button type="submit" variant="contained" color="success">
               Adicionar Produto
             </Button>
           </Grid>

@@ -26,6 +26,7 @@ const Login = () => {
   const [loginError, setLoginError] = useState(false); // Estado para indicar erro de login
   const { setLogged } = useContext(AppContext); // Contexto da aplicação para controlar se o usuário está logado
 
+
   const handleSubmit = (event) => {
     event.preventDefault(); // Evita o comportamento padrão de envio do formulário
 
@@ -40,6 +41,7 @@ const Login = () => {
       Utils.setCookie('login',JSON.stringify(comprador)); // Define um cookie com os dados do comprador
       const getCookie = Utils.getCookie(JSON.stringify(comprador)) // Verifica se o cookie foi criado com sucesso
       console.log(getCookie) // Imprime o resultado do cookie criado
+
 
     } else { // Se não encontrar o comprador
       setLoginError(true); // Ativa o estado de erro de login
