@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 
 function produtosSearch() {
   const [produtos, setProdutos] = useState([]);
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSeachParams] = useSearchParams()
 
   useEffect(() => {
     async function fetchData() {
