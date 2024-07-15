@@ -18,6 +18,7 @@ import Estoque from "./Componentes/Estoque"; // Importa o componente Estoque
 import Checkout from "./Componentes/Checkout"; // Importa o componente Checkout
 import Chat from "./Componentes/Chat"; // Importa o componente Chat
 import Dashboard from './Componentes/Dashboard' // Importa o componente Dashboard
+import Search from './Componentes/ResultadoPesquisa' // Importa o componente Search
 
 
 
@@ -29,6 +30,7 @@ function App() {
           <Routes> {/* Define as rotas dentro do componente Routes */}
             <Route path="/" element={<Sidebar />}> {/* Rota principal que renderiza o Sidebar */}
               <Route index element={<Produtos />} /> {/* Rota para renderizar o componente Produtos na página inicial */}
+              <Route path="/search" element={<Search />} /> {/* Rota para renderizar o componente Search */}
               <Route path="/categorias" element={<Categorias />} /> {/* Rota para renderizar o componente Categorias */}
               <Route path="/historico" element={<FormProdutos />} /> {/* Rota para renderizar o componente FormProdutos */}
               <Route path="/sobre" element={<Sobre />} /> {/* Rota para renderizar o componente Sobre */}

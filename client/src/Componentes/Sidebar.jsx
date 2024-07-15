@@ -29,7 +29,7 @@ import {
   // Article as ArticleIcon,
   Help as HelpIcon,
   Info as InfoIcon,
-  Pix as PixIcon,
+  Article as ArticleIcon,
   Home as HomeIcon
 } from "@mui/icons-material";
 
@@ -55,7 +55,7 @@ function Sidebar(props) {
   const [isClosing, setIsClosing] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Produtos");
 
-  const { logged, setLogged } = useContext(AppContext);
+  const { logged, setLogged, fullName ,setFullName } = useContext(AppContext);
 
   const StyledBotao = {
     background: `linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))`,
@@ -142,44 +142,30 @@ function Sidebar(props) {
       setMobileOpen(!mobileOpen);
     }
   };
-    let items = []
+
+
+  let items = []
+
+  // Itens do menu lateral para o admin
   if(fullName == 'Admin') {
      items = [
       { text: "Home", icon: <HomeIcon />, route: "/" },
       { text: "Produtos", icon: <TableRowsIcon />, route: "/TabelaProdutos" },
-      {
-        text: "Estoque",
-        icon: <BarChartIcon />,
-        route: "/estoque",
-      },
-      {
-        text: "Adicionar Novo Produto",
-        icon: <AddCircleIcon />,
-        route: "/addNovoProduto",
-      },
+      { text: "Estoque", icon: <BarChartIcon />, route: "/estoque" },
+      { text: "Adicionar Novo Produto", icon: <AddCircleIcon />, route: "/addNovoProduto" },
+      { text: "Dashboard", icon: <BarChartIcon />, route: "/dash" },
     ];
   }
 
-
-  // Itens do menu lateral para o admin
-  const itemsAdmin = [
-    { text: "Home", icon: <HomeIcon />, route: "/" },
-    { text: "Produtos", icon: <TableRowsIcon />, route: "/TabelaProdutos" },
-    { text: "Estoque", icon: <BarChartIcon />, route: "/estoque" },
-    { text: "Adicionar Novo Produto", icon: <AddCircleIcon />, route: "/addNovoProduto" },
-    { text: "Dashboard", icon: <BarChartIcon />, route: "/dash" },
-
-  ];
-
-  // eslint-disable-next-line no-unused-vars
-  const items = [
-    { text: "Produtos", icon: <AppsIcon />, route: "/" },
-    { text: "Categorias", icon: <FormatListBulletedIcon />, route: "/categorias" },
-    { text: "Histórico", icon: <ArticleIcon />, route: "/historico" },
-    { text: "Perguntas Frequentes", icon: <HelpIcon />, route: "/perguntasFrequentes" },
-    { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
-  ];
-
+  else {
+    items = [
+      { text: "Produtos", icon: <AppsIcon />, route: "/" },
+      { text: "Categorias", icon: <FormatListBulletedIcon />, route: "/categorias" },
+      { text: "Histórico", icon: <ArticleIcon />, route: "/historico" },
+      { text: "Perguntas Frequentes", icon: <HelpIcon />, route: "/perguntasFrequentes" },
+      { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
+    ];
+  }
 
   // Estrutura do drawer
   const drawer = (

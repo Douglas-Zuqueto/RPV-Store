@@ -46,9 +46,19 @@ exports.updateImagemProduto = async (req, res) => {
   }
 };
 
+// Atualiza um produto
+exports.updateProduto = async (req, res) => {
+  try {
+    const updatedProduto = req.body; // Obtém os novos dados do produto pelo corpo da requisição
+    const produto = await ProdutoModel.updateProduto(updatedProduto); // Chama a função update do ProdutoModel para atualizar um produto
+    res.status(201).json(produto); // Retorna o produto criado em formato JSON com o código de status 201 (Updated)
+  } catch (error) {
+    res.status(500).json({ error: error.message }); // Retorna um erro 500 caso ocorra um erro no servidor
+  }
+};
+
 
 // Deleta um produto pelo ID
-
 exports.deleteProduto = async (req, res) => {
   try {
     await ProdutoModel.delete(req.params.id); // Chama a função delete do ProdutoModel para deletar um produto pelo ID

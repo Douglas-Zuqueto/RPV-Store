@@ -31,20 +31,13 @@ router.post('/produto', upload.single('image'), (req, res) => {
   const id = req.body.id;  // Obtém o ID do produto a ser atualizado com a nova imagem
   const image = req.file.destination.slice(10) + req.file.filename;  // Constrói o caminho completo da imagem
   const sql = "UPDATE produtos SET imagem = ? WHERE id = ?";  // Query SQL para atualizar a imagem no banco de dados
-
   // Executa a query de atualização no banco de dados
-
-router.get('/produtos', produtoController.getAllProdutos);
-router.post('/produtos', produtoController.createProduto);
-router.post('/produto',upload.single('image'), (req, res) =>{
-  const id = req.body.id
-  const image = req.file.destination.slice(10) + req.file.filename
-  const sql="Update produtos SET imagem = ? WHERE id = ?"
   dbConnection.query(sql, [image, id], (err, result) => {
     if (err) return res.json({ Message: "Error" });  // Retorna um JSON com mensagem de erro se ocorrer um problema
     return res.json({ Status: "Success" });  // Retorna um JSON com mensagem de sucesso após a atualização
   });
 });
+router.post('/produtoUpdate', produtoController.updateProduto);  // Rota para atualizar um novo produto
 router.delete('/produtos/:id', produtoController.deleteProduto);  // Rota para deletar um produto específico
 
 module.exports = router;  // Exporta o router com as rotas configuradas para uso em outros módulos

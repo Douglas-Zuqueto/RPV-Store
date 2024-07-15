@@ -24,7 +24,7 @@ const Login = () => {
   const [redirect, setRedirect] = useState(false); // Estado para controlar o redirecionamento após o login
   const [compradores, setCompradores] = useState([]); // Estado para armazenar a lista de compradores
   const [loginError, setLoginError] = useState(false); // Estado para indicar erro de login
-  const { setLogged } = useContext(AppContext); // Contexto da aplicação para controlar se o usuário está logado
+  const { setLogged, setFullName } = useContext(AppContext); // Contexto da aplicação para controlar se o usuário está logado
 
 
   const handleSubmit = (event) => {
@@ -37,6 +37,7 @@ const Login = () => {
 
     if (comprador) { // Se encontrar o comprador
       setLogged(true); // Define o usuário como logado no contexto da aplicação
+      setFullName(comprador.nome)
       setRedirect(true); // Ativa o redirecionamento para a página inicial
       Utils.setCookie('login',JSON.stringify(comprador)); // Define um cookie com os dados do comprador
       const getCookie = Utils.getCookie(JSON.stringify(comprador)) // Verifica se o cookie foi criado com sucesso

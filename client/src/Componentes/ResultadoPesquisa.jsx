@@ -7,13 +7,12 @@ import { useSearchParams } from "react-router-dom";
 
 function produtosSearch() {
   const [produtos, setProdutos] = useState([]);
-  const [searchParams, setSeachParams] = useSearchParams()
+  const [searchParams, setSeachParams] = useSearchParams("")
 
   useEffect(() => {
     async function fetchData() {
       try {
         const term = searchParams.get("term");
-        console.log(term);
         const produtosSearch = await searchRepository.searchNome(term);
         setProdutos(produtosSearch);
       } catch (error) {
@@ -21,7 +20,7 @@ function produtosSearch() {
       }
     }
     fetchData();
-  }, [searchParams]);
+  }, []);
 
   const tema = {
     // padding: "120px 20px 50px",

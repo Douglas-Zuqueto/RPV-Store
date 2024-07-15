@@ -31,14 +31,14 @@ function ProdutoCard({ data }) {
           alt={data.nome}  // Define a imagem do produto
         />
         <CardContent>
-          <Divider />  // Adiciona uma linha divisória
-          <Typography variant="h6">{data.nome}</Typography>  // Exibe o nome do produto
+          <Divider />  {/* Adiciona uma linha divisória */}
+          <Typography variant="h6">{data.nome}</Typography>  {/* Exibe o nome do produto */}
           <Typography variant="body2" color="textSecondary">
-            {data.preco}  // Exibe o preço do produto
+            {data.preco}  {/* Exibe o preço do produto */}
           </Typography>
-          <Divider />  // Adiciona outra linha divisória
-          <Rating defaultValue={1} size="small" />  // Exibe uma avaliação com estrelas
-          <Divider />  // Adiciona mais uma linha divisória
+          <Divider />  {/* Adiciona outra linha divisória */}
+          <Rating defaultValue={1} size="small" />  {/* Exibe uma avaliação com estrelas */}
+          <Divider />  {/* Adiciona mais uma linha divisória */}
           <Button
             variant="contained"
             color="success"

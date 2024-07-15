@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"; // Importa hooks do React
 import { BarChart } from "@mui/x-charts/BarChart"; // Importa o componente de gráfico de barras do Material-UI
 import Paper from "@mui/material/Paper"; // Importa o componente de papel do Material-UI
 import produtosRepository from "../services/produtosRepository"; // Importa o repositório de produtos
+import { Typography } from "@mui/material";
 
 
 function Estoque() {

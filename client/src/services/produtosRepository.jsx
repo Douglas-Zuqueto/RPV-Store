@@ -48,10 +48,19 @@ const produtosRepository = {
     }
   },
 
-
-  deleteProdutos: async (id) => {
+  updateProdutos: async (data) => {
     try {
-      const response = await api.delete(`/produtos/${id}`); // Faz uma requisição DELETE para excluir um produto pelo ID
+      const response = await api.post('http://localhost:3000/produtoUpdate', data); // Faz uma requisição POST para atualizar um novo produto
+      return response.data; // Retorna os dados do produto atualizado
+    } catch (error) {
+      console.error(`Erro ao criar produtos:`, error); // Em caso de erro, imprime o erro no console
+      throw error; // Lança o erro para ser tratado pelo código que chamou a função
+    }
+  },
+
+  deleteProduto: async (id) => {
+    try {
+      const response = await api.delete(`http://localhost:3000/produtos/${id}`); // Faz uma requisição DELETE para excluir um produto pelo ID
       return response.data; // Retorna os dados do produto excluído
     } catch (error) {
       console.error(`Erro ao deletar produtos:`, error); // Em caso de erro, imprime o erro no console

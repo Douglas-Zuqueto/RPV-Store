@@ -5,7 +5,7 @@ import SearchIcon from "@mui/icons-material/Search"; // Importa o ícone de pesq
 import InputBase from "@mui/material/InputBase"; // Importa o componente de entrada base do Material UI
 import { styled } from "@mui/material/styles"; // Importa a função de estilização do Material UI
 import { Button } from "@mui/material"; // Importa o componente Button do Material UI
-
+import { Navigate } from "react-router-dom"; // Componentes de roteamento do React Router
 
 // Estiliza o componente InputBase com cores e espaçamento personalizado
 const StyledInputBase = styled(InputBase)(() => ({
@@ -24,12 +24,11 @@ const temaDiv = {
 
 function BarraDePesquisa() {
   const [searchValue, setSearchValue] = useState(""); // Estado para armazenar o valor de pesquisa
+  const [redirect, setRedirect] = useState("");
 
   const handleSearch = (event) => {
     event.preventDefault(); // Evita o comportamento padrão do formulário ao submeter
-    setSearchValue(""); // Reseta o valor da pesquisa
-    alert("teste"); // Exibe um alerta de teste (pode ser substituído pela lógica de pesquisa real)
-
+    setRedirect(true);
   };
 
   if(redirect) {
