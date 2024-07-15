@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // Importa a biblioteca React
 import {
   Container,
   Typography,
@@ -7,10 +7,11 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-} from "@mui/material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+} from "@mui/material"; // Importa componentes do Material-UI
+import CheckCircleIcon from "@mui/icons-material/CheckCircle"; // Importa o ícone CheckCircle do Material-UI
 
 function Sobre() {
+  // Define estilos personalizados para o componente
   const sobreStyles = {
     container: {
       display: "flex",
@@ -51,8 +52,8 @@ function Sobre() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Paper elevation={3} sx={{ p: 4, background: "#ffffff" }}>
+    <Container maxWidth="md" sx={{ py: 4 }}> {/* Container centralizado e espaçado */}
+      <Paper elevation={3} sx={{ p: 4, background: "#ffffff" }}> {/* Papel com elevação para dar sombra */}
         <Typography variant="h2" align="center" sx={{ color: "#0097B2", mb: 4 }}>
           Sobre
         </Typography>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Chat from "../Componentes/Chat";
-import produtosRepository from "../services/produtosRepository";
+import React, { useState, useEffect } from "react"; // Importa React e hooks
+import Chat from "../Componentes/Chat"; // Importa o componente Chat
+import produtosRepository from "../services/produtosRepository"; // Importa o repositório de produtos
 import {
   Grid,
   Table,
@@ -14,53 +14,54 @@ import {
   IconButton,
   TextField,
   Button,
-} from "@mui/material";
-import Modal from "@mui/material/Modal";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+} from "@mui/material"; // Importa componentes do Material-UI
+import Modal from "@mui/material/Modal"; // Importa o componente Modal do Material-UI
+import EditIcon from "@mui/icons-material/Edit"; // Importa o ícone de edição
+import DeleteIcon from "@mui/icons-material/Delete"; // Importa o ícone de deleção
 
 function TabelaProdutos() {
-  const [produtos, setProdutos] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [produtos, setProdutos] = useState([]); // Define o estado dos produtos
+  const [open, setOpen] = useState(false); // Define o estado do modal
   const [currentProduto, setCurrentProduto] = useState({
     id: "",
     nome: "",
     descricao_detalhada: "",
     preco: "",
     qnt_estoque: "",
-  });
+  }); // Define o estado do produto atual
 
   useEffect(() => {
+    // Função que busca os produtos do repositório
     async function fetchData() {
       try {
-        const produtosBD = await produtosRepository.getAllProdutos();
-        setProdutos(produtosBD);
+        const produtosBD = await produtosRepository.getAllProdutos(); // Busca os produtos
+        setProdutos(produtosBD); // Define o estado dos produtos com os dados buscados
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error); // Exibe erro no console se ocorrer
       }
     }
-    fetchData();
-  }, []);
+    fetchData(); // Chama a função de busca de dados
+  }, []); // Executa apenas uma vez após a montagem do componente
 
   const handleOpen = (produto) => {
-    setCurrentProduto(produto);
-    setOpen(true);
+    setCurrentProduto(produto); // Define o produto atual no estado
+    setOpen(true); // Abre o modal
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(false); // Fecha o modal
     setCurrentProduto({
       id: "",
       nome: "",
       descricao_detalhada: "",
       preco: "",
       qnt_estoque: "",
-    });
+    }); // Reseta o produto atual no estado
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCurrentProduto({ ...currentProduto, [name]: value });
+    const { name, value } = e.target; // Obtém o nome e valor do input
+    setCurrentProduto({ ...currentProduto, [name]: value }); // Atualiza o produto atual no estado
   };
 
   const handleEdit = async () => {
@@ -68,26 +69,26 @@ function TabelaProdutos() {
       console.log(currentProduto)
       await produtosRepository.updateProdutos(
         currentProduto
-      );
+      ); // Atualiza o produto no repositório
       setProdutos((prevProdutos) =>
         prevProdutos.map((produto) =>
           produto.id === currentProduto.id ? currentProduto : produto
         )
-      );
-      handleClose();
+      ); // Atualiza o estado dos produtos com o produto editado
+      handleClose(); // Fecha o modal
     } catch (error) {
-      console.error("Erro", error);
+      console.error("Erro", error); // Exibe erro no console se ocorrer
     }
   };
 
   const handleDelete = async (id) => {
     try {
-      await produtosRepository.deleteProdutos(id);
+      await produtosRepository.deleteProduto(id); // Deleta o produto do repositório
       setProdutos((prevProdutos) =>
         prevProdutos.filter((produto) => produto.id !== id)
-      );
+      ); // Remove o produto deletado do estado
     } catch (error) {
-      console.error("Erro ao deletar produto", error);
+      console.error("Erro ao deletar produto", error); // Exibe erro no console se ocorrer
     }
   };
 
@@ -145,7 +146,7 @@ function TabelaProdutos() {
         )}
 
         <Grid item xs={12}>
-          <Chat />
+          <Chat /> {/* Adiciona o componente Chat */}
         </Grid>
       </Grid>
 

@@ -11,13 +11,14 @@ import {
   Divider,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import AppContext from "../context/AppContext";
+import AppContext from "../context/AppContext";  // Importa o contexto da aplicação
 
 function ProdutoCard({ data }) {
-  const { cartItems, setCartItems } = useContext(AppContext);
+  const { cartItems, setCartItems } = useContext(AppContext);  // Usa o contexto para acessar e atualizar o carrinho
 
+  // Função para adicionar o produto ao carrinho
   const handleAddCart = () => setCartItems([...cartItems, data]);
-  const imagem = data.imagem
+  const imagem = data.imagem;  // Atribui a imagem do produto a uma variável
 
   return (
     <div>
@@ -27,22 +28,22 @@ function ProdutoCard({ data }) {
           height="150"
           image={imagem}
           src={imagem}
-          alt={data.nome}
+          alt={data.nome}  // Define a imagem do produto
         />
         <CardContent>
-          <Divider />
-          <Typography variant="h6">{data.nome}</Typography>
+          <Divider />  // Adiciona uma linha divisória
+          <Typography variant="h6">{data.nome}</Typography>  // Exibe o nome do produto
           <Typography variant="body2" color="textSecondary">
-            {data.preco}
+            {data.preco}  // Exibe o preço do produto
           </Typography>
-          <Divider />
-          <Rating defaultValue={1} size="small" />
-          <Divider />
+          <Divider />  // Adiciona outra linha divisória
+          <Rating defaultValue={1} size="small" />  // Exibe uma avaliação com estrelas
+          <Divider />  // Adiciona mais uma linha divisória
           <Button
             variant="contained"
             color="success"
             startIcon={<AddShoppingCartIcon />}
-            onClick={handleAddCart}
+            onClick={handleAddCart}  // Adiciona o produto ao carrinho quando o botão é clicado
           >
             Adicionar ao Carrinho
           </Button>
@@ -57,7 +58,7 @@ ProdutoCard.propTypes = {
     nome: PropTypes.string.isRequired,
     imagem: PropTypes.string.isRequired,
     preco: PropTypes.number.isRequired,
-  }).isRequired,
+  }).isRequired,  // Define as propriedades esperadas e seus tipos
 };
 
 export default ProdutoCard;

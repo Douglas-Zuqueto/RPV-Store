@@ -26,9 +26,10 @@ import {
   MoreVert as MoreIcon,
   Apps as AppsIcon,
   FormatListBulleted as FormatListBulletedIcon,
-  Article as ArticleIcon,
+  // Article as ArticleIcon,
   Help as HelpIcon,
   Info as InfoIcon,
+  Pix as PixIcon,
   Home as HomeIcon
 } from "@mui/icons-material";
 
@@ -40,7 +41,6 @@ import TableRowsIcon from "@mui/icons-material/TableRows";
 // Componentes locais
 import BarraDePesquisa from "./BarraDePesquisa";
 import CarrinhoDeCompras from "./CarrinhoDeCompras";
-
 import BotaoTema from "./BotaoTema";
 
 // Imagem
@@ -55,9 +55,7 @@ function Sidebar(props) {
   const [isClosing, setIsClosing] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Produtos");
 
-  const { logged, setLogged, fullName } = useContext(AppContext);
-  // const [selectedContent, setSelectedContent] = useState("Produtos");
-  // const navigate = useNavigate();
+  const { logged, setLogged } = useContext(AppContext);
 
   const StyledBotao = {
     background: `linear-gradient(45deg, rgba(0, 151, 178), rgba(126, 217, 87))`,
@@ -135,8 +133,6 @@ function Sidebar(props) {
     setMobileOpen(false);
   };
 
-
-
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
   };
@@ -164,33 +160,32 @@ function Sidebar(props) {
     ];
   }
 
-  // Itens do menu lateral
-  
-  else {
-    items = [
-      { text: "Produtos", icon: <AppsIcon />, route: "/" },
-      {
-        text: "Categorias",
-        icon: <FormatListBulletedIcon />,
-        route: "/categorias",
-      },
-      {
-        text: "Perguntas Frequentes",
-        icon: <HelpIcon />,
-        route: "/perguntasFrequentes",
-      },
-      { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
-  
-    ];
-  }
+
+  // Itens do menu lateral para o admin
+  const itemsAdmin = [
+    { text: "Home", icon: <HomeIcon />, route: "/" },
+    { text: "Produtos", icon: <TableRowsIcon />, route: "/TabelaProdutos" },
+    { text: "Estoque", icon: <BarChartIcon />, route: "/estoque" },
+    { text: "Adicionar Novo Produto", icon: <AddCircleIcon />, route: "/addNovoProduto" },
+    { text: "Dashboard", icon: <BarChartIcon />, route: "/dash" },
+
+  ];
+
+  // eslint-disable-next-line no-unused-vars
+  const items = [
+    { text: "Produtos", icon: <AppsIcon />, route: "/" },
+    { text: "Categorias", icon: <FormatListBulletedIcon />, route: "/categorias" },
+    { text: "Histórico", icon: <ArticleIcon />, route: "/historico" },
+    { text: "Perguntas Frequentes", icon: <HelpIcon />, route: "/perguntasFrequentes" },
+    { text: "Sobre", icon: <InfoIcon />, route: "/sobre" },
+  ];
+
 
   // Estrutura do drawer
   const drawer = (
     <div style={{ margin: "0px", padding: "0px" }}>
       {/* Logo */}
-      <div
-        style={{ display: "flex", justifyContent: "center", padding: "0px" }}
-      >
+      <div style={{ display: "flex", justifyContent: "center", padding: "0px" }}>
         <img
           src={Logo}
           alt="Logo"
@@ -228,8 +223,7 @@ function Sidebar(props) {
   );
 
   // Container para o drawer
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -264,12 +258,7 @@ function Sidebar(props) {
           <BotaoTema />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <CarrinhoDeCompras />
-
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
+            <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
               <NotificationsIcon />
             </IconButton>
             {logged ? (
@@ -300,7 +289,6 @@ function Sidebar(props) {
             </IconButton>
           </Box>
         </Toolbar>
-
         {renderMobileMenu}
       </AppBar>
 
@@ -309,6 +297,7 @@ function Sidebar(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
+        {/* Drawer para modo mobile */}
         <Drawer
           container={container}
           variant="temporary"
@@ -327,6 +316,7 @@ function Sidebar(props) {
           {drawer}
         </Drawer>
 
+        {/* Drawer para modo desktop */}
         <Drawer
           variant="permanent"
           sx={{

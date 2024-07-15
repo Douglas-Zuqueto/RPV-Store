@@ -1,67 +1,59 @@
-const ProdutoModel = require('../models/produtoModel.js')
+const ProdutoModel = require('../models/produtoModel.js'); // Importa o modelo ProdutoModel, responsável pela interação com os dados dos produtos
 
-
+// Obtém todos os produtos
 exports.getAllProdutos = async (req, res) => {
   try {
-    const produtos = await ProdutoModel.readList();
-    res.status(200).json(produtos);
+    const produtos = await ProdutoModel.readList(); // Chama a função readList do ProdutoModel para obter todos os produtos
+    res.status(200).json(produtos); // Retorna os produtos em formato JSON com o código de status 200 (OK)
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message }); // Retorna um erro 500 caso ocorra um erro no servidor
   }
 };
 
- exports.createProduto = async (req, res) => {
+// Cria um novo produto
+exports.createProduto = async (req, res) => {
   try {
-    const newProduto =req.body
-    const produto = await ProdutoModel.create(newProduto);
-    res.status(201).json(produto);
+    const newProduto = req.body; // Obtém os dados do novo produto do corpo da requisição
+    const produto = await ProdutoModel.create(newProduto); // Chama a função create do ProdutoModel para criar um novo produto
+    res.status(201).json(produto); // Retorna o produto criado em formato JSON com o código de status 201 (Created)
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message }); // Retorna um erro 500 caso ocorra um erro no servidor
   }
 };
 
-
-
+// Obtém um produto pelo nome
 exports.getProdutoByName = async (req, res) => {
   try {
-    const produto = await ProdutoModel.read(req.params.nome);
+    const produto = await ProdutoModel.read(req.params.nome); // Chama a função read do ProdutoModel para obter um produto pelo nome
     if (produto) {
-      res.json(produto);
+      res.json(produto); // Retorna o produto encontrado em formato JSON com o código de status 200 (OK)
     } else {
-      res.status(404).json({ message: 'Produto não encontrado' });
+      res.status(404).json({ message: 'Produto não encontrado' }); // Retorna um erro 404 se o produto não for encontrado
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message }); // Retorna um erro 500 caso ocorra um erro no servidor
   }
 };
 
+// Atualiza a imagem de um produto pelo ID
 exports.updateImagemProduto = async (req, res) => {
   try {
-    console.log(req.body)
-    const updatedProduto = req.body.file.filename;
-    console.log(updatedProduto)
-    const produto = await ProdutoModel.updateImagem(updatedProduto, req.id);
-    res.json(produto);
+    const updatedProduto = req.body.file.filename; // Obtém o nome do arquivo de imagem atualizado do corpo da requisição
+    const produto = await ProdutoModel.updateImagem(updatedProduto, req.params.id); // Chama a função updateImagem do ProdutoModel para atualizar a imagem do produto pelo ID
+    res.json(produto); // Retorna o produto atualizado em formato JSON
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message }); // Retorna um erro 500 caso ocorra um erro no servidor
   }
 };
 
-exports.updateProduto = async (req, res) => {
-  try {
-    const newData =req.body
-    const produto = await ProdutoModel.updateProduto(newData);
-    res.status(201).json(produto);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
+
+// Deleta um produto pelo ID
 
 exports.deleteProduto = async (req, res) => {
   try {
-    await ProdutoModel.delete(req.params.id);
-    res.status(204).send();
+    await ProdutoModel.delete(req.params.id); // Chama a função delete do ProdutoModel para deletar um produto pelo ID
+    res.status(204).send(); // Retorna um código de status 204 (No Content) indicando que a operação foi bem-sucedida
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message }); // Retorna um erro 500 caso ocorra um erro no servidor
   }
 };
