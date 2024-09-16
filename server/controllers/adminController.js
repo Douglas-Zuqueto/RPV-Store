@@ -6,7 +6,9 @@ exports.getAllAdmins = async (req, res) => {
     const admins = await AdminModel.readList(); // Chama a função readList do AdminModel para obter a lista de administradores
     res.json(admins); // Retorna os administradores em formato JSON
   } catch (error) {
-    res.status(500).json({ error: error.message }); // Retorna um erro 500 caso ocorra um erro no servidor
+    res.status(500).json({ error: error.message    
+      
+    }); // Retorna um erro 500 caso ocorra um erro no servidor
   }
 };
 
